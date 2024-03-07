@@ -19,3 +19,7 @@ How I will go about making it:
  5. Add a queue system and skipping (the queue might also include the addition of playlists)
  6. Add the contacting of downloading services (like yt-dlp, SpotiFlyer)
  7. That's all, I think...
+
+ SQL Layout:
+
+ Song path | Title | Artist | Has subs | subs path | length | playlists
