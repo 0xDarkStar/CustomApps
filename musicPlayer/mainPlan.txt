@@ -1,0 +1,21 @@
+Main plan: Make a simple music playing app
+
+Services used:
+ - yt-dlp [https://github.com/yt-dlp/yt-dlp]
+ - SpotiFlyer [https://github.com/Shabinder/SpotiFlyer]
+ - Add more as more services are used!!!
+
+What it will do:
+ - Have a folder for all the songs (mp3/mp4) and another folder for all the subtitles (vtt or srt)
+ - Search a database to find songs, its paths (to the mp3/mp4 and its subtitles if it has any), and any other data that is needed
+ - Allow the user to view both video and subtitles (if possible)
+ - And be able to download more music (using services like yt-dlp or others that I don't know of) (Those services will have to be downloaded though...)
+
+How I will go about making it:
+ 1. Look into a database (SQL) to search for songs and look at their data (title, artist, length, etc.)
+ 2. Read files (mp3/mp4 and subtitles [vtt and srt]) (At this point, I'd just be outputting to terminal "Found {song} at {path}. Playing..." or something)
+ 3. Make the UI
+ 4. Add the pausing, playing, and displaying of music and its data
+ 5. Add a queue system and skipping (the queue might also include the addition of playlists)
+ 6. Add the contacting of downloading services (like yt-dlp, SpotiFlyer)
+ 7. That's all, I think...
