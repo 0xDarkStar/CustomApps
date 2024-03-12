@@ -20,6 +20,26 @@ How I will go about making it:
  6. Add the contacting of downloading services (like yt-dlp, SpotiFlyer)
  7. That's all, I think...
 
- SQL Layout:
+ File naming:
+    Songs:
+        {Song ID}.{file type}
+    Subtitles:
+        {Sub ID}{Language}.{file type}
 
- Song path | Title | Artist | Has subs | subs path | length | playlists
+ Playlists and songs:
+  Adding a song to a playlist:
+    From a playlist:
+        They would click the "Add song" button.
+        It would then open a pop-up that shows all songs that are downloaded.
+        It would be possible to search through the songs and download new songs and immediately add it to a playlist.
+        Once a song is chosen, it will modify the SQL table controlling the songs in playlists to add the song.
+    From a song:
+        They would choose to click the "Add to playlist" button when looking at a specific song (like when listening to it or hovering over it).
+        It would then open a pop-up showing all the playlists.
+        Once one is chosen, it will check if the song is already in there. If it is, ask them if they're sure since it's already in the playlist. Otherwise, just add it in the SQL table.
+    From downloading a song:
+        They would input the link, what subtitles they want, and what playlist to put it in (if any).
+        Once downloaded, the song will be added to the playlist in the SQL table.
+  Downloading songs:
+    When downloading a song, they'd be able to choose what languages they want and what playlist to put it in.
+    If they don't choose any subtitles, no subtitles are downloaded.

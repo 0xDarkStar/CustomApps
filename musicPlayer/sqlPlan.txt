@@ -1,0 +1,17 @@
+ SQL Layout:
+
+ Songs:
+    ID | Title | Artist | Has subs | Length
+ex:  1 | Money | The Drums | True | 3:54
+
+ Playlist:
+    ID | Name | Length | Number of songs
+ex:  1 | Hold | 3:54 | 1
+
+ Songs and playlists relations:
+    Song ID | Playlist ID
+ex:  1 | 1
+
+ Subs:
+    ID | Song ID | Language (en for English, fr for French, you know)
+ex:  1 | 1 | en
