@@ -5,6 +5,10 @@ Services used:
  - SpotiFlyer [https://github.com/Shabinder/SpotiFlyer]
  - Add more as more services are used!!!
 
+Problems to be sorted out:
+ - What if there is no artist name (or one doesn't appear)? (ex: x0o0x_ on youtube music would show the name "x0o0x_", but on youtube, it won't show the name, just empty space)
+ - What if there is no song name (or one doesn't appear)? (same example as above. the video version won't have a name but the version on youtube music (if just the song) would)
+
 What it will do:
  - Have a folder for all the songs (mp3/mp4) and another folder for all the subtitles (vtt or srt)
  - Search a database to find songs, its paths (to the mp3/mp4 and its subtitles if it has any), and any other data that is needed
