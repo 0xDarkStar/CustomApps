@@ -2,11 +2,11 @@
 
  Songs:
     ID | Title | Artist | Has subs | Length
-ex:  1 | Money | The Drums | True | 3:54
+ex:  1 | Money | The Drums | True | 234
 
  Playlist:
     ID | Name | Length | Number of songs
-ex:  1 | Hold | 3:54 | 1
+ex:  1 | Hold | 234 | 1
 
  Songs and playlists relations:
     Song ID | Playlist ID
