@@ -6,8 +6,8 @@ Services used:
  - Add more as more services are used!!!
 
 Problems to be sorted out:
- - What if there is no artist name (or one doesn't appear)? (ex: x0o0x_ on youtube music would show the name "x0o0x_", but on youtube, it won't show the name, just empty space)
- - What if there is no song name (or one doesn't appear)? (same example as above. the video version won't have a name but the version on youtube music (if just the song) would)
+ - What if there is no artist name (or one doesn't appear)? (ex: x0o0x_ on youtube music would show the name "x0o0x_", but on youtube, it won't show the name, just empty space) (if not using uploader ID, then example = examples/title-missing.png)
+ - What if there is no song name (or one doesn't appear)? (same example as above. the video version won't have a name but the version on youtube music (if just the song) would) (example = examples/title-missing.png)
 
 What it will do:
  - Have a folder for all the songs (mp3/mp4) and another folder for all the subtitles (vtt or srt)
@@ -28,7 +28,7 @@ How I will go about making it:
     Songs:
         {Song ID}.{file type}
     Subtitles:
-        {Sub ID}{Language}.{file type}
+        {Sub ID}.{Language}.{file type}
 
  Playlists and songs:
   Adding a song to a playlist:
@@ -47,3 +47,15 @@ How I will go about making it:
   Downloading songs:
     When downloading a song, they'd be able to choose what languages they want and what playlist to put it in.
     If they don't choose any subtitles, no subtitles are downloaded.
+
+
+yt-dlp commands:
+    download music file with specific file name:
+        yt-dlp -o "{song ID}.%(ext)s" {link}
+    download the subtitles:
+        yt-dlp --write-subs {link}
+        For multiple subs or a specific language, add "--sub-langs \"{languages}\""; one language would be like "en", while more would be like "en,fr,ge"
+        To see all the possible languages, run "yt-dlp --list-subs {link}". It won't download the video, but it will print all the possible languages and formats. Examples in the examples folder.
+    download the info.json file:
+        yt-dlp --write-info-json {link}
+        if combined with the specific file name command, the file would end up as "{song ID}.info.json"
