@@ -4,7 +4,7 @@
     ID | Title | Artist | Has subs | Length
 ex:  1 | Money | The Drums | True | 234
 
- Playlist:
+ Playlists:
     ID | Name | Length | Number of songs
 ex:  1 | Hold | 234 | 1
 
