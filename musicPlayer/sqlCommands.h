@@ -34,6 +34,8 @@ namespace sql {
     /* Making of all tables (should be a one-time thing) */
     int create_tables() { // FYI, all of this is from geeksforgeeks.org/sql-using-c-c-and-sqlite
         sqlite3* DB; // Of course it's modified a bit to work for me.
+        char* messaggeError;
+        int exit = 0;
         std::string sql = "CREATE TABLE songs("
                     "ID INT NOT NULL, "
                     "Title TEXT NOT NULL, "
@@ -56,9 +58,8 @@ namespace sql {
                     "Song_ID INT NOT NULL, "
                     "Playlist_ID INT NOT NULL, "
                     "PRIMARY KEY (Song_ID) );";
-        int exit = 0;
+
         sqlite3_open("main.db", &DB); // Open the database
-        char* messaggeError;
         sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to make the tables
         sqlite3_exec(DB, sql1.c_str(), NULL, 0, &messaggeError);
         sqlite3_exec(DB, sql2.c_str(), NULL, 0, &messaggeError);
@@ -66,9 +67,9 @@ namespace sql {
         if (exit != SQLITE_OK) { // Table wasn't made
             std::cerr << "Error create table" << std::endl;
             sqlite3_free(messaggeError);
-        }
-        else // Table was made
+        } else { // Table was made
             std::cout << "Table created successfully" << std::endl;
+        }
         sqlite3_close(DB);
         return 0;
     }
@@ -78,21 +79,21 @@ namespace sql {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "INSERT INTO songs VALUES(" +
+        std::string sql = "INSERT INTO songs VALUES(" + // Add song to table command
                     std::to_string(id) + ", '" + // Read max ID in songs then change this ID to +1 the max
                     title + "', '" +
                     artist + "', ";
         sql +=       (has_subs) ? "true":"false";
-        sql +=       ", " + std::to_string(length) + ");"; // Add song to table command
+        sql +=       ", " + std::to_string(length) + ");";
 
         sqlite3_open("main.db", &DB);
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to add song
         if (exit != SQLITE_OK) {
             std::cerr << "Error adding values" << std::endl;
             sqlite3_free(messaggeError);
-        }
-        else
+        } else {
             std::cout << "Values added successfully" << std::endl;
+        }
         sqlite3_close(DB);
         return 0;
     }
@@ -102,14 +103,37 @@ namespace sql {
         char* messaggeError;
         int exit = 0;
         std::string sql = "DELETE FROM songs WHERE ID = " + std::to_string(id) + ";"; // Delete song from table command
+        
         sqlite3_open("main.db", &DB);
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to delete song
         if (exit != SQLITE_OK) {
             std::cerr << "Error deleting song" << std::endl;
             sqlite3_free(messaggeError);
-        }
-        else 
+        } else {
             std::cout << "Deleted song successfully" << std::endl;
+        }
+        sqlite3_close(DB);
+        return 0;
+    }
+
+    int add_subtitles(int song_id, int sub_id, char language[3]) {
+        sqlite3* DB;
+        char* messaggeError;
+        int exit = 0;
+        std::string sql = "INSERT INTO songSubs VALUES(" + // Make sub connection command
+                     std::to_string(song_id) + ", " +
+                     std::to_string(sub_id) + ", '";
+        sql +=       language;
+        sql +=       "');";
+
+        sqlite3_open("main.db", &DB);
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to connect sub to song
+        if (exit != SQLITE_OK) {
+            std::cerr << "Error adding subtitle connection" << std::endl;
+            sqlite3_free(messaggeError);
+        } else {
+            std::cout << "Added subtitle connection successfully" << std::endl;
+        }
         sqlite3_close(DB);
         return 0;
     }
@@ -123,14 +147,15 @@ namespace sql {
                     title + "', " +
                     std::to_string(length) + ", " + 
                     std::to_string(Num_of_songs) + ");";
+
         sqlite3_open("main.db", &DB);
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to make playlist
         if (exit != SQLITE_OK) {
             std::cerr << "Error making playlist" << std::endl;
             sqlite3_free(messaggeError);
-        }
-        else 
+        } else {
             std::cout << "Made playlist successfully" << std::endl;
+        }
         sqlite3_close(DB);
         return 0;
     }
@@ -139,17 +164,18 @@ namespace sql {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "INSERT INTO songPlaylists VALUES(" +
+        std::string sql = "INSERT INTO songPlaylists VALUES(" + // Make playlist connection command
                      std::to_string(song_id) + ", " + 
                      std::to_string(playlist_id) + ");";
+
         sqlite3_open("main.db", &DB);
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to add song to playlist
         if (exit != SQLITE_OK) {
             std::cerr << "Error adding song to playlist" << std::endl;
             sqlite3_free(messaggeError);
-        }
-        else
+        } else{
             std::cout << "Added song to playlist successfully" << std::endl;
+        }
         sqlite3_close(DB);
         return 0;
     }
@@ -158,11 +184,20 @@ namespace sql {
     int read_table(std::string table) {
         sqlite3* DB;
         int exit = 0;
-        std::string sql = "SELECT * FROM " + table + ";"; // To be continued...
+        std::string sql = "SELECT * FROM " + table + ";"; // Make read command
         sqlite3_open("main.db", &DB);
         std::cout << "Items in " + table << std::endl;
-        std::cout << "ID | Title | Artist | Has_subs | Length" << std::endl;
-        sqlite3_exec(DB, sql.c_str(), print_table_items, NULL, NULL);
+        // Print the proper layout for the table
+        if (table == "songs") {
+                std::cout << "ID | Title | Artist | Has_subs | Length" << std::endl;
+        } else if (table == "songSubs") {
+                std::cout << "Song_ID | Sub_ID | Language" << std::endl;
+        } else if (table == "playlists") {
+                std::cout << "ID | Title | Length | Num_of_songs" << std::endl;
+        } else if (table == "songPlaylists") {
+                std::cout << "Song_ID | Playlist_ID" << std::endl;
+        }
+        sqlite3_exec(DB, sql.c_str(), print_table_items, NULL, NULL); // Attempt to read the table
         sqlite3_close(DB);
         return 0;
     }
@@ -171,14 +206,15 @@ namespace sql {
         sqlite3* DB;
         int length;
         int exit;
+        std::string sql = "SELECT COUNT(*) FROM " + table + ";"; // Make command to get length of table
+
         sqlite3_open("main.db", &DB);
-        std::string sql = "SELECT COUNT(*) FROM " + table + ";";
-        exit = sqlite3_exec(DB, sql.c_str(), return_table_length, &length, NULL);
+        exit = sqlite3_exec(DB, sql.c_str(), return_table_length, &length, NULL); // Attempt to get length of table
         if (exit != SQLITE_OK) {
             std::cerr << "Error reading table" << std::endl;
-        }
-        else
+        } else {
             std::cout << "Length of " << table << " is " << length << std::endl;
+        }
         return 0;
     }
 }

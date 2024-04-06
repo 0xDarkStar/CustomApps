@@ -13,5 +13,5 @@ ex:  1 | Hold | 234 | 1
 ex:  1 | 1
 
  Subs:
-    ID | Song ID | Language (en for English, fr for French, you know)
+    Song ID | Sub ID | Language (en for English, fr for French, you know)
 ex:  1 | 1 | en

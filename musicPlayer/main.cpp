@@ -8,17 +8,18 @@ using namespace std::filesystem;
 int main() {
     int output = 0;
     // output = sql::create_tables();
-    // output = sql::add_song_to_table(0, "Title", "Artist", false, 255);
-    // output = sql::delete_song(1);
+    // output = sql::delete_song(0);
+    // output = sql::add_song(0, "Test", "Tester", true, 355);
+    // output = sql::add_subtitles(0, 0, "en");
     // for (int i = 0; i < 10; i++) {
-    //     sql::add_song_to_table(i, "Title", "Artist", false, 255);
+    //     sql::add_song(i, "Title", "Artist", false, 255);
     // }
     // for (int i = 0; i < 10; i++) {
     //     sql::delete_song(i);
     // }
-    // output = sql::read_table("songs");
     // sql::create_playlist(0, "Test Playlist", 355, 1);
     // sql::add_song_to_playlist(0, 0);
-    output = sql::get_table_length("songs");
+    output = sql::read_table("songSubs");
+    output = sql::get_table_length("songSubs");
     return output;
 }
