@@ -217,4 +217,16 @@ namespace sql {
         }
         return 0;
     }
+
+    int read_table_item(std::string table, int ID, std::string column) {
+        sqlite3* DB;
+        int exit = 0;
+        /* Read the table to check what the value of a specific column is. Ex:
+        Does song 15 have subtitles?
+        What languages are there for the subtitles of song 15?
+        What playlists (if any) are song 15 in?*/
+        // What to do?
+        // Find out how to make this work...
+        return 0;
+    }
 }
