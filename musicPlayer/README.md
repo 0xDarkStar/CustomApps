@@ -7,7 +7,8 @@ It will allow the user to:
 - Download songs
 - Download subtitles for the songs at the same time
 - Download subtitles for already downloaded songs (if the user agrees to storing of links)
+- Add their own subtitles for already downloaded songs (since some might not have subtitles)
 - Getting the links that they used to download the song (if the user agrees to storing of links)
 - Playing of songs and music videos
-- Delete songs, subtitles, and playlists (obviously)
+- Delete songs, subtitles, and playlists
 - maybe more in the future...
