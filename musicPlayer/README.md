@@ -1,5 +1,5 @@
 # Music Player
-## Brief description
+## Brief Description
 This is an application meant to allow users to download songs from online services onto their computer and listen to their songs through an easy to navigate UI.
 It will allow the user to:
 - Create playlists
