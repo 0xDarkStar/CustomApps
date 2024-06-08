@@ -1,14 +1,20 @@
 # Music Player
 ## Brief Description
-This is an application meant to allow users to download songs from online services onto their computer and listen to their songs through an easy to navigate UI.
+This is an application meant to allow users to playback any songs or videos they have on their computer. Any videos or songs they playback would also show subtitles (if any) for that song or video.
 It will allow the user to:
-- Create playlists
-- Shuffle playlists
-- Download songs
-- Download subtitles for the songs at the same time
-- Download subtitles for already downloaded songs (if the user agrees to storing of links)
-- Add their own subtitles for already downloaded songs (since some might not have subtitles)
-- Getting the links that they used to download the song (if the user agrees to storing of links)
+- Create custom playlists
+- Shuffle playlists to listen to songs in a randomized order
+- Editing of data related to songs (location of files, subtitles to use, title, artist, etc.)
 - Playing of songs and music videos
 - Delete songs, subtitles, and playlists
 - maybe more in the future...
+
+## Supported File Formats
+All file formats that I know work with it are:
+- MP4
+- WEBM
+- MP3
+
+## Installation
+### Do note, I made this on a Debian-based OS. I have not tested on other OS's.
+Instructions...

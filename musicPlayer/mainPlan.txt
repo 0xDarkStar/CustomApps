@@ -1,19 +1,13 @@
 Main plan: Make a simple music playing app
 
-Services used:
- - yt-dlp [https://github.com/yt-dlp/yt-dlp]
- - SpotiFlyer [https://github.com/Shabinder/SpotiFlyer]
- - Add more as more services are used!!!
-
 Problems to be sorted out:
- - What if there is no artist name (or one doesn't appear)? (ex: x0o0x_ on youtube music would show the name "x0o0x_", but on youtube, it won't show the name, just empty space) (if not using uploader ID, then example = examples/title-missing.png)
- - What if there is no song name (or one doesn't appear)? (same example as above. the video version won't have a name but the version on youtube music (if just the song) would) (example = examples/title-missing.png)
+ - What if there is no artist name?
+ - What if there is no song name?
 
 What it will do:
- - Have a folder for all the songs (mp3/mp4) and another folder for all the subtitles (vtt or srt)
- - Search a database to find songs, its paths (to the mp3/mp4 and its subtitles if it has any), and any other data that is needed
+ - Have a folder for all the songs (mp3/mp4/webm) and another folder for all the subtitles (vtt or srt)
+ - Search a database to find songs, its paths (to the mp3/mp4/webm and its subtitles if it has any), and any other data that is needed
  - Allow the user to view both video and subtitles (if possible)
- - And be able to download more music (using services like yt-dlp or others that I don't know of) (Those services will have to be downloaded though...)
 
 How I will go about making it:
  1. Look into a database (SQL) to search for songs and look at their data (title, artist, length, etc.)
@@ -21,8 +15,7 @@ How I will go about making it:
  3. Make the UI
  4. Add the pausing, playing, and displaying of music and its data
  5. Add a queue system and skipping (the queue might also include the addition of playlists)
- 6. Add the contacting of downloading services (like yt-dlp, SpotiFlyer)
- 7. That's all, I think...
+ 6. That's all, I think...
 
  File naming:
     Songs:
@@ -41,21 +34,5 @@ How I will go about making it:
         They would choose to click the "Add to playlist" button when looking at a specific song (like when listening to it or hovering over it).
         It would then open a pop-up showing all the playlists.
         Once one is chosen, it will check if the song is already in there. If it is, ask them if they're sure since it's already in the playlist. Otherwise, just add it in the SQL table.
-    From downloading a song:
-        They would input the link, what subtitles they want, and what playlist to put it in (if any).
-        Once downloaded, the song will be added to the playlist in the SQL table.
-  Downloading songs:
-    When downloading a song, they'd be able to choose what languages they want and what playlist to put it in.
-    If they don't choose any subtitles, no subtitles are downloaded.
-
-
-yt-dlp commands:
-    download music file with specific file name:
-        yt-dlp -o "{song ID}.%(ext)s" {link}
-    download the subtitles:
-        yt-dlp --write-subs {link}
-        For multiple subs or a specific language, add "--sub-langs \"{languages}\""; one language would be like "en", while more would be like "en,fr,ge"
-        To see all the possible languages, run "yt-dlp --list-subs {link}". It won't download the video, but it will print all the possible languages and formats. Examples in the examples folder.
-    download the info.json file:
-        yt-dlp --write-info-json {link}
-        if combined with the specific file name command, the file would end up as "{song ID}.info.json"
+  Adding songs to the app:
+    
