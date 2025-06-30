@@ -1,3 +1,17 @@
+/*
+Made By: 0xDarkStar
+This file contains all the functions for the SQLite3 database.
+Said functions are:
+ - create_tables(): Creates the database and its tables
+ - add_song()/delete_song(): Adds/deletes a song from the database
+ - add_subtitles(): Adds a subtitle to a song
+ - create_playlist(): Creates a playlist
+ - add_song_to_playlist(): Adds a song to a playlist
+ - read_table(): Reads the contents of a table
+ - read_table_item(): Reads the contents of a specific item in a table
+ - get_table_length(): Gets the length of a table
+ - get_song_length(): Gets the length of a song
+*/
 #include <iostream>
 #include <sqlite3.h>
 #include <typeinfo>
@@ -42,6 +56,7 @@ namespace sql {
                     "Title TEXT NOT NULL, "
                     "Artist TEXT, "
                     "Length INT NOT NULL,"
+                    "Path TEXT NOT NULL,"
                     "PRIMARY KEY (ID) );"; // Make table command
         std::string sql1 = "CREATE TABLE playlists("
                     "ID INT NOT NULL UNIQUE, "
