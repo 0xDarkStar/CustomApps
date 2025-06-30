@@ -2,7 +2,6 @@
 Made By: 0xDarkStar
 This file contains all the functions for the SQLite3 database.
 Said functions are:
- - create_tables(): Creates the database and its tables
  - add_song()/delete_song(): Adds/deletes a song from the database
  - add_subtitles(): Adds a subtitle to a song
  - create_playlist(): Creates a playlist
@@ -21,7 +20,6 @@ namespace sql {
     (These comments outside will be for separating sections) */
     static int print_table_items(void* data, int argc, char** argv, char** azColName) {
         int i;
-        fprintf(stderr, "%s: ", (const char*)data);
 
         for (i = 0; i < argc; i++) {
             printf("%s", argv[i] ? argv[i] : "NULL");
@@ -45,56 +43,8 @@ namespace sql {
         return 1;
     }
 
-    /* Making of all tables (should be a one-time thing) */
-    int create_tables() { // FYI, all of this is from geeksforgeeks.org/sql-using-c-c-and-sqlite
-        sqlite3* DB; // Of course it's modified a bit to work for me.
-        char* messaggeError;
-        int exit = 0;
-        std::string foreignKeys = "PRAGMA foreign_keys = ON;";
-        std::string sql = "CREATE TABLE songs("
-                    "ID INT NOT NULL UNIQUE, "
-                    "Title TEXT NOT NULL, "
-                    "Artist TEXT, "
-                    "Length INT NOT NULL,"
-                    "Path TEXT NOT NULL,"
-                    "PRIMARY KEY (ID) );"; // Make table command
-        std::string sql1 = "CREATE TABLE playlists("
-                    "ID INT NOT NULL UNIQUE, "
-                    "Title TEXT NOT NULL, "
-                    "Length INT NOT NULL, "
-                    "Num_of_songs INT NOT NULL, "
-                    "PRIMARY KEY (ID) );";
-        std::string sql2 = "CREATE TABLE songSubs("
-                    "Song_ID INT, "
-                    "Sub_ID INT NOT NULL UNIQUE, "
-                    "Language INT NOT NULL, "
-                    "FOREIGN KEY(Song_ID) REFERENCES songs(ID) ON DELETE CASCADE, "
-                    "PRIMARY KEY (Song_ID, Sub_ID) );";
-        std::string sql3 = "CREATE TABLE songPlaylists("
-                    "Song_ID INT, "
-                    "Playlist_ID INT, "
-                    "FOREIGN KEY(Song_ID) REFERENCES songs(ID) ON DELETE CASCADE, "
-                    "FOREIGN KEY(Playlist_ID) REFERENCES playlists(ID) ON DELETE CASCADE, "
-                    "PRIMARY KEY (Song_ID, Playlist_ID) );";
-
-        sqlite3_open("main.db", &DB); // Open the database
-        sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
-        sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to make the tables
-        sqlite3_exec(DB, sql1.c_str(), NULL, 0, &messaggeError);
-        sqlite3_exec(DB, sql2.c_str(), NULL, 0, &messaggeError);
-        exit = sqlite3_exec(DB, sql3.c_str(), NULL, 0, &messaggeError);
-        if (exit != SQLITE_OK) { // Table wasn't made
-            std::cerr << "Error creating table" << std::endl;
-            sqlite3_free(messaggeError);
-        } else { // Table was made
-            std::cout << "Table created successfully" << std::endl;
-        }
-        sqlite3_close(DB);
-        return 0;
-    }
-
-    /* Messing with the contents of the tables (adding/removing values) */
-    int add_song(int id, std::string title, std::string artist, int length) { // length is in seconds
+    /* Modifying songs */
+    int add_song(int id, std::string title, std::string artist, int length, std::string path) { // length is in seconds
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
@@ -102,9 +52,10 @@ namespace sql {
                     std::to_string(id) + ", '" + // Read max ID in songs then change this ID to +1 the max
                     title + "', '" +
                     artist + "', " +
-                    std::to_string(length) + ");";
+                    std::to_string(length) + ", '" +
+                    path + "');";
 
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to add song
@@ -124,7 +75,7 @@ namespace sql {
         int exit = 0;
         std::string sql = "DELETE FROM songs WHERE ID = " + std::to_string(id) + ";"; // Delete song from table command
         
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to delete song
@@ -138,6 +89,7 @@ namespace sql {
         return 0;
     }
 
+    /* Modifying subtitles */
     int add_subtitles(int song_id, int sub_id, char language[3]) {
         sqlite3* DB;
         char* messaggeError;
@@ -148,7 +100,7 @@ namespace sql {
         sql +=       language;
         sql +=       "');";
 
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to connect sub to song
@@ -162,6 +114,27 @@ namespace sql {
         return 0;
     }
 
+    int delete_subtitles(int song_id, int sub_id) {
+        sqlite3* DB;
+        char* messageError;
+        int exit = 0;
+        std::string sql = "DELETE FROM songSubs WHERE Song_ID = " + std::to_string(song_id) + " AND Sub_ID = " + std::to_string(sub_id) + ";";
+        
+        sqlite3_open("musicPlayer.db", &DB);
+        std::string foreignKeys = "PRAGMA foreign_keys = ON;";
+        sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messageError); // Enable foreign keys
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError); // Attempt to delete subtitle connection
+        if (exit != SQLITE_OK) {
+            std::cerr << "Error deleting subtitle connection" << std::endl;
+            sqlite3_free(messageError);
+        } else {
+            std::cout << "Deleted subtitle connection successfully" << std::endl;
+        }
+        sqlite3_close(DB);
+        return 0;
+    }
+
+    /* Modifying playlists */
     int create_playlist(int id, std::string title, int length, int Num_of_songs) {
         sqlite3* DB;
         char* messaggeError;
@@ -172,7 +145,7 @@ namespace sql {
                     std::to_string(length) + ", " + 
                     std::to_string(Num_of_songs) + ");";
 
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to make playlist
@@ -194,7 +167,7 @@ namespace sql {
                      std::to_string(song_id) + ", " + 
                      std::to_string(playlist_id) + ");";
 
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to add song to playlist
@@ -208,16 +181,16 @@ namespace sql {
         return 0;
     }
 
-    /* Looking at the table and its items */
+    /* Reading a table and its items */
     int read_table(std::string table) {
         sqlite3* DB;
         int exit = 0;
         std::string sql = "SELECT * FROM " + table + ";"; // Make read command
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         std::cout << "Items in " + table + ":" << std::endl;
         // Print the proper layout for the table
         if (table == "songs") {
-                std::cout << "ID | Title | Artist | Length" << std::endl;
+                std::cout << "ID | Title | Artist | Length | Path" << std::endl;
         } else if (table == "songSubs") {
                 std::cout << "Song_ID | Sub_ID | Language" << std::endl;
         } else if (table == "playlists") {
@@ -236,7 +209,7 @@ namespace sql {
         int exit;
         std::string sql = "SELECT COUNT(*) FROM " + table + ";"; // Make command to get length of table
 
-        sqlite3_open("main.db", &DB);
+        sqlite3_open("musicPlayer.db", &DB);
         exit = sqlite3_exec(DB, sql.c_str(), return_table_length, &length, NULL); // Attempt to get length of table
         if (exit != SQLITE_OK) {
             std::cerr << "Error reading table" << std::endl;
@@ -252,7 +225,7 @@ namespace sql {
         /* Read the table to check what the value of a specific column is. Ex:
         Does song 15 have subtitles?
         What languages are there for the subtitles of song 15?
-        What playlists (if any) are song 15 in?*/
+        What playlists (if any) is song 15 in?*/
         // What to do?
         // Find out how to make this work...
         return 0;
