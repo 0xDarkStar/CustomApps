@@ -1,0 +1,16 @@
+{
+  "name": "music",
+  "version": "0.1.0",
+  "description": "A simple music player, allowing you to play all your mp3, mp4, and webm files!",
+  "license": "MIT",
+  "author": "0xDarkStar",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "\"echo \\\"Hello World! I am from a package!\\\"\""
+  },
+  "devDependencies": {
+    "electron": "^38.1.2"
+  }
+}

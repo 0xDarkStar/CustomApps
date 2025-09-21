@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="184"
+   height="184"
+   viewBox="0 0 184 184"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="Music.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="2.6494565"
+     inkscape:cx="87.187692"
+     inkscape:cy="144.18051"
+     inkscape:window-width="1200"
+     inkscape:window-height="1883"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     width="184px"
+     lock-margins="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid20" />
+  </sodipodi:namedview>
+  <defs
+     id="defs9" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#bd2ca3;fill-opacity:1;stroke-width:5"
+       id="rect2532"
+       width="185"
+       height="185"
+       x="0"
+       y="0" />
+    <g
+       id="g51754"
+       transform="translate(-2.950571,-0.993549)">
+      <ellipse
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:6.19203;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path49747"
+         cx="77.346954"
+         cy="163.29182"
+         rx="23.359818"
+         ry="12.5"
+         transform="matrix(0.96319248,-0.26881265,0,1,0,0)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.077;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect49851"
+         width="5"
+         height="105"
+         x="95"
+         y="30" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.92036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 99.950571,29.970313 c 0,27.016956 25.395909,32.020096 30.475099,45.02826 5.07918,13.008164 -5.93063,48.844087 -8.46531,49.030767 11.29004,-38.137303 8.74219,-50.54525 -7.58742,-55.156277 -6.87647,-1.94172 -14.422369,-1.879514 -14.422369,-1.879514 z"
+         id="path50815"
+         sodipodi:nodetypes="cscscc" />
+    </g>
+  </g>
+</svg>

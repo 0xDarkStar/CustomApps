@@ -40,7 +40,7 @@ namespace sql {
                     "FOREIGN KEY(Playlist_ID) REFERENCES playlists(ID) ON DELETE CASCADE, "
                     "PRIMARY KEY (Song_ID, Playlist_ID) );";
 
-        sqlite3_open("musicPlayer.db", &DB); // Open the database
+        sqlite3_open("../data/musicPlayer.db", &DB); // Open the database
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to make the tables
         sqlite3_exec(DB, sql1.c_str(), NULL, 0, &messaggeError);

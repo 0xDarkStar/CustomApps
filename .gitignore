@@ -1,2 +1,4 @@
 # Ignore my personal settings
 .vscode/
+# Node modules, so many...
+musicPlayer/frontend/node_modules/

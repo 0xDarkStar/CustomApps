@@ -16,6 +16,7 @@ Said functions are:
 #include <typeinfo>
 
 namespace sql {
+    const std::string dbpath = "../data/musicPlayer.db";
     /* Callbacks for reading the table and its items
     (These comments outside will be for separating sections) */
     static int print_table_items(void* data, int argc, char** argv, char** azColName) {
@@ -55,7 +56,7 @@ namespace sql {
                     std::to_string(length) + ", '" +
                     path + "');";
 
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to add song
@@ -75,7 +76,7 @@ namespace sql {
         int exit = 0;
         std::string sql = "DELETE FROM songs WHERE ID = " + std::to_string(id) + ";"; // Delete song from table command
         
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to delete song
@@ -100,7 +101,7 @@ namespace sql {
         sql +=       language;
         sql +=       "');";
 
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to connect sub to song
@@ -120,7 +121,7 @@ namespace sql {
         int exit = 0;
         std::string sql = "DELETE FROM songSubs WHERE Song_ID = " + std::to_string(song_id) + " AND Sub_ID = " + std::to_string(sub_id) + ";";
         
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messageError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError); // Attempt to delete subtitle connection
@@ -145,7 +146,7 @@ namespace sql {
                     std::to_string(length) + ", " + 
                     std::to_string(Num_of_songs) + ");";
 
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to make playlist
@@ -167,7 +168,7 @@ namespace sql {
                      std::to_string(song_id) + ", " + 
                      std::to_string(playlist_id) + ");";
 
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys
         exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError); // Attempt to add song to playlist
@@ -186,7 +187,7 @@ namespace sql {
         sqlite3* DB;
         int exit = 0;
         std::string sql = "SELECT * FROM " + table + ";"; // Make read command
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         std::cout << "Items in " + table + ":" << std::endl;
         // Print the proper layout for the table
         if (table == "songs") {
@@ -209,7 +210,7 @@ namespace sql {
         int exit;
         std::string sql = "SELECT COUNT(*) FROM " + table + ";"; // Make command to get length of table
 
-        sqlite3_open("musicPlayer.db", &DB);
+        sqlite3_open(dbpath.c_str(), &DB);
         exit = sqlite3_exec(DB, sql.c_str(), return_table_length, &length, NULL); // Attempt to get length of table
         if (exit != SQLITE_OK) {
             std::cerr << "Error reading table" << std::endl;
