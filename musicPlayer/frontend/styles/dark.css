@@ -1,0 +1,362 @@
+body {
+    background-color: black;
+    color: white;
+    margin: 0;
+    height: 95vh;
+}
+
+/* Playlist Grid */
+.playlist-grid {
+    background-color: black;
+    padding: 20px;
+    width: calc(100% - 40px);
+    max-height: calc(100% - 80px);
+    height: auto;
+    position: fixed;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 140px);
+    grid-auto-rows: 190px;
+    gap: 15px;
+}
+
+.playlist {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border: #333333;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.playlist > img { /* Fit images into the space without any squishing or stretching */
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.playlist p { /* Don't allow the text to go off its space */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
+}
+
+/* Control bar */
+.control-bar {
+    background-color: #333333;
+    height: 80px;
+    width: 100%;
+    position: fixed; /* Stick it to the screen */
+    bottom: 0; /* Stick it to the bottom */
+    display: flex; /* Allow the placement of things side by side */
+    transition: height 0.4s ease;
+}
+
+.control-bar.expanded {
+    height: 100vh;
+    flex-direction: column;
+}
+
+.expanded-content {
+    flex: 1;
+    background-color: #2a2a2a;
+    display: none;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.control-bar.expanded .expanded-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-subsection {
+    background-color: #333333;
+    border-top: 1px solid #555;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+}
+
+/* Controls Section */
+.bar-left {
+    width: 170px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Control Buttons */
+.control-btn {
+    background-color: #555555;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.play-btn { /* Make this slightly larger */
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+}
+
+/* Style for the SVGs */
+.control-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+}
+
+.play-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Song Info Section */
+.bar-center {
+    flex: 1; /* Take all remaining space */
+    height: 100%;
+    align-content: center;
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.song-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.song-artist {
+    font-size: 12px;
+    color: #aaaaaa;
+    text-align: center;
+}
+
+/* Volume Control and Expansion Section */
+.bar-right {
+    width: 170px;
+    height: 100%;
+    align-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 0 5px 0 0;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.volume-slider {
+    width: 80px;
+    height: 4px;
+    background-color: #555555;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.expand-btn {
+    background-color: #555555;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume-control img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+}
+
+.expand-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+}
+
+/* Standard Top Bar */
+.top-bar {
+    background-color: #333333;
+    border: none;
+    width: 100vw;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    gap: 5px;
+    position: fixed;
+    top: 0;
+}
+
+.top-bar-btn {
+    background-color: #555555;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.top-bar-btn img {
+    width: 25px;
+    height: 25px;
+    filter: invert(1);
+    transform: rotate(180deg);
+}
+
+/* Playlist Image and songs grid */
+.main-playlist-body {
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+}
+
+.playlist-cover {
+    background: linear-gradient(#333333, black);
+    max-height: calc(100% - 80px);
+    padding: 100px 50px 25px 50px;
+    display: flex;
+    align-items: end;
+    justify-content: left;
+    gap: 50px;
+
+}
+
+.playlist-cover img {
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.playlist-cover-title {
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.songs-grid {
+    background-color: black;
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: auto;
+    position: fixed;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 35px;
+    gap: 15px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background-color: #2a2a2a;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h3 {
+    color: #ffffff;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: #007acc;
+    box-shadow: 0 0 5px rgba(0, 122, 204, 0.3);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.modal-btn.cancel {
+    background-color: #555;
+    color: #ffffff;
+}
+
+.modal-btn.cancel:hover {
+    background-color: #666;
+}
+
+.modal-btn.create {
+    background-color: #007acc;
+    color: #ffffff;
+}
+
+.modal-btn.create:hover {
+    background-color: #005a9e;
+}

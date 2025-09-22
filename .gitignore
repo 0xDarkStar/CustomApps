@@ -1,5 +1,12 @@
 # Ignore my personal settings
 .vscode/
+<<<<<<< Updated upstream
 /musicPlayer/frontend/node_modules
 /musicPlayer/build
 /musicPlayer/node_modules
+=======
+# Node modules, so many...
+musicPlayer/frontend/node_modules
+musicPlayer/data/musicPlayer.db
+musicPlayer/testers
+>>>>>>> Stashed changes
