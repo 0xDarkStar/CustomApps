@@ -207,7 +207,79 @@ body {
     filter: invert(1);
 }
 
-/*  */
+/* Standard Top Bar */
+.top-bar {
+    background-color: #333333;
+    border: none;
+    width: 100vw;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    gap: 5px;
+    position: fixed;
+    top: 0;
+}
+
+.top-bar-btn {
+    background-color: #555555;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.top-bar-btn img {
+    width: 25px;
+    height: 25px;
+    filter: invert(1);
+    transform: rotate(180deg);
+}
+
+/* Playlist Image and songs grid */
+.main-playlist-body {
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+}
+
+.playlist-cover {
+    background: linear-gradient(#333333, black);
+    max-height: calc(100% - 80px);
+    padding: 100px 50px 25px 50px;
+    display: flex;
+    align-items: end;
+    justify-content: left;
+    gap: 50px;
+
+}
+
+.playlist-cover img {
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.playlist-cover-title {
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.songs-grid {
+    background-color: black;
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: auto;
+    position: fixed;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 35px;
+    gap: 15px;
+}
 
 /* Modal Styles */
 .modal {

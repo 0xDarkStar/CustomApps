@@ -116,7 +116,7 @@ const createWindow = () => {
         }
     })
 
-    win.loadFile('html/index.html')
+    win.loadFile('html/playlist.html')
 }
 
 app.whenReady().then(() => {

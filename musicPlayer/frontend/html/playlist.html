@@ -10,8 +10,64 @@
          <!-- Thumbnail -->
          <!-- Add song to playlist -->
          <!-- Remove song from playlist -->
-        <div>
-            
+        <div class="top-bar">
+            <button class="top-bar-btn">
+                <img src="../icons/play.svg">
+            </button>
         </div>
+        <div class="main-playlist-body">
+            <div class="playlist-cover">
+                <img src="../../data/thumbnails/no_image.svg">
+                <div class="playlist-cover-title">
+                    All Songs
+                </div>
+            </div>
+            <div class="songs-grid">
+                <div>Text 1</div>
+                <div>Text 2</div>
+                <div>Text 3</div>
+                <div>Text 4</div>
+                <div>Text 5</div>
+                <div>Text 6</div>
+                <div>Text 7</div>
+                <div>Text 8</div>
+            </div>
+        </div>
+        <!-- Control Bar -->
+        <div class="control-bar">
+            <div class="control-subsection">
+                <!-- Control Buttons -->
+                <div class="bar-left">
+                    <button class="control-btn">
+                        <img src="../icons/previous.svg" alt="Prev">
+                    </button>
+                    <button class="control-btn play-btn">
+                        <img src="../icons/play.svg" alt="Play">
+                    </button>
+                    <button class="control-btn">
+                        <img src="../icons/skip.svg" alt="Next">
+                    </button>
+                </div>
+                <!-- Song Info -->
+                <div class="bar-center">
+                    <div class="song-info">
+                        <div class="song-title">TITLE</div>
+                        <div class="song-artist">ARTIST</div>
+                    </div>
+                </div>
+                <!-- Volume and Expansion Controls -->
+                <div class="bar-right">
+                    <div class="volume-control">
+                        <img src="../icons/volume.svg">
+                        <input type="range" class="volume-slider" min="0" max="100" value="50">
+                    </div>
+                    <button class="expand-btn">
+                        <img src="../icons/dropdown.svg" alt="Expand">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script src="../javascript/app.js"></script>
     </body>
 </html>
+
