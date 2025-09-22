@@ -2,33 +2,6 @@
 
 This directory contains the backend API for the music player application.
 
-## Directory Structure
-
-```
-backend/
-├── core/                    # Core database functionality
-│   ├── sqlCommands.h       # Database operations
-│   └── sqlSetup.h          # Database setup and initialization
-├── api/                    # API layer
-│   ├── musicAPI.h          # C++ API interface
-│   ├── musicAPI.cpp        # C++ API implementation
-│   ├── node_music_api.cpp  # Node.js native module
-│   ├── binding.gyp         # Build configuration
-│   ├── package.json        # Node.js package config
-│   ├── index.js            # JavaScript wrapper
-│   └── mock_api.js         # Mock API for testing
-├── tests/                  # All test files
-│   ├── test_api.js         # API tests
-│   ├── test_mock_api.js    # Mock API tests
-│   └── cpp/                # C++ tests
-│       ├── sqlTester.cpp   # Database tests
-│       ├── simpleApiTest.cpp # Simple API test
-│       └── standaloneApiTest.cpp # Standalone test
-└── docs/                   # Documentation
-    ├── API_DOCUMENTATION.md # API reference
-    └── TEST_RESULTS.md     # Test results
-```
-
 ## Quick Start
 
 ### Testing the API
