@@ -11,26 +11,29 @@
          <!-- Add song to playlist -->
          <!-- Remove song from playlist -->
         <div class="top-bar">
-            <button class="top-bar-btn">
+            <button class="top-bar-btn" onclick="window.location.href = 'index.html'">
                 <img src="../icons/play.svg">
             </button>
         </div>
         <div class="main-playlist-body">
             <div class="playlist-cover">
                 <img src="../../data/thumbnails/no_image.svg">
-                <div class="playlist-cover-title">
+                <div class="playlist-cover-title" id="playlistTitle">
                     All Songs
                 </div>
             </div>
+            <div class="playlist-controls">
+                <button class="playlist-controls-btn">Add Song</button>
+            </div>
             <div class="songs-grid">
-                <div>Text 1</div>
-                <div>Text 2</div>
-                <div>Text 3</div>
-                <div>Text 4</div>
-                <div>Text 5</div>
-                <div>Text 6</div>
-                <div>Text 7</div>
-                <div>Text 8</div>
+                <div class="song-item">Text 1</div>
+                <div class="song-item">Text 2</div>
+                <div class="song-item">Text 3</div>
+                <div class="song-item">Text 4</div>
+                <div class="song-item">Text 5</div>
+                <div class="song-item">Text 6</div>
+                <div class="song-item">Text 7</div>
+                <div class="song-item">Text 8</div>
             </div>
         </div>
         <!-- Control Bar -->
@@ -67,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <script src="../javascript/app.js"></script>
+        <script src="../javascript/playlist.js"></script>
     </body>
 </html>
 

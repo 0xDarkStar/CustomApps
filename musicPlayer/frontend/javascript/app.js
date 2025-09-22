@@ -59,6 +59,27 @@ function removePlaylist(playlistId) {
     }
 }
 
+function makeAllPlaylistsCliclable() {
+    const playlists = document.querySelectorAll('.playlist');
+    playlists.forEach(playlist => {
+        const nameElement = playlist.querySelector('p');
+        if (nameElement) {
+            const playlistName = nameElement.textContent;
+            makePlaylistClickable(playlist, playlistName)
+        }
+    })
+}
+
+function makePlaylistClickable(playlistElement, playlistName) {
+    playlistElement.addEventListener('click', function() {
+        // Get the playlist ID
+        const playlistID = Date.now();
+
+        // Go to the page with the ID and name
+        window.location.href = `playlist.html?name=${encodeURIComponent(playlistName)}&id=${playlistID}`;
+    })
+}
+
 // Wait for DOM to be fully loaded before adding event listeners
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.expand-btn').addEventListener('click', toggleExpanded);
@@ -89,4 +110,5 @@ document.addEventListener('DOMContentLoaded', function() {
             removePlaylist(playlistId);
         });
     }
+    makeAllPlaylistsCliclable();
 });

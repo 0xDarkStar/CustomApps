@@ -242,19 +242,21 @@ body {
 
 /* Playlist Image and songs grid */
 .main-playlist-body {
-    max-height: calc(100vh - 130px);
+    position: fixed;
+    top: 50px; /* Account for top bar */
+    bottom: 80px; /* Account for control bar */
+    left: 0;
+    right: 0;
     overflow-y: auto;
 }
 
 .playlist-cover {
     background: linear-gradient(#333333, black);
-    max-height: calc(100% - 80px);
     padding: 100px 50px 25px 50px;
     display: flex;
     align-items: end;
     justify-content: left;
     gap: 50px;
-
 }
 
 .playlist-cover img {
@@ -269,16 +271,45 @@ body {
     font-weight: bold;
 }
 
+.playlist-controls {
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.playlist-controls-btn {
+    background-color: #555555;
+    border: none;
+    border-radius: 25%;
+    width: auto;
+    height: 40px;
+    cursor: pointer;
+    align-content: center;
+    justify-content: center;
+}
+
 .songs-grid {
     background-color: black;
     padding: 20px;
     width: calc(100% - 40px);
     height: auto;
-    position: fixed;
     display: grid;
     grid-template-columns: 100%;
     grid-auto-rows: 35px;
     gap: 15px;
+}
+
+.song-item{
+    height: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border: #333333;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
 }
 
 /* Modal Styles */
