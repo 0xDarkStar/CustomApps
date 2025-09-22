@@ -2,3 +2,4 @@
 .vscode/
 # Node modules, so many...
 musicPlayer/frontend/node_modules/
+musicPlayer/data/musicPlayer.db

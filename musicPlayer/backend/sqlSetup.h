@@ -14,31 +14,32 @@ namespace sql {
         char* messaggeError;
         int exit = 0;
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
-        std::string sql = "CREATE TABLE songs("
-                    "ID INT NOT NULL UNIQUE, "
-                    "Title TEXT NOT NULL, "
-                    "Artist TEXT, "
-                    "Length INT NOT NULL,"
-                    "Path TEXT NOT NULL,"
-                    "PRIMARY KEY (ID) );"; // Make table command
-        std::string sql1 = "CREATE TABLE playlists("
-                    "ID INT NOT NULL UNIQUE, "
-                    "Title TEXT NOT NULL, "
-                    "Length INT NOT NULL, "
-                    "Num_of_songs INT NOT NULL, "
-                    "PRIMARY KEY (ID) );";
-        std::string sql2 = "CREATE TABLE songSubs("
-                    "Song_ID INT, "
-                    "Sub_ID INT NOT NULL UNIQUE, "
-                    "Language INT NOT NULL, "
-                    "FOREIGN KEY(Song_ID) REFERENCES songs(ID) ON DELETE CASCADE, "
-                    "PRIMARY KEY (Song_ID, Sub_ID) );";
-        std::string sql3 = "CREATE TABLE songPlaylists("
-                    "Song_ID INT, "
-                    "Playlist_ID INT, "
-                    "FOREIGN KEY(Song_ID) REFERENCES songs(ID) ON DELETE CASCADE, "
-                    "FOREIGN KEY(Playlist_ID) REFERENCES playlists(ID) ON DELETE CASCADE, "
-                    "PRIMARY KEY (Song_ID, Playlist_ID) );";
+        std::string sql = "CREATE TABLE song("
+                    "id INT NOT NULL UNIQUE, "
+                    "title TEXT NOT NULL, "
+                    "artist TEXT, "
+                    "length INT NOT NULL,"
+                    "path TEXT NOT NULL,"
+                    "PRIMARY KEY (id) );"; // Make table command
+        std::string sql1 = "CREATE TABLE playlist("
+                    "id INT NOT NULL UNIQUE, "
+                    "title TEXT NOT NULL, "
+                    "length INT NOT NULL, "
+                    "img_path TEXT, "
+                    "PRIMARY KEY (id) );";
+        std::string sql2 = "CREATE TABLE subtitle("
+                    "song_id INT, "
+                    "sub_id INT NOT NULL UNIQUE, "
+                    "language TEXT NOT NULL, "
+                    "FOREIGN KEY(song_id) REFERENCES song(id) ON DELETE CASCADE, "
+                    "PRIMARY KEY (song_id, sub_id) );";
+        std::string sql3 = "CREATE TABLE playlist_song("
+                    "song_id INT, "
+                    "playlist_id INT, "
+                    "track_number INT NOT NULL, "
+                    "FOREIGN KEY(song_id) REFERENCES song(id) ON DELETE CASCADE, "
+                    "FOREIGN KEY(playlist_id) REFERENCES playlist(id) ON DELETE CASCADE, "
+                    "PRIMARY KEY (song_id, playlist_id) );";
 
         sqlite3_open("../data/musicPlayer.db", &DB); // Open the database
         sqlite3_exec(DB, foreignKeys.c_str(), NULL, 0, &messaggeError); // Enable foreign keys

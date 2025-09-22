@@ -49,8 +49,8 @@ namespace sql {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "INSERT INTO songs VALUES(" + // Add song to table command
-                    std::to_string(id) + ", '" + // Read max ID in songs then change this ID to +1 the max
+        std::string sql = "INSERT INTO song VALUES(" + // Add song to table command
+                    std::to_string(id) + ", '" + // Read max ID in song then change this ID to +1 the max
                     title + "', '" +
                     artist + "', " +
                     std::to_string(length) + ", '" +
@@ -74,7 +74,7 @@ namespace sql {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "DELETE FROM songs WHERE ID = " + std::to_string(id) + ";"; // Delete song from table command
+        std::string sql = "DELETE FROM song WHERE id = " + std::to_string(id) + ";"; // Delete song from table command
         
         sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
@@ -91,14 +91,14 @@ namespace sql {
     }
 
     /* Modifying subtitles */
-    int add_subtitles(int song_id, int sub_id, char language[3]) {
+    int add_subtitles(int song_id, int sub_id, const char* language) {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "INSERT INTO songSubs VALUES(" + // Make sub connection command
+        std::string sql = "INSERT INTO subtitle VALUES(" + // Make subtitle connection command
                      std::to_string(song_id) + ", " +
                      std::to_string(sub_id) + ", '";
-        sql +=       language;
+        sql +=       std::string(language);
         sql +=       "');";
 
         sqlite3_open(dbpath.c_str(), &DB);
@@ -119,7 +119,7 @@ namespace sql {
         sqlite3* DB;
         char* messageError;
         int exit = 0;
-        std::string sql = "DELETE FROM songSubs WHERE Song_ID = " + std::to_string(song_id) + " AND Sub_ID = " + std::to_string(sub_id) + ";";
+        std::string sql = "DELETE FROM subtitle WHERE song_id = " + std::to_string(song_id) + " AND sub_id = " + std::to_string(sub_id) + ";";
         
         sqlite3_open(dbpath.c_str(), &DB);
         std::string foreignKeys = "PRAGMA foreign_keys = ON;";
@@ -140,7 +140,7 @@ namespace sql {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "INSERT INTO playlists VALUES(" + // Make playlist command
+        std::string sql = "INSERT INTO playlist VALUES(" + // Make playlist command
                     std::to_string(id) + ", '" +
                     title + "', " +
                     std::to_string(length) + ", " + 
@@ -164,7 +164,7 @@ namespace sql {
         sqlite3* DB;
         char* messaggeError;
         int exit = 0;
-        std::string sql = "INSERT INTO songPlaylists VALUES(" + // Make playlist connection command
+        std::string sql = "INSERT INTO playlist_song VALUES(" + // Make playlist connection command
                      std::to_string(song_id) + ", " + 
                      std::to_string(playlist_id) + ");";
 
@@ -190,14 +190,14 @@ namespace sql {
         sqlite3_open(dbpath.c_str(), &DB);
         std::cout << "Items in " + table + ":" << std::endl;
         // Print the proper layout for the table
-        if (table == "songs") {
-                std::cout << "ID | Title | Artist | Length | Path" << std::endl;
-        } else if (table == "songSubs") {
-                std::cout << "Song_ID | Sub_ID | Language" << std::endl;
-        } else if (table == "playlists") {
-                std::cout << "ID | Title | Length | Num_of_songs" << std::endl;
-        } else if (table == "songPlaylists") {
-                std::cout << "Song_ID | Playlist_ID" << std::endl;
+        if (table == "song") {
+                std::cout << "id | title | artist | length | path" << std::endl;
+        } else if (table == "subtitle") {
+                std::cout << "song_id | sub_id | language" << std::endl;
+        } else if (table == "playlist") {
+                std::cout << "id | title | length | num_songs" << std::endl;
+        } else if (table == "playlist_song") {
+                std::cout << "song_id | playlist_id" << std::endl;
         }
         sqlite3_exec(DB, sql.c_str(), print_table_items, NULL, NULL); // Attempt to read the table
         sqlite3_close(DB);

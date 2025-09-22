@@ -2,28 +2,39 @@
 <html>
     <head>
         <title>My Music Player (WIP)</title>
-        <link href="styles/dark.css" rel="stylesheet" />
+        <link href="../styles/dark.css" rel="stylesheet" />
     </head>
     <body>
+        <!-- Toolbar to add songs, subtitles, and enter settings -->
+        <div class="toolbar">
+            <div class="toolbar-btn">Add Song</div>
+            <div class="toolbar-btn">Add Subtitles</div>
+        </div>
         <!-- Playlists -->
-        <div class="playlist-grid">
+        <div class="playlist-grid" id="playlistGrid">
             <div class="playlist">
-                <img src="../data/thumbnails/music.svg">
+                <img src="../../data/thumbnails/music.svg">
                 <p>All Songs</p>
             </div>
             <div class="playlist">
+                <img src="../../data/thumbnails/no_image.svg">
                 <p>Rock Songs</p>
             </div>
             <div class="playlist">
-                <img src="../data/thumbnails/Croc.JPG">
+                <img src="../../data/thumbnails/Croc.JPG">
                 <p>Chill Songs</p>
             </div>
             <div class="playlist">
-                <img src="../data/thumbnails/Death.png">
+                <img src="../../data/thumbnails/Death.png">
                 <p>Favs</p>
             </div>
             <div class="playlist">
+                <img src="../../data/thumbnails/no_image.svg">
                 <p>Trendy</p>
+            </div>
+            <div class="playlist">
+                <img src="../../data/thumbnails/no_image.svg">
+                <p>Test Playlist</p>
             </div>
         </div>
         <!-- Control Bar -->
@@ -32,13 +43,13 @@
                 <!-- Control Buttons -->
                 <div class="bar-left">
                     <button class="control-btn">
-                        <img src="icons/previous.svg" alt="Prev">
+                        <img src="../icons/previous.svg" alt="Prev">
                     </button>
                     <button class="control-btn play-btn">
-                        <img src="icons/play.svg" alt="Play">
+                        <img src="../icons/play.svg" alt="Play">
                     </button>
                     <button class="control-btn">
-                        <img src="icons/skip.svg" alt="Next">
+                        <img src="../icons/skip.svg" alt="Next">
                     </button>
                 </div>
                 <!-- Song Info -->
@@ -51,34 +62,28 @@
                 <!-- Volume and Expansion Controls -->
                 <div class="bar-right">
                     <div class="volume-control">
-                        <img src="icons/volume.svg">
+                        <img src="../icons/volume.svg">
                         <input type="range" class="volume-slider" min="0" max="100" value="50">
                     </div>
                     <button class="expand-btn">
-                        <img src="icons/dropdown.svg" alt="Expand">
+                        <img src="../icons/dropdown.svg" alt="Expand">
                     </button>
                 </div>
             </div>
         </div>
-        <script>
-            let isExpanded = false;
-
-            function toggleExpanded() {
-                const controlBar = document.querySelector('.control-bar');
-                const expandBtn = document.querySelector('.expand-btn');
-
-                isExpanded = !isExpanded;
-
-                if (isExpanded) {
-                    controlBar.classList.add('expanded');
-                    expandBtn.innerHTML = '<img src="icons/dropdown.svg" alt="Collapse" style="transform: rotate(180deg);">'
-                } else {
-                    controlBar.classList.remove('expanded');
-                    expandBtn.innerHTML = '<img src="icons/dropdown.svg" alt="Expand">'
-                }
-            }
-
-            document.querySelector('.expand-btn').addEventListener('click', toggleExpanded)
-        </script>
+        
+        <!-- Custom Modal Dialog -->
+        <div id="playlistModal" class="modal">
+            <div class="modal-content">
+                <h3>Add New Playlist</h3>
+                <input type="text" id="playlistNameInput" placeholder="Enter playlist name..." maxlength="50">
+                <div class="modal-buttons">
+                    <button id="cancelBtn" class="modal-btn cancel">Cancel</button>
+                    <button id="createBtn" class="modal-btn create">Create</button>
+                </div>
+            </div>
+        </div>
+        
+        <script src="../javascript/app.js"></script>
     </body>
 </html>
