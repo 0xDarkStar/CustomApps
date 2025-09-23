@@ -1,0 +1,20 @@
+{
+  "name": "music-api-native",
+  "version": "1.0.0",
+  "description": "Native C++ API for the music player backend",
+  "main": "index.js",
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "build": "node-gyp build",
+    "clean": "node-gyp clean"
+  },
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^9.4.0"
+  },
+  "gypfile": true,
+  "author": "0xDarkStar",
+  "license": "MIT"
+}

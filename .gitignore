@@ -1,6 +1,28 @@
-# Ignore my personal settings
+# Binaries and executables
+musicPlayer/sqlTester
+musicPlayer/tests/cpp/sqlTester
+musicPlayer/tests/cpp/standaloneApiTest
+
+# VS Code settings
 .vscode/
-# Node modules, so many...
-musicPlayer/frontend/node_modules
-musicPlayer/data/musicPlayer.db
-musicPlayer/testers
+
+# Node.js dependencies
+musicPlayer/node_modules/
+musicPlayer/frontend/node_modules/
+
+# Build artifacts
+musicPlayer/build/
+musicPlayer/api/build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Misc
+musicPlayer/data/*.db
+
+# Test scripts
+# musicPlayer/run_tests.sh
