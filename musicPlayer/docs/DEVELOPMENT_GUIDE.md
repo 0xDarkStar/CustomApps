@@ -52,7 +52,7 @@ npm run build
 
 3. **Build for Electron production**:
 ```bash
-HOME=~/.electron-gyp npx node-gyp rebuild --target=38.1.2 --arch=arm64 --dist-url=https://electronjs.org/headers
+npm run rebuild
 ```
 
 ## Documentation

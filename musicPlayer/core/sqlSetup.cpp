@@ -6,6 +6,7 @@ Implementation of database initialization and setup functions.
 #include <fstream>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <cstring>
 
 namespace sql {
     

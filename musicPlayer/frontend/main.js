@@ -1,6 +1,6 @@
 const {app, BrowserWindow, Menu, ipcMain} = require('electron')
 // Commented out until NODE-MODULE-VERSIONs match
-// const musicAPI = require('./../api/index');
+const musicAPI = require('./../api/index');
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -150,80 +150,64 @@ app.whenReady().then(() => {
     })
     /* API Calls */
     // Songs
-    ipcMain.handle('addSong', async (title, artist, album, length, path) => {
-        // return await musicAPI.addSong(title, artist, album, length, path);
-        return fillerFunc('songDetails');
+    ipcMain.handle('addSong', async (event, title, artist, album, length, path) => {
+        return await musicAPI.addSong(title, artist, album, length, path);
     });
-    ipcMain.handle('updateSong', async (songID, newTitle, newArtist, newAlbum) => {
-        // return await musicAPI.updateSong(songID, newTitle, newArtist, newAlbum);
-        return fillerFunc('songDetails');
+    ipcMain.handle('updateSong', async (event, songID, newTitle, newArtist, newAlbum) => {
+        return await musicAPI.updateSong(songID, newTitle, newArtist, newAlbum);
     });
-    ipcMain.handle('removeSong', async (songID) => {
-        // return await musicAPI.deleteSong(songID);
-        return fillerFunc('bool');
+    ipcMain.handle('removeSong', async (event, songID) => {
+        return await musicAPI.deleteSong(songID);
     });
     ipcMain.handle('getAllSongs', async () => {
-        // return await musicAPI.getAllSongs();
-        return [fillerFunc('songDetails')];
+        return await musicAPI.getAllSongs();
     });
-    ipcMain.handle('getSong', async (songID) => {
-        // return await musicAPI.getSong(songID);
-        return fillerFunc('songDetails');
+    ipcMain.handle('getSong', async (event, songID) => {
+        return await musicAPI.getSong(songID);
     });
-    ipcMain.handle('searchSongs', async (searchStr) => {
-        // return await musicAPI.searchSongs(searchStr);
-        return [fillerFunc('songDetails')];
+    ipcMain.handle('searchSongs', async (event, searchStr) => {
+        return await musicAPI.searchSongs(searchStr);
     });
 
     // Playlists
-    ipcMain.handle('createPlaylist', async (title) => {
-        // return await musicAPI.createPlaylist(title);
-        return fillerFunc('playlistDetails');
+    ipcMain.handle('createPlaylist', async (event, title) => {
+        return await musicAPI.createPlaylist(title);
     });
-    ipcMain.handle('updatePlaylist', async (playlistID, newTitle) => {
-        // return await musicAPI.updatePlaylist(playlistID, newTitle);
-        return fillerFunc('playlistDetails');
+    ipcMain.handle('updatePlaylist', async (event, playlistID, newTitle) => {
+        return await musicAPI.updatePlaylist(playlistID, newTitle);
     });
-    ipcMain.handle('deletePlaylist', async (playlistID) => {
-        // return await musicAPI.deletePlaylist(playlistID);
-        return fillerFunc('bool');
+    ipcMain.handle('deletePlaylist', async (event, playlistID) => {
+        return await musicAPI.deletePlaylist(playlistID);
     });
     ipcMain.handle('getAllPlaylists', async () => {
-        // return await musicAPI.getAllPlaylists();
-        return [fillerFunc('playlistDetails')];
+        return await musicAPI.getAllPlaylists();
     });
-    ipcMain.handle('getPlaylist', async (playlistID) => {
-        // return await musicAPI.getPlaylist(playlistID);
-        return fillerFunc('playlistDetails');
+    ipcMain.handle('getPlaylist', async (event, playlistID) => {
+        return await musicAPI.getPlaylist(playlistID);
     });
     
     // Songs to Playlists
-    ipcMain.handle('addSongToPlaylist', async (songID, playlistID) => {
-        // return await musicAPI.addSongToPlaylist(songID, playlistID);
-        return fillerFunc('bool');
+    ipcMain.handle('addSongToPlaylist', async (event, songID, playlistID) => {
+        return await musicAPI.addSongToPlaylist(songID, playlistID);
     });
-    ipcMain.handle('removeSongFromPlaylist', async (songID, playlistID) => {
-        // return await musicAPI.removeSongFromPlaylist(songID, playlistID);
-        return fillerFunc('bool');
+    ipcMain.handle('removeSongFromPlaylist', async (event, songID, playlistID) => {
+        return await musicAPI.removeSongFromPlaylist(songID, playlistID);
     });
-    ipcMain.handle('getSongsInPlaylist', async (playlistID) => {
-        // return await musicAPI.getSongsInPlaylist(playlistID);
-        return [fillerFunc('songDetails')];
+    ipcMain.handle('getSongsInPlaylist', async (event, playlistID) => {
+        return await musicAPI.getSongsInPlaylist(playlistID);
     });
     
     // Extras
     ipcMain.handle('initializeAPI', async () => {
-        // return await musicAPI.initialize();
-        return fillerFunc('bool');
+        return await musicAPI.initialize();
     });
     ipcMain.handle('isAPIinitialized', async () => {
-        // return await musicAPI.isInitialized();
-        return fillerFunc('bool');
+        return await musicAPI.isInitialized();
     });
     ipcMain.handle('getDatabaseStats', async () => {
-        // return await musicAPI.getDatabaseStats();
-        return fillerFunc('dbStats');
+        return await musicAPI.getDatabaseStats();
     });
+    musicAPI.initialize();
     createWindow()
 })
 
