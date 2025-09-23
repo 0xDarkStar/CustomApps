@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 Test file for the JavaScript API wrapper.
 */
 const musicAPI = require('../api/index');

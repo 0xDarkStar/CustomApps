@@ -12,9 +12,10 @@
     "nan": "^2.17.0"
   },
   "devDependencies": {
+    "@electron/rebuild": "^3.7.2",
     "node-gyp": "^9.4.0"
   },
   "gypfile": true,
-  "author": "0xDarkStar",
+  "author": "notmacos",
   "license": "MIT"
 }

@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 This file provides a Node.js native module interface for the MusicAPI.
 It allows Electron to call the C++ backend functions.
 */

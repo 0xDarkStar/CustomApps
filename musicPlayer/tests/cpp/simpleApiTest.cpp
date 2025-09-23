@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 This file tests the MusicAPI interface with a simple approach.
 */
 #include <iostream>

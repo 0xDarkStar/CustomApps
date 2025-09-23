@@ -8,6 +8,7 @@ musicPlayer/tests/cpp/standaloneApiTest
 
 # Node.js dependencies
 musicPlayer/node_modules/
+/musicPlayer/api/node_modules
 musicPlayer/frontend/node_modules/
 
 # Build artifacts

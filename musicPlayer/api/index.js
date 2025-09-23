@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 JavaScript wrapper for the native C++ music API.
 */
 const musicApi = require('./build/Release/music_api');

@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 This file contains database initialization and setup functions.
 It handles database creation, table creation, and initial setup.
 */

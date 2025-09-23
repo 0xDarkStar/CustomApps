@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 Test file for the mock API.
 */
 const mockMusicAPI = require('../api/mock_api');

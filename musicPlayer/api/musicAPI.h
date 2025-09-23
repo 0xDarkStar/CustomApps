@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 This file contains the main API interface for the music player backend.
 It provides a clean C++ API that can be easily integrated with Electron.
 */
