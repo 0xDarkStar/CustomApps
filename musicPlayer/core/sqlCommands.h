@@ -1,5 +1,5 @@
 /*
-Made By: 0xDarkStar
+Made By: 0xDarkStar & notmacos
 This file contains all the functions for the SQLite3 database.
 Said functions are:
  - add_song()/delete_song(): Adds/deletes a song from the database
