@@ -31,7 +31,7 @@ void testSongOperations() {
     try {
         // Test adding a song
         cout << "Testing add_song..." << endl;
-        int songId = sql::add_song("Test Song", "Test Artist", 180, "/path/to/test.mp3");
+        int songId = sql::add_song("Test Song", "Test Artist", "Test Album", 180, "/path/to/test.mp3");
         cout << "✓ Song added with ID: " << songId << endl;
         
         // Test reading songs
@@ -87,7 +87,7 @@ void testSubtitleOperations() {
     try {
         // First add a song to attach subtitles to
         cout << "Adding test song for subtitle testing..." << endl;
-        int songId = sql::add_song("Subtitle Test Song", "Test Artist", 200, "/path/to/subtitle_test.mp3");
+        int songId = sql::add_song("Subtitle Test Song", "Test Artist", "Test Album", 200, "/path/to/subtitle_test.mp3");
         
         // Test adding subtitles
         cout << "Testing add_subtitles..." << endl;
@@ -131,7 +131,7 @@ void testErrorHandling() {
     try {
         // Test empty title
         cout << "Testing empty song title..." << endl;
-        sql::add_song("", "Artist", 180, "/path/to/test.mp3");
+        sql::add_song("", "Artist", "Album", 180, "/path/to/test.mp3");
         cout << "✗ Should have thrown exception for empty title" << endl;
     } catch (const sql::DatabaseException& e) {
         cout << "✓ Correctly caught empty title error: " << e.what() << endl;

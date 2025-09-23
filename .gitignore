@@ -23,3 +23,6 @@ Thumbs.db
 
 # Misc
 musicPlayer/data/*.db
+
+# Test scripts
+musicPlayer/run_tests.sh
