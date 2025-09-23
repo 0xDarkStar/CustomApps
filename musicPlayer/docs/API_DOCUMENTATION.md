@@ -56,6 +56,7 @@ songs.forEach(song => {
 // Get a song by ID
 const song = await musicAPI.getSong(1);
 console.log('Song details:', song);
+// Returns: { id: 1, title: 'Bohemian Rhapsody', artist: 'Queen', album: 'A Night at the Opera', length: 355, path: '/music/bohemian_rhapsody.mp3' }
 ```
 
 ### Update Song Information
@@ -116,6 +117,7 @@ playlists.forEach(playlist => {
 // Get playlist details by ID
 const playlist = await musicAPI.getPlaylist(1);
 console.log('Playlist details:', playlist);
+// Returns: { id: 1, title: 'My Favorites', length: 0, numSongs: 0 }
 ```
 
 ### Update Playlist Title
@@ -141,6 +143,7 @@ const success = await musicAPI.removeSongFromPlaylist(1, 1); // song ID, playlis
 if (success) {
     console.log('Song removed from playlist');
 }
+// Returns: true if successful, throws error if song not in playlist
 ```
 
 ### Get Songs in Playlist
@@ -192,6 +195,81 @@ try {
 } catch (error) {
     console.error('Error:', error.message);
     console.error('Last API error:', musicAPI.getLastError());
+}
+```
+
+### Common Error Scenarios
+```javascript
+// 1. Invalid song data
+try {
+    await musicAPI.addSong('', 'Artist', 'Album', 180, '/path/song.mp3'); // Empty title
+} catch (error) {
+    console.error('Validation error:', error.message);
+    // Error: Failed to add song: Invalid song title
+}
+
+// 2. Non-existent song
+try {
+    await musicAPI.getSong(999); // Song doesn't exist
+} catch (error) {
+    console.error('Not found error:', error.message);
+    // Error: Failed to get song: Song with ID 999 not found
+}
+
+// 3. Duplicate song in playlist
+try {
+    await musicAPI.addSongToPlaylist(1, 1); // Song already in playlist
+} catch (error) {
+    console.error('Duplicate error:', error.message);
+    // Error: Failed to add song to playlist: Song is already in this playlist
+}
+
+// 4. API not initialized
+try {
+    musicAPI.shutdown();
+    await musicAPI.getAllSongs(); // API not initialized
+} catch (error) {
+    console.error('Initialization error:', error.message);
+    // Error: API not initialized. Call initialize() first.
+}
+```
+
+### Error Recovery Strategies
+```javascript
+// 1. Retry with exponential backoff
+async function retryOperation(operation, maxRetries = 3) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            return await operation();
+        } catch (error) {
+            if (i === maxRetries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+        }
+    }
+}
+
+// 2. Graceful degradation
+async function safeGetSong(songId) {
+    try {
+        return await musicAPI.getSong(songId);
+    } catch (error) {
+        console.warn(`Song ${songId} not found, returning null`);
+        return null;
+    }
+}
+
+// 3. Batch operations with error handling
+async function addMultipleSongs(songData) {
+    const results = [];
+    for (const song of songData) {
+        try {
+            const result = await musicAPI.addSong(song.title, song.artist, song.album, song.length, song.path);
+            results.push({ success: true, song: result });
+        } catch (error) {
+            results.push({ success: false, error: error.message, song: song });
+        }
+    }
+    return results;
 }
 ```
 
@@ -464,3 +542,96 @@ window.MusicManager = new MusicManager();
     totalPlaylistSongs: number    // Total playlist-song relationships
 }
 ```
+
+## Performance Considerations
+
+### Database Performance
+- **Indexes**: The database includes optimized indexes for:
+  - Song titles, artists, and albums
+  - Playlist titles
+  - Foreign key relationships
+- **Search Performance**: Song search is performed in-memory for optimal performance with local music libraries
+- **Memory Usage**: The API is designed for local use with typical music libraries (hundreds to thousands of songs)
+
+### Best Practices
+```javascript
+// 1. Batch operations for better performance
+async function addMultipleSongs(songData) {
+    const results = [];
+    for (const song of songData) {
+        try {
+            const result = await musicAPI.addSong(song.title, song.artist, song.album, song.length, song.path);
+            results.push(result);
+        } catch (error) {
+            console.error(`Failed to add song: ${song.title}`, error.message);
+        }
+    }
+    return results;
+}
+
+// 2. Efficient playlist management
+async function createPlaylistWithSongs(title, songIds) {
+    const playlist = await musicAPI.createPlaylist(title);
+    for (const songId of songIds) {
+        try {
+            await musicAPI.addSongToPlaylist(songId, playlist.id);
+        } catch (error) {
+            console.warn(`Failed to add song ${songId} to playlist:`, error.message);
+        }
+    }
+    return playlist;
+}
+
+// 3. Optimized search usage
+async function searchSongsEfficiently(query) {
+    // Search is case-insensitive and matches title, artist, and album
+    const results = await musicAPI.searchSongs(query);
+    return results;
+}
+```
+
+## Security Considerations
+
+### Input Validation
+The API includes comprehensive input validation:
+
+- **Text Fields**: Limited to 255 characters, no control characters
+- **File Paths**: Validated for security (no directory traversal)
+- **File Extensions**: Restricted to valid audio/subtitle formats
+- **SQL Injection**: Protected with prepared statements
+
+### Security Features
+```javascript
+// 1. Path validation prevents directory traversal
+try {
+    await musicAPI.addSong('Song', 'Artist', 'Album', 180, '../../../etc/passwd');
+} catch (error) {
+    console.error('Invalid path:', error.message);
+    // Error: Failed to add song: Invalid file path
+}
+
+// 2. Input sanitization
+try {
+    await musicAPI.addSong('Song<script>alert("xss")</script>', 'Artist', 'Album', 180, '/path/song.mp3');
+} catch (error) {
+    console.error('Invalid input:', error.message);
+    // Error: Failed to add song: Invalid song title
+}
+
+// 3. File extension validation
+try {
+    await musicAPI.addSong('Song', 'Artist', 'Album', 180, '/path/song.exe');
+} catch (error) {
+    console.error('Invalid file type:', error.message);
+    // Error: Failed to add song: Invalid file path
+}
+```
+
+### Supported File Types
+- **Audio**: `.mp3`, `.wav`, `.flac`, `.m4a`, `.ogg`
+- **Subtitles**: `.srt`, `.vtt`
+
+### Database Security
+- **Foreign Key Constraints**: Enforced with CASCADE deletes
+- **Prepared Statements**: All database operations use parameterized queries
+- **Input Sanitization**: All user inputs are sanitized before database operations
