@@ -1,5 +1,5 @@
 /*
-Made By: 0xDarkStar
+Made By: notmacos
 Test file for the JavaScript API wrapper.
 */
 const musicAPI = require('../api/index');
