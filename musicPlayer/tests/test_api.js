@@ -17,7 +17,7 @@ async function testAPI() {
         console.log('\n=== Testing Song Operations ===');
         
         // Add a test song
-        const song = await musicAPI.addSong('Test Song', 'Test Artist', 180, '/path/to/song.mp3');
+        const song = await musicAPI.addSong('Test Song', 'Test Artist', 180, 'Test Album', '/path/to/song.mp3');
         console.log('Added song:', song);
         
         // Get all songs
