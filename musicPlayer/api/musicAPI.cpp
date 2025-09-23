@@ -1,5 +1,5 @@
 /*
-Made By: 0xDarkStar
+Made By: notmacos
 This file implements the main API interface for the music player backend.
 */
 #include "musicAPI.h"
