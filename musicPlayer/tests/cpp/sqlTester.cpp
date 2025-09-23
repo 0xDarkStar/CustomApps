@@ -1,5 +1,5 @@
 /*
-Made By: 0xDarkStar
+Made By: notmacos
 Test file for SQLite database functionality.
 Tests all database operations including songs, playlists, and subtitles.
 */
