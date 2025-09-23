@@ -26,6 +26,17 @@ g++ sqlTester.cpp -lsqlite3 -o sqlTester
 ./sqlTester
 ```
 
+4. **Test Backend-Frontend Integration**:
+```bash
+# Test native module in Node.js
+cd api
+node -e "const api = require('./build/Release/music_api'); console.log('✅ Node.js:', Object.keys(api));"
+
+# Test native module in Electron
+cd ../frontend
+./node_modules/.bin/electron -e "const api = require('../api/build/Release/music_api'); console.log('✅ Electron:', Object.keys(api));"
+```
+
 ### Building the Native Module
 
 1. **Install dependencies**:
@@ -34,9 +45,14 @@ cd api
 npm install
 ```
 
-2. **Build the module**:
+2. **Build for Node.js development**:
 ```bash
 npm run build
+```
+
+3. **Build for Electron production**:
+```bash
+HOME=~/.electron-gyp npx node-gyp rebuild --target=38.1.2 --arch=arm64 --dist-url=https://electronjs.org/headers
 ```
 
 ## Documentation
@@ -105,24 +121,49 @@ const songs = await ipcRenderer.invoke('get-all-songs');
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v24.8.0 or higher)
 - npm
 - SQLite3 development libraries
 - C++ compiler (gcc/clang)
+- Python 3.12+ (for node-gyp)
+- Electron 38.1.2
 
 ### Build Commands
 
+#### For Node.js Development
 ```bash
 # Install dependencies
 cd api
 npm install
 
-# Build native module
+# Build native module for Node.js
 npm run build
 
 # Clean build
 npm run clean
 ```
+
+#### For Electron Production
+```bash
+# Install dependencies
+cd api
+npm install
+
+# Build native module for Electron 38.1.2
+HOME=~/.electron-gyp npx node-gyp rebuild --target=38.1.2 --arch=arm64 --dist-url=https://electronjs.org/headers
+
+# Alternative: Use @electron/rebuild
+cd ../frontend
+npx @electron/rebuild --module-dir ../api
+```
+
+### Important Notes
+
+- **NODE_MODULE_VERSION Compatibility**: The native module must be built specifically for the target environment:
+  - Node.js 24.8.0 uses NODE_MODULE_VERSION 137
+  - Electron 38.1.2 uses NODE_MODULE_VERSION 139
+- **Architecture**: Build for the correct architecture (arm64 for Apple Silicon, x64 for Intel)
+- **Electron Headers**: Always use `--dist-url=https://electronjs.org/headers` for Electron builds
 
 ## Testing
 
@@ -177,15 +218,60 @@ g++ sqlTester.cpp -lsqlite3 -o sqlTester && ./sqlTester
 
 ### Common Issues
 
-1. **Module not found**: Ensure the native module is built with `npm run build`
-2. **Database errors**: Check that the data directory exists and is writable
-3. **Compilation errors**: Verify SQLite3 development libraries are installed
+1. **NODE_MODULE_VERSION Mismatch**: 
+   ```
+   Error: The module was compiled against a different Node.js version using NODE_MODULE_VERSION 137. 
+   This version of Node.js requires NODE_MODULE_VERSION 139.
+   ```
+   **Solution**: Rebuild the native module for the correct environment:
+   ```bash
+   # For Electron
+   HOME=~/.electron-gyp npx node-gyp rebuild --target=38.1.2 --arch=arm64 --dist-url=https://electronjs.org/headers
+   
+   # For Node.js
+   npx node-gyp rebuild
+   ```
+
+2. **Electron app object undefined**:
+   ```
+   TypeError: Cannot read properties of undefined (reading 'whenReady')
+   ```
+   **Solution**: Reinstall Electron completely:
+   ```bash
+   cd frontend
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+
+3. **Module not found**: Ensure the native module is built with the correct build command
+4. **Database errors**: Check that the data directory exists and is writable
+5. **Compilation errors**: Verify SQLite3 development libraries are installed
+
+### Build Environment Issues
+
+- **Python Version**: Ensure Python 3.12+ is available for node-gyp
+- **Architecture Mismatch**: Build for the correct architecture (arm64 vs x64)
+- **Electron Headers**: Always use the official Electron headers URL
+- **Clean Builds**: Use `npm run clean` before rebuilding if issues persist
 
 ### Debug Mode
 
 Enable debug logging by setting the environment variable:
 ```bash
 DEBUG=music-api node your_app.js
+```
+
+### Verification Commands
+
+Test the integration:
+```bash
+# Test native module in Node.js
+cd api
+node -e "const api = require('./build/Release/music_api'); console.log('Methods:', Object.keys(api));"
+
+# Test native module in Electron
+cd ../frontend
+./node_modules/.bin/electron -e "const api = require('../api/build/Release/music_api'); console.log('Electron + API:', Object.keys(api));"
 ```
 
 ## Contributing

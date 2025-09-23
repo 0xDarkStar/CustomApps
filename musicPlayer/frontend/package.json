@@ -10,7 +10,7 @@
     "start": "electron .",
     "test": "\"echo \\\"Hello World! I am from a package!\\\"\""
   },
-  "devDependencies": {
+  "dependencies": {
     "electron": "^38.1.2"
   }
 }

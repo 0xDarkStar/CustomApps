@@ -1,4 +1,5 @@
 # Binaries and executables
+musicPlayer/api/bin
 musicPlayer/sqlTester
 musicPlayer/tests/cpp/sqlTester
 musicPlayer/tests/cpp/standaloneApiTest

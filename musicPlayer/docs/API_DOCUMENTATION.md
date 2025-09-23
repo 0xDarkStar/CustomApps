@@ -3,7 +3,16 @@
 ## Overview
 This API provides comprehensive functionality for managing songs, playlists, and subtitles in your music player application. It's built with a C++ backend and provides a clean JavaScript interface for frontend development.
 
+**Current Status**: Fully functional with Electron 38.1.2 integration verified. Backend and frontend should be working together.v
+
 ## Installation & Setup
+
+### Prerequisites
+- Node.js 24.8.0+
+- Electron 38.1.2
+- SQLite3 development libraries
+- Python 3.12+ (for node-gyp)
+- C++ compiler (gcc/clang)
 
 ### 1. Initialize the API
 ```javascript
@@ -21,6 +30,24 @@ if (musicAPI.isInitialized()) {
     console.log('API is ready to use');
 }
 ```
+
+### 3. Build Requirements
+
+#### For Node.js Development
+```bash
+cd api
+npm install
+npm run build
+```
+
+#### For Electron Production
+```bash
+cd api
+npm install
+HOME=~/.electron-gyp npx node-gyp rebuild --target=38.1.2 --arch=arm64 --dist-url=https://electronjs.org/headers
+```
+
+**Important**: The native module must be built specifically for your target environment due to NODE_MODULE_VERSION differences between Node.js and Electron.
 
 ## Song Management
 
@@ -635,3 +662,56 @@ try {
 - **Foreign Key Constraints**: Enforced with CASCADE deletes
 - **Prepared Statements**: All database operations use parameterized queries
 - **Input Sanitization**: All user inputs are sanitized before database operations
+
+## Troubleshooting
+
+### NODE_MODULE_VERSION Issues
+
+**Problem**: Module compiled against different Node.js version
+```
+Error: The module was compiled against a different Node.js version using NODE_MODULE_VERSION 137. 
+This version of Node.js requires NODE_MODULE_VERSION 139.
+```
+
+**Solution**: Rebuild for the correct environment
+```bash
+# For Electron 38.1.2
+HOME=~/.electron-gyp npx node-gyp rebuild --target=38.1.2 --arch=arm64 --dist-url=https://electronjs.org/headers
+
+# For Node.js 24.8.0
+npx node-gyp rebuild
+```
+
+### Electron Integration Issues
+
+**Problem**: Electron app object undefined
+```
+TypeError: Cannot read properties of undefined (reading 'whenReady')
+```
+
+**Solution**: Reinstall Electron
+```bash
+cd frontend
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Verification Commands
+
+Test your setup:
+```bash
+# Test Node.js integration
+cd api
+node -e "const api = require('./build/Release/music_api'); console.log('✅ Node.js:', Object.keys(api));"
+
+# Test Electron integration  
+cd ../frontend
+./node_modules/.bin/electron -e "const api = require('../api/build/Release/music_api'); console.log('✅ Electron:', Object.keys(api));"
+```
+
+### Build Environment Requirements
+
+- **Python**: Version 3.12+ required for node-gyp
+- **Architecture**: Match your system (arm64 for Apple Silicon, x64 for Intel)
+- **Electron Headers**: Always use `https://electronjs.org/headers`
+- **Clean Builds**: Use `npm run clean` before rebuilding if issues persist
