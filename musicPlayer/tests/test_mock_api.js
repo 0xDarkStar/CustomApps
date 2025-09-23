@@ -1,5 +1,5 @@
 /*
-Made By: 0xDarkStar
+Made By: notmacos
 Test file for the mock API.
 */
 const mockMusicAPI = require('../api/mock_api');
