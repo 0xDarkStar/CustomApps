@@ -1,0 +1,18 @@
+ SQL Layout:
+
+ Songs:
+    ID | Title | Artist | Has subs | Length | Location
+ex:  1 | Money | The Drums | True | 203 | Copy
+ex:  2 | Banana Boat (Day-O) | Harry belafonte | False | 184 | /home/user/music/Banan_Boat/Ban_Boat.mp4
+
+ Playlists:
+    ID | Name | Length | Number of songs
+ex:  1 | Hold | 234 | 1
+
+ Songs and playlists relations:
+    Song ID | Playlist ID
+ex:  1 | 1
+
+ Subs:
+    Song ID | Sub ID | Language (en for English, fr for French, you know)
+ex:  1 | 1 | en
