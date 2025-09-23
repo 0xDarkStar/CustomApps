@@ -1,11 +1,13 @@
 const {app, BrowserWindow, Menu, ipcMain} = require('electron')
+// Commented out until NODE-MODULE-VERSIONs match
+// const musicAPI = require('./../api/index');
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: false,
+            nodeIntegration: true,
             contextIsolation: true,
             preload: require('path').join(__dirname, 'javascript/preload.js')
         }
@@ -120,14 +122,109 @@ const createWindow = () => {
     win.loadFile('html/index.html')
 }
 
-app.whenReady().then(() => {
-    createWindow()
+const fillerFunc = (returnType) => {
+    switch (returnType) {
+        case 'int':
+            return 0;
+        case 'bool':
+            return false;
+        case 'string':
+            return 'You have recieved a string!';
+        case 'songDetails':
+            return { 'id': 0, 'title': 'Generic Song', 'artist': 'Generic Artist', 'album': 'Generic Album', 'length': 355, 'path': '~/generic/path/to/file.mp3'};
+        case 'playlistDetails':
+            return { 'id': 1, 'title': 'Generic Playlist', 'length': 0, 'numSongs': 0};
+        case 'dbStats':
+            return { 'totalSongs': 15, 'totalPlaylists': 2, 'totalSubtitles': 0, 'totalPlaylistSongs': 30};
+        default:
+            break;
+    }
+    return 'pong'
+}
 
+app.whenReady().then(() => {
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow()
         }
     })
+    /* API Calls */
+    // Songs
+    ipcMain.handle('addSong', async (title, artist, album, length, path) => {
+        // return await musicAPI.addSong(title, artist, album, length, path);
+        return fillerFunc('songDetails');
+    });
+    ipcMain.handle('updateSong', async (songID, newTitle, newArtist, newAlbum) => {
+        // return await musicAPI.updateSong(songID, newTitle, newArtist, newAlbum);
+        return fillerFunc('songDetails');
+    });
+    ipcMain.handle('removeSong', async (songID) => {
+        // return await musicAPI.deleteSong(songID);
+        return fillerFunc('bool');
+    });
+    ipcMain.handle('getAllSongs', async () => {
+        // return await musicAPI.getAllSongs();
+        return [fillerFunc('songDetails')];
+    });
+    ipcMain.handle('getSong', async (songID) => {
+        // return await musicAPI.getSong(songID);
+        return fillerFunc('songDetails');
+    });
+    ipcMain.handle('searchSongs', async (searchStr) => {
+        // return await musicAPI.searchSongs(searchStr);
+        return [fillerFunc('songDetails')];
+    });
+
+    // Playlists
+    ipcMain.handle('createPlaylist', async (title) => {
+        // return await musicAPI.createPlaylist(title);
+        return fillerFunc('playlistDetails');
+    });
+    ipcMain.handle('updatePlaylist', async (playlistID, newTitle) => {
+        // return await musicAPI.updatePlaylist(playlistID, newTitle);
+        return fillerFunc('playlistDetails');
+    });
+    ipcMain.handle('deletePlaylist', async (playlistID) => {
+        // return await musicAPI.deletePlaylist(playlistID);
+        return fillerFunc('bool');
+    });
+    ipcMain.handle('getAllPlaylists', async () => {
+        // return await musicAPI.getAllPlaylists();
+        return [fillerFunc('playlistDetails')];
+    });
+    ipcMain.handle('getPlaylist', async (playlistID) => {
+        // return await musicAPI.getPlaylist(playlistID);
+        return fillerFunc('playlistDetails');
+    });
+    
+    // Songs to Playlists
+    ipcMain.handle('addSongToPlaylist', async (songID, playlistID) => {
+        // return await musicAPI.addSongToPlaylist(songID, playlistID);
+        return fillerFunc('bool');
+    });
+    ipcMain.handle('removeSongFromPlaylist', async (songID, playlistID) => {
+        // return await musicAPI.removeSongFromPlaylist(songID, playlistID);
+        return fillerFunc('bool');
+    });
+    ipcMain.handle('getSongsInPlaylist', async (playlistID) => {
+        // return await musicAPI.getSongsInPlaylist(playlistID);
+        return [fillerFunc('songDetails')];
+    });
+    
+    // Extras
+    ipcMain.handle('initializeAPI', async () => {
+        // return await musicAPI.initialize();
+        return fillerFunc('bool');
+    });
+    ipcMain.handle('isAPIinitialized', async () => {
+        // return await musicAPI.isInitialized();
+        return fillerFunc('bool');
+    });
+    ipcMain.handle('getDatabaseStats', async () => {
+        // return await musicAPI.getDatabaseStats();
+        return fillerFunc('dbStats');
+    });
+    createWindow()
 })
 
 app.on('window-all-closed', () => {

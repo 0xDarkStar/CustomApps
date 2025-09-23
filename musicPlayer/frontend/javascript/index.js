@@ -1,14 +1,15 @@
 
 
-function removePlaylist(playlistId) {
+async function removePlaylist(playlistId) {
     if (playlistId === "All Songs") { // They need to see all their songs
         return;
     }
-    // Find the playlist element by its text content (since we're using that as ID)
+    // Find the playlist element by its text content (since we're using that as ID for now)
     const playlists = document.querySelectorAll('.playlist');
     for (let playlist of playlists) {
         const playlistName = playlist.querySelector('p').textContent.trim();
         if (playlistName === playlistId) {
+            console.log(await window.musicAPI.deletePlaylist(playlistId));
             playlist.remove();
             break;
         }

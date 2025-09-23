@@ -28,10 +28,11 @@ function hideSongModal() {
     modal.style.display = 'none';
 }
 
-function createSong() {
+async function addSong() {
     const songFile = document.getElementById('songFileInput');
     // Read the file and get any data we can
     // May need to ask user for song info (title, artist, etc.)
+    console.log(await window.musicAPI.addSong("Generic Title", "Generic Artist", "Generic Album", 355, "~/generic/path/to/file.mp3"));
 }
 
 /* Playlist Modal */
@@ -50,12 +51,13 @@ function hidePlaylistModal() {
 }
 
 /* Create a playlist */
-function createPlaylist() {
+async function createPlaylist() {
     // Make sure to change to code to use the API instead of messing with the HTML
     const input = document.getElementById('playlistNameInput');
     const name = input.value.trim();
     
     if (!name) return;
+    console.log(await window.musicAPI.createPlaylist(name));
     
     const grid = document.getElementById('playlistGrid');
     const newPlaylist = document.createElement('div');
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('playlistCreateBtn').addEventListener('click', createPlaylist);
     // Song Modal Buttons
     document.getElementById('songCancelBtn').addEventListener('click', hideSongModal);
-    // document.getElementById('songCreateBtn').addEventListener('click', addSong);
+    document.getElementById('songCreateBtn').addEventListener('click', addSong);
     
     // Close modal when clicking outside of it
     document.getElementById('playlistModal').addEventListener('click', function(e) {
