@@ -88,6 +88,17 @@ namespace sql {
             );
         )";
         
+        // Create indexes for better performance
+        const char* createIndexes = R"(
+            CREATE INDEX IF NOT EXISTS idx_song_title ON song(title);
+            CREATE INDEX IF NOT EXISTS idx_song_artist ON song(artist);
+            CREATE INDEX IF NOT EXISTS idx_song_album ON song(album);
+            CREATE INDEX IF NOT EXISTS idx_playlist_title ON playlist(title);
+            CREATE INDEX IF NOT EXISTS idx_subtitle_song_id ON subtitle(song_id);
+            CREATE INDEX IF NOT EXISTS idx_playlist_song_playlist_id ON playlist_song(playlist_id);
+            CREATE INDEX IF NOT EXISTS idx_playlist_song_song_id ON playlist_song(song_id);
+        )";
+        
         char* errorMsg = nullptr;
         
         // Execute table creation statements
@@ -125,6 +136,15 @@ namespace sql {
         
         if (sqlite3_exec(DB, createVersionTable, nullptr, nullptr, &errorMsg) != SQLITE_OK) {
             std::string error = "Failed to create version table: ";
+            error += errorMsg ? errorMsg : "Unknown error";
+            sqlite3_free(errorMsg);
+            sqlite3_close(DB);
+            throw DatabaseSetupException(error);
+        }
+        
+        // Execute index creation statements
+        if (sqlite3_exec(DB, createIndexes, nullptr, nullptr, &errorMsg) != SQLITE_OK) {
+            std::string error = "Failed to create indexes: ";
             error += errorMsg ? errorMsg : "Unknown error";
             sqlite3_free(errorMsg);
             sqlite3_close(DB);

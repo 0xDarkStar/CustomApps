@@ -59,6 +59,22 @@ namespace sql {
             return true;
         }
         
+        // Validate text input with custom length limit
+        inline bool isValidText(const std::string& text, size_t maxLength) {
+            if (text.empty() || text.length() > maxLength) {
+                return false;
+            }
+            
+            // Check for control characters
+            for (char c : text) {
+                if (c < 32 && c != 9 && c != 10 && c != 13) { // Allow tab, newline, carriage return
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
         // Validate file path
         inline bool isValidPath(const std::string& path) {
             if (path.empty() || path.length() > 1000) {
@@ -189,11 +205,11 @@ namespace sql {
         
         // Bind parameters
         sqlite3_bind_int(stmt, 1, id);
-        sqlite3_bind_text(stmt, 2, utils::sanitizeString(title).c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(stmt, 3, utils::sanitizeString(artist).c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(stmt, 4, utils::sanitizeString(album).c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, utils::sanitizeString(title).c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 3, utils::sanitizeString(artist).c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 4, utils::sanitizeString(album).c_str(), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(stmt, 5, length);
-        sqlite3_bind_text(stmt, 6, utils::sanitizeString(path).c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 6, utils::sanitizeString(path).c_str(), -1, SQLITE_TRANSIENT);
         
         int result = sqlite3_step(stmt);
         sqlite3_finalize(stmt);
@@ -334,7 +350,7 @@ namespace sql {
         
         sqlite3_bind_int(stmt, 1, song_id);
         sqlite3_bind_int(stmt, 2, sub_id);
-        sqlite3_bind_text(stmt, 3, utils::sanitizeString(language).c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 3, utils::sanitizeString(language).c_str(), -1, SQLITE_TRANSIENT);
         
         int result = sqlite3_step(stmt);
         sqlite3_finalize(stmt);
@@ -435,7 +451,7 @@ namespace sql {
         }
         
         sqlite3_bind_int(stmt, 1, id);
-        sqlite3_bind_text(stmt, 2, utils::sanitizeString(title).c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, utils::sanitizeString(title).c_str(), -1, SQLITE_TRANSIENT);
         
         int result = sqlite3_step(stmt);
         sqlite3_finalize(stmt);
@@ -818,9 +834,9 @@ namespace sql {
             throw DatabaseException("Failed to prepare update statement");
         }
         
-        sqlite3_bind_text(updateStmt, 1, utils::sanitizeString(title).c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(updateStmt, 2, utils::sanitizeString(artist).c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(updateStmt, 3, utils::sanitizeString(album).c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(updateStmt, 1, utils::sanitizeString(title).c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(updateStmt, 2, utils::sanitizeString(artist).c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(updateStmt, 3, utils::sanitizeString(album).c_str(), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(updateStmt, 4, song_id);
         
         int result = sqlite3_step(updateStmt);
@@ -1005,7 +1021,7 @@ namespace sql {
             throw DatabaseException("Failed to prepare update statement");
         }
         
-        sqlite3_bind_text(updateStmt, 1, utils::sanitizeString(title).c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(updateStmt, 1, utils::sanitizeString(title).c_str(), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(updateStmt, 2, playlist_id);
         
         int result = sqlite3_step(updateStmt);
