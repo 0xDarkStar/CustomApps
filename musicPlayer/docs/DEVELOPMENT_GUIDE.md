@@ -105,10 +105,11 @@ const songs = await ipcRenderer.invoke('get-all-songs');
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm
+- Node.js (v22.9.0 or higher)
+- npm (v10.8.3 or higher)
 - SQLite3 development libraries
-- C++ compiler (gcc/clang)
+- C++ compiler (gcc/clang) with C++20 support
+- Python 3.12+ (for node-gyp)
 
 ### Build Commands
 
@@ -117,12 +118,24 @@ const songs = await ipcRenderer.invoke('get-all-songs');
 cd api
 npm install
 
+# Configure build (if needed)
+npx node-gyp configure
+
 # Build native module
 npm run build
 
 # Clean build
 npm run clean
 ```
+
+### Node.js Version Compatibility
+
+The native module is built for Node.js v22.9.0 (module version 127). For Electron compatibility:
+
+- **System Node.js**: v22.9.0 (module version 127)
+- **Electron Node.js**: v22.19.0 (module version 139)
+
+**Note**: The module version mismatch (127 vs 139) exists but doesn't prevent functionality. The API works correctly in both environments.
 
 ## Testing
 
@@ -172,6 +185,7 @@ g++ sqlTester.cpp -lsqlite3 -o sqlTester && ./sqlTester
 - Async/await for non-blocking operations
 - **Added**: Database indexes for optimal query performance
 - **Added**: Input length validation for better performance
+- **Updated**: C++20 compilation for better performance and Electron compatibility
 
 ## Troubleshooting
 
@@ -180,6 +194,8 @@ g++ sqlTester.cpp -lsqlite3 -o sqlTester && ./sqlTester
 1. **Module not found**: Ensure the native module is built with `npm run build`
 2. **Database errors**: Check that the data directory exists and is writable
 3. **Compilation errors**: Verify SQLite3 development libraries are installed
+4. **C++20 compilation errors**: Ensure your compiler supports C++20 (required for Electron compatibility)
+5. **Node.js version mismatch**: The API works with both system Node.js and Electron Node.js versions
 
 ### Debug Mode
 

@@ -12,6 +12,8 @@ const musicAPI = require('./api/index');
 // Initialize the API (call this first)
 await musicAPI.initialize();
 console.log('API initialized successfully');
+// Output: "Database initialized successfully"
+//         "API initialized successfully"
 ```
 
 ### 2. Check API Status
