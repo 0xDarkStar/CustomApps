@@ -1,5 +1,4 @@
 /*
-Made By: notmacos
 Mock API for testing the interface without the native module.
 This simulates the behavior of the real API for testing purposes.
 */

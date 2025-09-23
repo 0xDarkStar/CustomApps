@@ -1,5 +1,4 @@
 /*
-Made By: notmacos
 Comprehensive test for the enhanced Music API.
 Tests all new functionality including album support, song editing, and playlist management.
 */

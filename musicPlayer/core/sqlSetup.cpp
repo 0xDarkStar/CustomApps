@@ -1,5 +1,4 @@
 /*
-Made By: 0xDarkStar
 Implementation of database initialization and setup functions.
 */
 #include "sqlSetup.h"

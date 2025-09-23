@@ -1,5 +1,4 @@
 /*
-Made By: notmacos
 JavaScript wrapper for the native C++ music API.
 */
 const musicApi = require('./build/Release/music_api');

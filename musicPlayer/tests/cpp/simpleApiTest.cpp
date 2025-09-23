@@ -1,5 +1,4 @@
 /*
-Made By: notmacos
 This file tests the MusicAPI interface with a simple approach.
 */
 #include <iostream>
