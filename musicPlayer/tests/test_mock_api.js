@@ -20,7 +20,7 @@ async function testMockAPI() {
         const song1 = await mockMusicAPI.addSong('Test Song 1', 'Test Artist', 180, '/path/to/song1.mp3');
         console.log('Added song:', JSON.stringify(song1, null, 2));
         
-        const song2 = await mockMusicAPI.addSong('Another Song', 'Different Artist', 240, '/path/to/song2.mp4');
+        const song2 = await mockMusicAPI.addSong('Another Song', 'Different Artist', 240, '/path/to/song2.mp3');
         console.log('Added song:', JSON.stringify(song2, null, 2));
         
         // Get all songs
