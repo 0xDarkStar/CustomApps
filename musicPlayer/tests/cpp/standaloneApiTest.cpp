@@ -1,5 +1,5 @@
 /*
-Made By: 0xDarkStar
+Made By: notmacos
 Standalone test for the MusicAPI interface without including implementation files.
 */
 #include <iostream>
