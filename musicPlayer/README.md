@@ -16,15 +16,81 @@ All file formats that I know work with it are:
 - MP3
 
 ## Installation
-### Do note, I made this on a Debian-based OS. I have not tested on other OS's.
-Instructions...
+
+### Prerequisites
+- **Node.js** (v16 or higher)
+- **npm** (comes with Node.js)
+- **C++ Compiler** (g++ or clang++)
+- **SQLite3** development libraries
+
+### Quick Start
+```bash
+# Clone the repository
+git clone <repository-url>
+cd musicPlayer
+
+# Install dependencies
+npm install
+
+# Build the native module
+cd api && npm run build
+
+# Start the application
+npm start
+```
+
+### Development Setup
+```bash
+# Install all dependencies
+npm install
+cd api && npm install
+cd ../frontend && npm install
+
+# Build the native module
+cd ../api && npm run build
+
+# Run tests
+./run_tests.sh
+
+# Start development
+npm run dev
+```
 
 
-## Features:
-- [x] Create and remove playlists from the UI
-- [x] Have custom images for playlists and songs
-- [ ] Play a video
-- [ ] See the subtitles when they are meant to appear
-- [ ] See a queue of the upcoming songs
-- [ ] Show what songs are in a playlist
-- [ ] Add and remove songs from the UI
+## Development Status
+
+### Completed Features
+- **Backend API**: Complete C++ backend with SQLite database
+- **Playlist Management**: Create, edit, and delete playlists
+- **Song Management**: Add, edit, and remove songs
+- **Database Operations**: Full CRUD operations for songs, playlists, and subtitles
+- **Input Validation**: Security features and data validation
+- **Testing Suite**: Comprehensive test coverage
+- **Documentation**: Complete API documentation
+
+### In Progress
+- **Frontend UI**: Electron-based user interface
+- **Music Player**: Cross-platform sound engine
+
+### Planned Features
+- **Custom Images**: Playlist and song thumbnails
+- **Advanced Playback**: Shuffle, repeat, and advanced controls
+- **File Import**: Bulk file import and organization
+- **Search & Filter**: Advanced search and filtering capabilities
+
+## Project Structure
+
+```
+musicPlayer/
+├── api/              # Node.js wrapper and native C++ module
+├── core/             # C++ database implementation
+├── frontend/         # Electron frontend application
+├── tests/            # Test suite
+├── docs/             # Documentation
+└── data/             # Database and media files
+```
+
+## Documentation
+
+- **[API Documentation](docs/API_DOCUMENTATION.md)** - Complete API reference
+- **[Development Guide](docs/DEVELOPMENT_GUIDE.md)** - Development setup and guidelines

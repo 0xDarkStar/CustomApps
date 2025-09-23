@@ -25,4 +25,4 @@ Thumbs.db
 musicPlayer/data/*.db
 
 # Test scripts
-musicPlayer/run_tests.sh
+# musicPlayer/run_tests.sh
