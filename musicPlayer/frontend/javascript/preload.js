@@ -9,6 +9,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     onRemovePlaylist: (callback) => {
         ipcRenderer.on('remove-playlist', callback)
     },
+    onShowSongModal: (callback) => {
+        ipcRenderer.on('show-song-modal', callback)
+    },
     removeAllListeners: (channel) => {
         ipcRenderer.removeAllListeners(channel)
     }

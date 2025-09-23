@@ -17,7 +17,6 @@ const createWindow = () => {
         {
             label: 'File',
             submenu: [
-                { role: 'quit' },
                 {
                     label: 'Add Playlist',
                     click: () => {
@@ -35,7 +34,9 @@ const createWindow = () => {
                     click: () => {
                         win.webContents.send('show-subtitle-modal')
                     }
-                }
+                },
+                { type: 'separator' },
+                { role: 'quit' }
             ]
         },
         // View Menu

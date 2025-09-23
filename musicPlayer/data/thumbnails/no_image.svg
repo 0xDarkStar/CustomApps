@@ -24,14 +24,14 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="5.6568543"
-     inkscape:cx="77.870134"
+     inkscape:cx="78.04691"
      inkscape:cy="93.691648"
-     inkscape:window-width="1920"
-     inkscape:window-height="1043"
-     inkscape:window-x="1200"
-     inkscape:window-y="265"
+     inkscape:window-width="1200"
+     inkscape:window-height="1883"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer2" />
   <defs
      id="defs1" />
   <g
@@ -45,6 +45,11 @@
        height="195.20169"
        x="-8.4450665"
        y="-6.273478" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Question">
     <rect
        style="display:inline;fill:#000000;fill-opacity:1;stroke-width:1.4"
        id="rect3"
@@ -58,8 +63,4 @@
        id="path3"
        sodipodi:nodetypes="csssssccsssssscc" />
   </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="Question" />
 </svg>

@@ -1,20 +1,3 @@
-let isExpanded = false;
-
-function toggleExpanded() {
-    const controlBar = document.querySelector('.control-bar');
-    const expandBtn = document.querySelector('.expand-btn');
-
-    isExpanded = !isExpanded;
-
-    if (isExpanded) {
-        controlBar.classList.add('expanded');
-        expandBtn.innerHTML = '<img src="../icons/dropdown.svg" alt="Collapse" style="transform: rotate(180deg);">'
-    } else {
-        controlBar.classList.remove('expanded');
-        expandBtn.innerHTML = '<img src="../icons/dropdown.svg" alt="Expand">'
-    }
-}
-
 function getPlaylistFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return {
@@ -32,7 +15,5 @@ function loadPlaylist() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('.expand-btn').addEventListener('click', toggleExpanded);
-
     loadPlaylist();
 });

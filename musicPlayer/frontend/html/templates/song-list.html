@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../../styles/dark.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- All songs in the playlist -->
+        <div class="songs-grid">
+            <!-- Individual Song -->
+            <div class="song-item">
+                <div class="song-item-thumbnail">
+                    <img src="../../../data/thumbnails/no_image.svg">
+                </div>
+                <div class="song-item-details">
+                    <div class="song-item-title">Title of Song</div>
+                    <div class="song-item-artist">Artist of Song</div>
+                </div>
+                <div class="song-item-controls">
+                    <!-- Song menu -->
+                    <div class="song-menu">
+                        <button class="menu-btn" onclick="toggleMenu(this)">
+                            <img src="../../icons/menu.svg">
+                        </button>
+                        <div class="menu-dropdown">
+                            <div class="menu-item" onclick="addNext('songId')">Play Next</div>
+                            <div class="menu-item" onclick="addToQueue('songId')">Add To Queue</div>
+                            <div class="menu-item" onclick="removeFromPlaylist('songId', 'playlistId')">Remove From This Playlist</div>
+                            <div class="menu-item" onclick="viewSongDetails('songId')">Open Song Settings</div>
+                        </div>
+                    </div>
+                    <!-- Song menu END -->
+                    <input type="checkbox">
+                    <div class="song-item-length">
+                        3:30
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../../javascript/shared.js"></script>
+        <script src="../../javascript/playlist.js"></script>
+    </body>
+</html>
