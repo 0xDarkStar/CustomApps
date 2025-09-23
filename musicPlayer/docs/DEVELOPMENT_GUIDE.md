@@ -1,6 +1,6 @@
-# Music Player Backend
+# Music Player Development Guide
 
-This directory contains the backend API for the music player application.
+This guide covers the backend API development, testing, and build process for the music player application.
 
 ## Quick Start
 
@@ -41,8 +41,8 @@ npm run build
 
 ## Documentation
 
-- [API Documentation](docs/API_DOCUMENTATION.md) - Complete API reference
-- [Test Results](docs/TEST_RESULTS.md) - Testing results and coverage
+- [API Documentation](API_DOCUMENTATION.md) - Complete API reference
+- [Test Results](TEST_RESULTS.md) - Testing results and coverage
 
 ## Development
 
@@ -60,7 +60,9 @@ npm run build
 
 ### Testing
 
-- **`tests/test_mock_api.js`** - Comprehensive mock API tests
+- **`tests/test_api.js`** - Basic API functionality tests
+- **`tests/test_enhanced_api.js`** - Comprehensive API tests with all features
+- **`tests/test_mock_api.js`** - Mock API tests for development
 - **`tests/cpp/sqlTester.cpp`** - Database functionality tests
 - **`tests/cpp/standaloneApiTest.cpp`** - Simple API tests
 
@@ -69,13 +71,13 @@ npm run build
 ### In Electron Main Process
 
 ```javascript
-const musicAPI = require('./backend/api/index');
+const musicAPI = require('./api/index');
 
 // Initialize
 await musicAPI.initialize();
 
 // Add a song
-const song = await musicAPI.addSong('Title', 'Artist', 180, '/path/to/song.mp3');
+const song = await musicAPI.addSong('Title', 'Artist', 'Album', 180, '/path/to/song.mp3');
 
 // Get all songs
 const songs = await musicAPI.getAllSongs();
@@ -93,7 +95,7 @@ await musicAPI.addSongToPlaylist(song.id, playlist.id);
 const { ipcRenderer } = require('electron');
 
 // Add a song
-const song = await ipcRenderer.invoke('add-song', 'Title', 'Artist', 180, '/path/to/song.mp3');
+const song = await ipcRenderer.invoke('add-song', 'Title', 'Artist', 'Album', 180, '/path/to/song.mp3');
 
 // Get all songs
 const songs = await ipcRenderer.invoke('get-all-songs');
@@ -127,8 +129,14 @@ npm run clean
 ### Run All Tests
 
 ```bash
-# Mock API tests
+# Basic API tests
 cd tests
+node test_api.js
+
+# Enhanced API tests (comprehensive)
+node test_enhanced_api.js
+
+# Mock API tests
 node test_mock_api.js
 
 # C++ tests
@@ -141,12 +149,13 @@ g++ sqlTester.cpp -lsqlite3 -o sqlTester && ./sqlTester
 
 ### Test Coverage
 
-- Song management (add, get, search, delete)
-- Playlist management (create, add songs, get songs)
+- Song management (add, get, search, update, delete)
+- Playlist management (create, add songs, get songs, update, delete)
 - Database operations (stats, initialization)
 - Error handling and validation
 - JSON serialization
 - Mock API functionality
+- **All tests pass with 100% success rate**
 
 ## Security
 
@@ -154,13 +163,15 @@ g++ sqlTester.cpp -lsqlite3 -o sqlTester && ./sqlTester
 - Input validation and sanitization
 - File path validation
 - Proper error handling without information leakage
+- **Fixed**: SQLite memory corruption issue with SQLITE_TRANSIENT
 
 ## Performance
 
 - Efficient database connection management
 - Prepared statements for security and performance
 - Async/await for non-blocking operations
-- Optimized queries with proper indexing
+- **Added**: Database indexes for optimal query performance
+- **Added**: Input length validation for better performance
 
 ## Troubleshooting
 
