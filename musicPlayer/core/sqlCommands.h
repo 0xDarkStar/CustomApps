@@ -67,8 +67,8 @@ namespace sql {
             
             // Check for dangerous path patterns
             if (path.find("..") != std::string::npos ||
-                path.find("//") != std::string::npos ||
-                path.find("\\") != std::string::npos) {
+                path.find("//") != std::string::npos) {
+                // Allow backslashes for Windows paths
                 return false;
             }
             

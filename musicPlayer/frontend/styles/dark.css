@@ -1,0 +1,554 @@
+:root {
+    /* Main Background Color */
+    --mainColor: black;
+    --textColor: white;
+    --artistColor: #ffffffbf;
+    /* Colors for bars at the top and bottom */
+    --barsColor: #333333;
+    --barsBorder: #555555;
+    /* Background color when song is being viewed */
+    --songViewColor: #2a2a2a;
+    /* Colors for items in grids (playlists and songs) */
+    --gridItemColor: #2a2a2a;
+    --gridItemBorder: #333333;
+    /* Colors for buttons */
+    --buttonColor: #555555;
+    /* Colors for the modal */
+    --modalColor: #2a2a2a;
+    --modalBorder: #444444;
+    --modalContentColor: #3a3a3a;
+    --modalContentBorder: #555555;
+    --modalContentBorderFocus: #007aac;
+    --modalCreateButton: #007aac;
+    --modalCreateButtonHover: #005a9e;
+
+    /* Debug Colors */
+    --debugColor0: red;
+    --debugColor1: green;
+    --debugColor2: blue;
+}
+
+
+body {
+    background-color: var(--mainColor);
+    color: var(--textColor);
+    margin: 0;
+    height: 95vh;
+}
+
+/* Playlist Grid */
+.playlist-grid {
+    background-color: var(--mainColor);
+    padding: 20px;
+    width: calc(100% - 40px);
+    max-height: calc(100% - 80px);
+    height: auto;
+    position: fixed;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 140px);
+    grid-auto-rows: 190px;
+    gap: 15px;
+}
+
+.playlist {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: var(--gridItemColor);
+    border: var(--gridItemBorder);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.playlist > img { /* Fit images into the space without any squishing or stretching */
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.playlist p { /* Don't allow the text to go off its space */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
+}
+
+/* Control bar */
+.control-bar {
+    background-color: var(--barsColor);
+    height: 80px;
+    width: 100%;
+    position: fixed; /* Stick it to the screen */
+    bottom: 0; /* Stick it to the bottom */
+    display: flex; /* Allow the placement of things side by side */
+    transition: height 0.4s ease;
+}
+
+.control-bar.expanded {
+    height: 100vh;
+    flex-direction: column;
+}
+
+.expanded-content {
+    flex: 1;
+    background-color: var(--songViewColor);
+    display: none;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.control-bar.expanded .expanded-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-subsection { /* Place the video position slider above the others */
+    background-color: var(--barsColor);
+    border-top: 1px solid var(--barsBorder);
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+}
+
+/* Video Position Control */
+.video-pos-section {
+    width: 100%;
+    height: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.video-pos-slider {
+    height: 10px;
+}
+
+.bar-sections { /* Have the sections be side-by-side underneath the video position slider */
+    height: 70px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+}
+
+/* Controls Section */
+.bar-left {
+    width: 170px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Control Buttons */
+.control-btn {
+    background-color: var(--buttonColor);
+    color: var(--textColor);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.play-btn { /* Make this slightly larger */
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+}
+
+/* Style for the SVGs */
+.control-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+}
+
+.play-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Song Info Section */
+.bar-center {
+    flex: 1; /* Take all remaining space */
+    height: 100%;
+    align-content: center;
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.song-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--textColor);
+    text-align: center;
+}
+
+.song-artist {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--artistColor);
+    text-align: center;
+}
+
+/* Volume Control and Expansion Section */
+.bar-right {
+    width: 170px;
+    height: 100%;
+    align-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 0 5px 0 0;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.volume-slider {
+    width: 80px;
+    height: 4px;
+    background-color: var(--buttonColor);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.expand-btn {
+    background-color: var(--buttonColor);
+    color: var(--textColor);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume-control img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+}
+
+.expand-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(1);
+}
+
+/* Standard Top Bar */
+.top-bar {
+    background-color: var(--barsColor);
+    border: none;
+    width: 100vw;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    gap: 5px;
+    position: fixed;
+    top: 0;
+}
+
+.top-bar-btn {
+    background-color: var(--buttonColor);
+    color: var(--textColor);
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.top-bar-btn img {
+    width: 25px;
+    height: 25px;
+    filter: invert(1);
+    transform: rotate(180deg);
+}
+
+/* Playlist Image and songs grid */
+.main-playlist-body {
+    position: fixed;
+    top: 50px; /* Account for top bar */
+    bottom: 80px; /* Account for control bar */
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.playlist-cover {
+    background: linear-gradient(var(--barsColor), var(--mainColor));
+    padding: 2vw 50px 25px 50px;
+    display: flex;
+    align-items: end;
+    justify-content: left;
+    gap: 2vw;
+}
+
+.playlist-cover img {
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.playlist-cover-title {
+    font-size: 4vw;
+    font-weight: 900;
+}
+
+.playlist-controls {
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.playlist-controls-btn {
+    background-color: var(--buttonColor);
+    color: var(--textColor);
+    border: none;
+    border-radius: 25%;
+    width: auto;
+    height: 40px;
+    cursor: pointer;
+    align-content: center;
+    justify-content: center;
+}
+
+.songs-grid {
+    background-color: var(--mainColor);
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 55px;
+    gap: 15px;
+}
+
+.song-item {
+    background-color: var(--gridItemColor);
+    border: var(--gridItemBorder);
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.song-item-thumbnail {
+    /* background-color: var(--debugColor0); */
+    border: var(--gridItemBorder);
+    width: 40px;
+    height: 40px;
+}
+
+.song-item-thumbnail img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.song-item-details {
+    /* background-color: var(--debugColor1); */
+    padding-left: 10px;
+    flex: 1;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.song-item-title {
+    color: var(--textColor);
+    font-size: 17px;
+    font-weight: 800;
+    text-align: start;
+}
+
+.song-item-artist {
+    color: var(--artistColor);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.song-item-controls {
+    /* background-color: var(--debugColor2);· */
+    width: auto;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.song-item-length {
+    color: var(--artistColor);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+/* Menu */
+.song-menu {
+    position: relative;
+}
+
+.menu-btn {
+    background-color: var(--gridItemColor);
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.menu-btn:hover {
+    background-color: var(--buttonColor);
+}
+
+.menu-btn img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333333;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    min-width: 150px;
+    display: none;
+    z-index: 100;
+}
+
+.menu-dropdown.show {
+    display: block;
+}
+
+.menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--textColor);
+    font-size: 14px;
+}
+
+.menu-item:hover {
+    background-color: #444444;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background-color: var(--modalColor);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--modalBorder);
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h3 {
+    color: var(--textColor);
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--modalContentBorder);
+    border-radius: 4px;
+    background-color: var(--modalContentColor);
+    color: var(--textColor);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: var(--modalContentBorderFocus);
+    box-shadow: 0 0 5px rgba(0, 122, 204, 0.3);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.modal-btn.cancel {
+    background-color: var(--buttonColor);
+    color: var(--textColor);
+}
+
+.modal-btn.cancel:hover {
+    background-color: #666;
+}
+
+.modal-btn.create {
+    background-color: var(--modalCreateButton);
+    color: var(--textColor);
+}
+
+.modal-btn.create:hover {
+    background-color: var(--modalCreateButtonHover);
+}

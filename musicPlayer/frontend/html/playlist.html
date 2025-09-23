@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Music Player [Playlist] (WIP)</title>
+        <link href="../styles/dark.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="top-bar">
+            <!-- Back Button -->
+            <button class="top-bar-btn" onclick="window.location.href = 'index.html'">
+                <img src="../icons/play.svg">
+            </button>
+        </div>
+        <div class="main-playlist-body">
+            <!-- Playlist Image and Title -->
+            <div class="playlist-cover">
+                <img src="../../data/thumbnails/no_image.svg">
+                <div class="playlist-cover-title" id="playlistTitle">
+                    All Songs
+                </div>
+            </div>
+            <!-- Playlist Controls -->
+            <div class="playlist-controls">
+                <!-- Add Song -->
+                <button class="playlist-controls-btn">Add Song</button>
+                <!-- Remove Song -->
+                <button class="playlist-controls-btn">Remove Song</button>
+                 <!-- Shuffle -->
+                <button class="playlist-controls-btn">Shuffle</button>
+            </div>
+            <!-- All songs in the playlist -->
+            <div class="songs-grid">
+                <!-- Individual Song -->
+                <div class="song-item" id="song0">
+                    <div class="song-item-thumbnail">
+                        <img src="../../data/thumbnails/no_image.svg">
+                    </div>
+                    <div class="song-item-details">
+                        <div class="song-item-title" id="song0title">Title of Song</div>
+                        <div class="song-item-artist" id="song0artist">Artist of Song</div>
+                    </div>
+                    <div class="song-item-controls">
+                        <div class="song-menu">
+                            <button class="menu-btn" onclick="toggleMenu(this)">
+                                <img src="../icons/menu.svg">
+                            </button>
+                            <div class="menu-dropdown">
+                                <div class="menu-item" onclick="addNext('songId')">Play Next</div>
+                                <div class="menu-item" onclick="addToQueue('songId')">Add To Queue</div>
+                                <div class="menu-item" onclick="removeFromPlaylist('songId', 'playlistId')">Remove From This Playlist</div>
+                                <div class="menu-item" onclick="viewSongDetails('songId')">Open Song Settings</div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="song0select">
+                        <div class="song-item-length" id="song0length">
+                            3:30
+                        </div>
+                    </div>
+                </div>
+                <!-- Song 0 End -->
+            </div>
+        </div>
+        <!-- Control Bar -->
+        <div class="control-bar">
+            <div class="control-subsection">
+                <input type="range" id="video-position" class="video-pos-slider" min="0" max="330" value="165">
+                <div class="bar-sections">
+                    <!-- Control Buttons -->
+                    <div class="bar-left">
+                        <button class="control-btn">
+                            <img src="../icons/previous.svg" alt="Prev">
+                        </button>
+                        <button class="control-btn play-btn">
+                            <img src="../icons/play.svg" alt="Play">
+                        </button>
+                        <button class="control-btn">
+                            <img src="../icons/skip.svg" alt="Next">
+                        </button>
+                    </div>
+                    <!-- Song Info -->
+                    <div class="bar-center">
+                        <div class="song-info">
+                            <div class="song-title">TITLE</div>
+                            <div class="song-artist">ARTIST</div>
+                        </div>
+                    </div>
+                    <!-- Volume and Expansion Controls -->
+                    <div class="bar-right">
+                        <div class="volume-control">
+                            <img src="../icons/volume.svg">
+                            <input type="range" id="volume" class="volume-slider" min="0" max="100" value="50">
+                        </div>
+                        <button class="expand-btn">
+                            <img src="../icons/dropdown.svg" alt="Expand">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Custom Modals -->
+        <div id="playlistModal" class="modal">
+            <div class="modal-content">
+                <h3>Add New Playlist</h3>
+                <input type="text" id="playlistNameInput" placeholder="Enter playlist name..." maxlength="50">
+                <div class="modal-buttons">
+                    <button id="playlistCancelBtn" class="modal-btn cancel">Cancel</button>
+                    <button id="playlistCreateBtn" class="modal-btn create">Create</button>
+                </div>
+            </div>
+        </div>
+        <div id="songModal" class="modal">
+            <div class="modal-content">
+                <h3>Add New Song</h3>
+                <p>Select the song file.</p>
+                <input type="file" id="songFileInput">
+                <div class="modal-buttons">
+                    <button id="songCancelBtn" class="modal-btn cancel">Cancel</button>
+                    <button id="songCreateBtn" class="modal-btn create">Create</button>
+                </div>
+            </div>
+        </div>
+        <script src="../javascript/shared.js"></script>
+        <script src="../javascript/playlist.js"></script>
+    </body>
+</html>
+

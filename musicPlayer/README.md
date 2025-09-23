@@ -18,3 +18,13 @@ All file formats that I know work with it are:
 ## Installation
 ### Do note, I made this on a Debian-based OS. I have not tested on other OS's.
 Instructions...
+
+
+## Features:
+- [x] Create and remove playlists from the UI
+- [x] Have custom images for playlists and songs
+- [ ] Play a video
+- [ ] See the subtitles when they are meant to appear
+- [ ] See a queue of the upcoming songs
+- [ ] Show what songs are in a playlist
+- [ ] Add and remove songs from the UI
