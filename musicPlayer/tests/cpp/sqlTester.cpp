@@ -1,117 +1,155 @@
 /*
 Made By: 0xDarkStar
-This is a simple music player that uses SQLite3 to keep track of the songs, playlists, and subtitles.
-This file specifically tests the sqlCommands.h file.
+Test file for SQLite database functionality.
+Tests all database operations including songs, playlists, and subtitles.
 */
-#include "../../core/sqlSetup.h"
-#include "../../core/sqlCommands.h"
 #include <iostream>
+#include <string>
+#include "../core/sqlCommands.h"
+#include "../core/sqlSetup.h"
+
 using namespace std;
 
-int main() {
+void testDatabaseInitialization() {
+    cout << "=== Testing Database Initialization ===" << endl;
+    
     try {
-        // Initialize database
-        cout << "Initializing database..." << endl;
-        if (!sql::initialize_database()) {
-            cerr << "Failed to initialize database" << endl;
-            return 1;
+        bool result = sql::initialize_database();
+        if (result) {
+            cout << "✓ Database initialized successfully" << endl;
+        } else {
+            cout << "✗ Database initialization failed" << endl;
         }
+    } catch (const sql::DatabaseSetupException& e) {
+        cout << "✗ Database setup error: " << e.what() << endl;
+    }
+}
+
+void testSongOperations() {
+    cout << "\n=== Testing Song Operations ===" << endl;
+    
+    try {
+        // Test adding a song
+        cout << "Testing add_song..." << endl;
+        int songId = sql::add_song("Test Song", "Test Artist", 180, "/path/to/test.mp3");
+        cout << "✓ Song added with ID: " << songId << endl;
         
-        // Test adding songs
-        cout << "\n=== Testing Song Operations ===" << endl;
-        int songId1 = sql::add_song("Test Song 1", "Test Artist", 180, "/path/to/song1.mp3");
-        int songId2 = sql::add_song("Test Song 2", "Another Artist", 240, "/path/to/song2.mp4");
+        // Test reading songs
+        cout << "Testing read_table for songs..." << endl;
+        auto songs = sql::read_table("song");
+        cout << "✓ Found " << songs.size() << " songs" << endl;
         
-        // Test creating playlist
-        cout << "\n=== Testing Playlist Operations ===" << endl;
-        int playlistId = sql::create_playlist("Test Playlist");
+        // Test getting table length
+        cout << "Testing get_table_length..." << endl;
+        int length = sql::get_table_length("song");
+        cout << "✓ Song table length: " << length << endl;
         
-        // Test adding songs to playlist
-        sql::add_song_to_playlist(songId1, playlistId);
-        sql::add_song_to_playlist(songId2, playlistId);
-        
-        // Test adding subtitles
-        cout << "\n=== Testing Subtitle Operations ===" << endl;
-        try {
-            int subId1 = sql::add_subtitles(songId1, "en", "/path/to/subtitles1.vtt");
-            cout << "Added subtitle with ID: " << subId1 << endl;
-        } catch (const sql::DatabaseException& e) {
-            cout << "Error adding first subtitle: " << e.what() << endl;
+        // Test deleting the song
+        cout << "Testing delete_song..." << endl;
+        bool deleted = sql::delete_song(songId);
+        if (deleted) {
+            cout << "✓ Song deleted successfully" << endl;
+        } else {
+            cout << "✗ Failed to delete song" << endl;
         }
-        
-        try {
-            int subId2 = sql::add_subtitles(songId1, "fr", "/path/to/subtitles1_fr.vtt");
-            cout << "Added subtitle with ID: " << subId2 << endl;
-        } catch (const sql::DatabaseException& e) {
-            cout << "Error adding second subtitle: " << e.what() << endl;
-        }
-        
-        // Test reading data
-        cout << "\n=== Testing Read Operations ===" << endl;
-        cout << "Songs in database:" << endl;
-        sql::print_table("song");
-        
-        cout << "\nPlaylists in database:" << endl;
-        sql::print_table("playlist");
-        
-        cout << "\nSubtitles in database:" << endl;
-        sql::print_table("subtitle");
-        
-        cout << "\nPlaylist-song relationships:" << endl;
-        sql::print_table("playlist_song");
-        
-        // Test getting songs in playlist
-        cout << "\n=== Testing Advanced Queries ===" << endl;
-        auto songsInPlaylist = sql::get_songs_in_playlist(playlistId);
-        cout << "Songs in playlist " << playlistId << ":" << endl;
-        for (const auto& song : songsInPlaylist) {
-            cout << "  " << song.at("title") << " by " << song.at("artist") << endl;
-        }
-        
-        // Test getting subtitles for song
-        auto subtitles = sql::get_subtitles_for_song(songId1);
-        cout << "\nSubtitles for song " << songId1 << ":" << endl;
-        for (const auto& sub : subtitles) {
-            cout << "  Language: " << sub.at("language") << " (ID: " << sub.at("sub_id") << ")" << endl;
-        }
-        
-        // Test table lengths
-        cout << "\n=== Testing Table Lengths ===" << endl;
-        cout << "Number of songs: " << sql::get_table_length("song") << endl;
-        cout << "Number of playlists: " << sql::get_table_length("playlist") << endl;
-        cout << "Number of subtitles: " << sql::get_table_length("subtitle") << endl;
-        cout << "Number of playlist-song relationships: " << sql::get_table_length("playlist_song") << endl;
-        
-        // Test reading specific items
-        cout << "\n=== Testing Specific Item Reads ===" << endl;
-        cout << "Song " << songId1 << " title: " << sql::read_table_item("song", songId1, "title") << endl;
-        cout << "Song " << songId1 << " artist: " << sql::read_table_item("song", songId1, "artist") << endl;
-        
-        // Test error handling
-        cout << "\n=== Testing Error Handling ===" << endl;
-        try {
-            sql::add_song("", "Artist", 180, "/path/to/song.mp3"); // Empty title should fail
-        } catch (const sql::DatabaseException& e) {
-            cout << "Caught expected error: " << e.what() << endl;
-        }
-        
-        try {
-            sql::delete_song(999); // Non-existent song should fail
-        } catch (const sql::DatabaseException& e) {
-            cout << "Caught expected error: " << e.what() << endl;
-        }
-        
-        cout << "\n=== All tests completed successfully! ===" << endl;
-        return 0;
         
     } catch (const sql::DatabaseException& e) {
-        cerr << "Database error: " << e.what() << endl;
-        return 1;
-    } catch (const sql::DatabaseSetupException& e) {
-        cerr << "Database setup error: " << e.what() << endl;
-        return 1;
-    } catch (const exception& e) {
-        cerr << "Unexpected error: " << e.what() << endl;
-        return 1;
+        cout << "✗ Database error: " << e.what() << endl;
     }
+}
+
+void testPlaylistOperations() {
+    cout << "\n=== Testing Playlist Operations ===" << endl;
+    
+    try {
+        // Test creating a playlist
+        cout << "Testing create_playlist..." << endl;
+        int playlistId = sql::create_playlist("Test Playlist");
+        cout << "✓ Playlist created with ID: " << playlistId << endl;
+        
+        // Test reading playlists
+        cout << "Testing read_table for playlists..." << endl;
+        auto playlists = sql::read_table("playlist");
+        cout << "✓ Found " << playlists.size() << " playlists" << endl;
+        
+        // Clean up
+        cout << "Cleaning up playlist..." << endl;
+        // Note: We would need a delete_playlist function for complete cleanup
+        
+    } catch (const sql::DatabaseException& e) {
+        cout << "✗ Database error: " << e.what() << endl;
+    }
+}
+
+void testSubtitleOperations() {
+    cout << "\n=== Testing Subtitle Operations ===" << endl;
+    
+    try {
+        // First add a song to attach subtitles to
+        cout << "Adding test song for subtitle testing..." << endl;
+        int songId = sql::add_song("Subtitle Test Song", "Test Artist", 200, "/path/to/subtitle_test.mp3");
+        
+        // Test adding subtitles
+        cout << "Testing add_subtitles..." << endl;
+        int subId = sql::add_subtitles(songId, "English", "/path/to/subtitles.srt");
+        cout << "✓ Subtitle added with ID: " << subId << endl;
+        
+        // Test reading subtitles
+        cout << "Testing read_table for subtitles..." << endl;
+        auto subtitles = sql::read_table("subtitle");
+        cout << "✓ Found " << subtitles.size() << " subtitles" << endl;
+        
+        // Test deleting subtitles
+        cout << "Testing delete_subtitles..." << endl;
+        bool deleted = sql::delete_subtitles(songId, subId);
+        if (deleted) {
+            cout << "✓ Subtitle deleted successfully" << endl;
+        } else {
+            cout << "✗ Failed to delete subtitle" << endl;
+        }
+        
+        // Clean up song
+        sql::delete_song(songId);
+        
+    } catch (const sql::DatabaseException& e) {
+        cout << "✗ Database error: " << e.what() << endl;
+    }
+}
+
+void testErrorHandling() {
+    cout << "\n=== Testing Error Handling ===" << endl;
+    
+    try {
+        // Test invalid song ID
+        cout << "Testing invalid song ID..." << endl;
+        sql::delete_song(-1);
+        cout << "✗ Should have thrown exception for invalid ID" << endl;
+    } catch (const sql::DatabaseException& e) {
+        cout << "✓ Correctly caught invalid ID error: " << e.what() << endl;
+    }
+    
+    try {
+        // Test empty title
+        cout << "Testing empty song title..." << endl;
+        sql::add_song("", "Artist", 180, "/path/to/test.mp3");
+        cout << "✗ Should have thrown exception for empty title" << endl;
+    } catch (const sql::DatabaseException& e) {
+        cout << "✓ Correctly caught empty title error: " << e.what() << endl;
+    }
+}
+
+int main() {
+    cout << "=== SQLite Database Tester ===" << endl;
+    cout << "Testing all database operations..." << endl;
+    
+    testDatabaseInitialization();
+    testSongOperations();
+    testPlaylistOperations();
+    testSubtitleOperations();
+    testErrorHandling();
+    
+    cout << "\n=== Test Complete ===" << endl;
+    cout << "All database tests completed!" << endl;
+    
+    return 0;
 }

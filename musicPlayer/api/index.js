@@ -32,10 +32,10 @@ class MusicAPI {
     }
 
     // Song Management
-    async addSong(title, artist, length, path) {
+    async addSong(title, artist, album, length, path) {
         this._checkInitialized();
         try {
-            return musicApi.addSong(title, artist, length, path);
+            return musicApi.addSong(title, artist, album, length, path);
         } catch (error) {
             throw new Error(`Failed to add song: ${error.message}`);
         }
@@ -47,6 +47,24 @@ class MusicAPI {
             return musicApi.deleteSong(songId);
         } catch (error) {
             throw new Error(`Failed to delete song: ${error.message}`);
+        }
+    }
+
+    async updateSong(songId, title, artist, album) {
+        this._checkInitialized();
+        try {
+            return musicApi.updateSong(songId, title, artist, album);
+        } catch (error) {
+            throw new Error(`Failed to update song: ${error.message}`);
+        }
+    }
+
+    async getSong(songId) {
+        this._checkInitialized();
+        try {
+            return musicApi.getSong(songId);
+        } catch (error) {
+            throw new Error(`Failed to get song: ${error.message}`);
         }
     }
 
@@ -78,6 +96,33 @@ class MusicAPI {
         }
     }
 
+    async deletePlaylist(playlistId) {
+        this._checkInitialized();
+        try {
+            return musicApi.deletePlaylist(playlistId);
+        } catch (error) {
+            throw new Error(`Failed to delete playlist: ${error.message}`);
+        }
+    }
+
+    async updatePlaylist(playlistId, title) {
+        this._checkInitialized();
+        try {
+            return musicApi.updatePlaylist(playlistId, title);
+        } catch (error) {
+            throw new Error(`Failed to update playlist: ${error.message}`);
+        }
+    }
+
+    async getPlaylist(playlistId) {
+        this._checkInitialized();
+        try {
+            return musicApi.getPlaylist(playlistId);
+        } catch (error) {
+            throw new Error(`Failed to get playlist: ${error.message}`);
+        }
+    }
+
     async getAllPlaylists() {
         this._checkInitialized();
         try {
@@ -93,6 +138,15 @@ class MusicAPI {
             return musicApi.addSongToPlaylist(songId, playlistId);
         } catch (error) {
             throw new Error(`Failed to add song to playlist: ${error.message}`);
+        }
+    }
+
+    async removeSongFromPlaylist(songId, playlistId) {
+        this._checkInitialized();
+        try {
+            return musicApi.removeSongFromPlaylist(songId, playlistId);
+        } catch (error) {
+            throw new Error(`Failed to remove song from playlist: ${error.message}`);
         }
     }
 

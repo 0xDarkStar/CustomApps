@@ -29,19 +29,23 @@ namespace MusicAPI {
         int id;
         std::string title;
         std::string artist;
+        std::string album;
         int length; // in seconds
         std::string path;
         
         Song() : id(0), length(0) {}
-        Song(int id, const std::string& title, const std::string& artist, int length, const std::string& path)
-            : id(id), title(title), artist(artist), length(length), path(path) {}
+        Song(int id, const std::string& title, const std::string& artist, const std::string& album, int length, const std::string& path)
+            : id(id), title(title), artist(artist), album(album), length(length), path(path) {}
     };
     
     // Add a new song to the database
-    Song addSong(const std::string& title, const std::string& artist, int length, const std::string& path);
+    Song addSong(const std::string& title, const std::string& artist, const std::string& album, int length, const std::string& path);
     
     // Delete a song from the database
     bool deleteSong(int songId);
+    
+    // Update song data (title, artist, album)
+    Song updateSong(int songId, const std::string& title, const std::string& artist, const std::string& album);
     
     // Get all songs
     std::vector<Song> getAllSongs();
@@ -49,7 +53,7 @@ namespace MusicAPI {
     // Get a specific song by ID
     Song getSong(int songId);
     
-    // Search songs by title or artist
+    // Search songs by title, artist, or album
     std::vector<Song> searchSongs(const std::string& query);
     
     // Playlist Management API
@@ -69,6 +73,9 @@ namespace MusicAPI {
     
     // Delete a playlist
     bool deletePlaylist(int playlistId);
+    
+    // Update playlist title
+    Playlist updatePlaylist(int playlistId, const std::string& title);
     
     // Get all playlists
     std::vector<Playlist> getAllPlaylists();

@@ -63,15 +63,15 @@ namespace MusicAPI {
     
     // Song Management API Implementation
     
-    Song addSong(const std::string& title, const std::string& artist, int length, const std::string& path) {
+    Song addSong(const std::string& title, const std::string& artist, const std::string& album, int length, const std::string& path) {
         if (!g_initialized) {
             throw APIException("API not initialized. Call initialize() first.");
         }
         
         try {
             clearLastError();
-            int id = sql::add_song(title, artist, length, path);
-            return Song(id, title, artist, length, path);
+            int id = sql::add_song(title, artist, album, length, path);
+            return Song(id, title, artist, album, length, path);
             
         } catch (const sql::DatabaseException& e) {
             setLastError("Failed to add song: " + std::string(e.what()));
@@ -94,6 +94,54 @@ namespace MusicAPI {
         }
     }
     
+    Song updateSong(int songId, const std::string& title, const std::string& artist, const std::string& album) {
+        if (!g_initialized) {
+            throw APIException("API not initialized. Call initialize() first.");
+        }
+        
+        try {
+            clearLastError();
+            auto songData = sql::update_song(songId, title, artist, album);
+            
+            return Song(
+                std::stoi(songData.at("id")),
+                songData.at("title"),
+                songData.at("artist"),
+                songData.at("album"),
+                std::stoi(songData.at("length")),
+                songData.at("path")
+            );
+            
+        } catch (const sql::DatabaseException& e) {
+            setLastError("Failed to update song: " + std::string(e.what()));
+            throw APIException("Failed to update song: " + std::string(e.what()));
+        }
+    }
+    
+    Song getSong(int songId) {
+        if (!g_initialized) {
+            throw APIException("API not initialized. Call initialize() first.");
+        }
+        
+        try {
+            clearLastError();
+            auto songData = sql::get_song(songId);
+            
+            return Song(
+                std::stoi(songData.at("id")),
+                songData.at("title"),
+                songData.at("artist"),
+                songData.at("album"),
+                std::stoi(songData.at("length")),
+                songData.at("path")
+            );
+            
+        } catch (const sql::DatabaseException& e) {
+            setLastError("Failed to get song: " + std::string(e.what()));
+            throw APIException("Failed to get song: " + std::string(e.what()));
+        }
+    }
+    
     std::vector<Song> getAllSongs() {
         if (!g_initialized) {
             throw APIException("API not initialized. Call initialize() first.");
@@ -109,6 +157,7 @@ namespace MusicAPI {
                 song.id = std::stoi(row.at("id"));
                 song.title = row.at("title");
                 song.artist = row.at("artist");
+                song.album = row.at("album");
                 song.length = std::stoi(row.at("length"));
                 song.path = row.at("path");
                 songs.push_back(song);
@@ -119,35 +168,6 @@ namespace MusicAPI {
         } catch (const sql::DatabaseException& e) {
             setLastError("Failed to get songs: " + std::string(e.what()));
             throw APIException("Failed to get songs: " + std::string(e.what()));
-        }
-    }
-    
-    Song getSong(int songId) {
-        if (!g_initialized) {
-            throw APIException("API not initialized. Call initialize() first.");
-        }
-        
-        try {
-            clearLastError();
-            auto results = sql::read_table("song");
-            
-            for (const auto& row : results) {
-                if (std::stoi(row.at("id")) == songId) {
-                    return Song(
-                        std::stoi(row.at("id")),
-                        row.at("title"),
-                        row.at("artist"),
-                        std::stoi(row.at("length")),
-                        row.at("path")
-                    );
-                }
-            }
-            
-            throw APIException("Song with ID " + std::to_string(songId) + " not found");
-            
-        } catch (const sql::DatabaseException& e) {
-            setLastError("Failed to get song: " + std::string(e.what()));
-            throw APIException("Failed to get song: " + std::string(e.what()));
         }
     }
     
@@ -209,13 +229,55 @@ namespace MusicAPI {
         
         try {
             clearLastError();
-            // Note: This would need to be implemented in sqlCommands.h
-            // For now, we'll throw an exception
-            throw APIException("Delete playlist not yet implemented");
+            return sql::delete_playlist(playlistId);
             
         } catch (const sql::DatabaseException& e) {
             setLastError("Failed to delete playlist: " + std::string(e.what()));
             throw APIException("Failed to delete playlist: " + std::string(e.what()));
+        }
+    }
+    
+    Playlist updatePlaylist(int playlistId, const std::string& title) {
+        if (!g_initialized) {
+            throw APIException("API not initialized. Call initialize() first.");
+        }
+        
+        try {
+            clearLastError();
+            auto playlistData = sql::update_playlist(playlistId, title);
+            
+            return Playlist(
+                std::stoi(playlistData.at("id")),
+                playlistData.at("title"),
+                std::stoi(playlistData.at("length")),
+                std::stoi(playlistData.at("num_songs"))
+            );
+            
+        } catch (const sql::DatabaseException& e) {
+            setLastError("Failed to update playlist: " + std::string(e.what()));
+            throw APIException("Failed to update playlist: " + std::string(e.what()));
+        }
+    }
+    
+    Playlist getPlaylist(int playlistId) {
+        if (!g_initialized) {
+            throw APIException("API not initialized. Call initialize() first.");
+        }
+        
+        try {
+            clearLastError();
+            auto playlistData = sql::get_playlist(playlistId);
+            
+            return Playlist(
+                std::stoi(playlistData.at("id")),
+                playlistData.at("title"),
+                std::stoi(playlistData.at("length")),
+                std::stoi(playlistData.at("num_songs"))
+            );
+            
+        } catch (const sql::DatabaseException& e) {
+            setLastError("Failed to get playlist: " + std::string(e.what()));
+            throw APIException("Failed to get playlist: " + std::string(e.what()));
         }
     }
     
@@ -246,34 +308,6 @@ namespace MusicAPI {
         }
     }
     
-    Playlist getPlaylist(int playlistId) {
-        if (!g_initialized) {
-            throw APIException("API not initialized. Call initialize() first.");
-        }
-        
-        try {
-            clearLastError();
-            auto results = sql::read_table("playlist");
-            
-            for (const auto& row : results) {
-                if (std::stoi(row.at("id")) == playlistId) {
-                    return Playlist(
-                        std::stoi(row.at("id")),
-                        row.at("title"),
-                        std::stoi(row.at("length")),
-                        std::stoi(row.at("num_songs"))
-                    );
-                }
-            }
-            
-            throw APIException("Playlist with ID " + std::to_string(playlistId) + " not found");
-            
-        } catch (const sql::DatabaseException& e) {
-            setLastError("Failed to get playlist: " + std::string(e.what()));
-            throw APIException("Failed to get playlist: " + std::string(e.what()));
-        }
-    }
-    
     bool addSongToPlaylist(int songId, int playlistId) {
         if (!g_initialized) {
             throw APIException("API not initialized. Call initialize() first.");
@@ -296,9 +330,7 @@ namespace MusicAPI {
         
         try {
             clearLastError();
-            // Note: This would need to be implemented in sqlCommands.h
-            // For now, we'll throw an exception
-            throw APIException("Remove song from playlist not yet implemented");
+            return sql::remove_song_from_playlist(songId, playlistId);
             
         } catch (const sql::DatabaseException& e) {
             setLastError("Failed to remove song from playlist: " + std::string(e.what()));
@@ -321,6 +353,7 @@ namespace MusicAPI {
                 song.id = std::stoi(row.at("id"));
                 song.title = row.at("title");
                 song.artist = row.at("artist");
+                song.album = row.at("album");
                 song.length = std::stoi(row.at("length"));
                 song.path = row.at("path");
                 songs.push_back(song);
@@ -472,6 +505,7 @@ namespace MusicAPI {
                 Song song = addSong(
                     data.at("title"),
                     data.at("artist"),
+                    data.at("album"),
                     std::stoi(data.at("length")),
                     data.at("path")
                 );

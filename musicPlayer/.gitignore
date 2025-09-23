@@ -1,0 +1,26 @@
+# Music Player Project .gitignore
+
+# Build artifacts
+api/build/
+build/
+*.o
+*.exe
+sqlTester
+tests/cpp/sqlTester
+tests/cpp/standaloneApiTest
+
+# Node.js
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Database files
+data/*.db
+tests/data/*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

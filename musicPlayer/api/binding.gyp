@@ -4,10 +4,12 @@
       "target_name": "music_api",
       "sources": [
         "node_music_api.cpp",
-        "musicAPI.cpp"
+        "musicAPI.cpp",
+        "../core/sqlSetup.cpp"
       ],
       "include_dirs": [
-        "<!(node -e \"require('nan')\")"
+        "<!(node -e \"require('nan')\")",
+        "../core"
       ],
       "libraries": [
         "-lsqlite3"
