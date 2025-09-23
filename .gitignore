@@ -12,6 +12,7 @@ musicPlayer/frontend/node_modules/
 
 # Build artifacts
 musicPlayer/build/
+musicPlayer/api/build/
 
 # OS generated files
 .DS_Store
