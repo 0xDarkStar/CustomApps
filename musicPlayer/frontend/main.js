@@ -1,5 +1,4 @@
 const {app, BrowserWindow, Menu, ipcMain} = require('electron')
-// Commented out until NODE-MODULE-VERSIONs match
 const musicAPI = require('./../api/index');
 
 const createWindow = () => {

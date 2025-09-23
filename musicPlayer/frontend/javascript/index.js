@@ -37,8 +37,23 @@ function makePlaylistClickable(playlistElement, playlistName) {
     })
 }
 
+async function loadPlaylists() {
+    const playlists = await window.musicAPI.getAllPlaylists();
+
+    playlists.forEach(playlist => {
+        const name = playlist.title;
+        const grid = document.getElementById('playlistGrid');
+        const newPlaylist = document.createElement('div');
+        newPlaylist.className = 'playlist';
+        newPlaylist.innerHTML = `<p>${name}</p>`;
+        
+        grid.appendChild(newPlaylist); 
+    });
+}
+
 // Wait for DOM to be fully loaded before adding event listeners
 document.addEventListener('DOMContentLoaded', function() {
+    loadPlaylists();
     makeAllPlaylistsCliclable();
     if (window.electronAPI) {
         window.electronAPI.onRemovePlaylist((event, playlistId) => {

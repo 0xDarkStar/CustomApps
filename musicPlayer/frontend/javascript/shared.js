@@ -58,13 +58,12 @@ async function createPlaylist() {
     
     if (!name) return;
     console.log(await window.musicAPI.createPlaylist(name));
-    
     const grid = document.getElementById('playlistGrid');
     const newPlaylist = document.createElement('div');
     newPlaylist.className = 'playlist';
     newPlaylist.innerHTML = `<p>${name}</p>`;
     
-    grid.appendChild(newPlaylist);
+    grid.appendChild(newPlaylist); 
     hidePlaylistModal();
 }
 
