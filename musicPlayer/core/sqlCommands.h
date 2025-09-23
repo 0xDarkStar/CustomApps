@@ -20,7 +20,7 @@ Said functions are:
 #include <algorithm>
 
 namespace sql {
-    const std::string dbpath = "../data/musicPlayer.db";
+    const std::string dbpath = "./data/musicPlayer.db";
     
     // Custom exception class for database errors
     class DatabaseException : public std::runtime_error {

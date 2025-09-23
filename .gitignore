@@ -24,7 +24,9 @@ Thumbs.db
 *.log
 
 # Misc
-musicPlayer/data/*.db
+musicPlayer/data/musicPlayer.db
+musicPlayer/api/package-lock.json
+musicPlayer/frontend/package-lock.json
 
 # Test scripts
 # musicPlayer/run_tests.sh
