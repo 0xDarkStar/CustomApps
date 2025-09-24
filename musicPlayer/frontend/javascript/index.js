@@ -1,14 +1,16 @@
 
 
 async function removePlaylist(playlistId) {
+    console.log(`Chosen Playlist: ${playlistId}`);
     if (playlistId === "All Songs") { // They need to see all their songs
         return;
     }
     // Find the playlist element by its text content (since we're using that as ID for now)
     const playlists = document.querySelectorAll('.playlist');
     for (let playlist of playlists) {
-        const playlistName = playlist.querySelector('p').textContent.trim();
-        if (playlistName === playlistId) {
+        const currPlaylistID = playlist.id;
+        console.log(`Current Playlist ID: ${currPlaylistID}`);
+        if (currPlaylistID === playlistId) {
             console.log(await window.musicAPI.deletePlaylist(playlistId));
             playlist.remove();
             break;
@@ -16,24 +18,24 @@ async function removePlaylist(playlistId) {
     }
 }
 
-function makeAllPlaylistsCliclable() {
+function makeAllPlaylistsClickable() {
     const playlists = document.querySelectorAll('.playlist');
     playlists.forEach(playlist => {
-        const nameElement = playlist.querySelector('p');
+        playlistId = playlist.id;
+        nameElement = playlist.querySelector('p');
         if (nameElement) {
-            const playlistName = nameElement.textContent;
-            makePlaylistClickable(playlist, playlistName)
+            playlistName = nameElement.textContent;
+            makePlaylistClickable(playlist, playlistName, playlistId)
         }
     })
 }
 
-function makePlaylistClickable(playlistElement, playlistName) {
+function makePlaylistClickable(playlistElement, playlistName, playlistId) {
     playlistElement.addEventListener('click', function() {
-        // Get the playlist ID
-        const playlistID = Date.now();
-
         // Go to the page with the ID and name
-        window.location.href = `playlist.html?name=${encodeURIComponent(playlistName)}&id=${playlistID}`;
+        sessionStorage.setItem("name", playlistName);
+        sessionStorage.setItem("id", playlistId);
+        window.location.href = `playlist.html`;
     })
 }
 
@@ -45,19 +47,23 @@ async function loadPlaylists() {
         const grid = document.getElementById('playlistGrid');
         const newPlaylist = document.createElement('div');
         newPlaylist.className = 'playlist';
-        newPlaylist.innerHTML = `<p>${name}</p>`;
+        newPlaylist.id = playlist.id;
+        newPlaylist.innerHTML = `<img src="../../data/thumbnails/no_image.svg">\n<p>${name}</p>`;
         
         grid.appendChild(newPlaylist); 
     });
+    
+    // Make all playlists clickable after they're loaded
+    makeAllPlaylistsClickable();
 }
 
 // Wait for DOM to be fully loaded before adding event listeners
 document.addEventListener('DOMContentLoaded', function() {
     loadPlaylists();
-    makeAllPlaylistsCliclable();
     if (window.electronAPI) {
         window.electronAPI.onRemovePlaylist((event, playlistId) => {
             removePlaylist(playlistId);
         });
     }
+    document.getElementById('songCreateBtn').addEventListener('click', addSong);
 });

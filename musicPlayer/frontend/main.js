@@ -6,7 +6,7 @@ const createWindow = () => {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true,
+            nodeIntegration: false,
             contextIsolation: true,
             preload: require('path').join(__dirname, 'javascript/preload.js')
         }
@@ -83,7 +83,7 @@ const createWindow = () => {
                     const playlist = element && element.closest('.playlist');
                     
                     if (playlist) {
-                        return { type: 'playlist', playlistId: playlist.id || playlist.textContent.trim() };
+                        return { type: 'playlist', playlistId: playlist.id };
                     } else if (playlistGrid) {
                         return { type: 'grid' };
                     } else {

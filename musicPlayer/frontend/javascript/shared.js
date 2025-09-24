@@ -33,6 +33,19 @@ async function addSong() {
     // Read the file and get any data we can
     // May need to ask user for song info (title, artist, etc.)
     console.log(await window.musicAPI.addSong("Generic Title", "Generic Artist", "Generic Album", 355, "~/generic/path/to/file.mp3"));
+    hideSongModal();
+}
+
+async function addSong(playlistID) {
+    console.log(`Add Song was called with the playlist ID: ${playlistID}`);
+    const songFile = document.getElementById('songFileInput');
+    // Read the file and get any data we can
+    // May need to ask user for song info (title, artist, etc.)
+    const response = await window.musicAPI.addSong("Generic Title", "Generic Artist", "Generic Album", 355, "~/generic/path/to/file.mp3");
+    console.log(response);
+    console.log(await window.musicAPI.addSongToPlaylist(response.id, playlistID));
+    loadAllSongs(playlistID);
+    hideSongModal();
 }
 
 /* Playlist Modal */
@@ -57,13 +70,21 @@ async function createPlaylist() {
     const name = input.value.trim();
     
     if (!name) return;
-    console.log(await window.musicAPI.createPlaylist(name));
+    const response = await window.musicAPI.createPlaylist(name);
+    console.log(response);
     const grid = document.getElementById('playlistGrid');
     const newPlaylist = document.createElement('div');
     newPlaylist.className = 'playlist';
-    newPlaylist.innerHTML = `<p>${name}</p>`;
+    newPlaylist.id = response.id;
+    newPlaylist.innerHTML = `<img src="../../data/thumbnails/no_image.svg">\n<p>${name}</p>`;
     
-    grid.appendChild(newPlaylist); 
+    grid.appendChild(newPlaylist);
+    newPlaylist.addEventListener('click', function() {
+        // Go to the page with the ID and name using sessionStorage
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("id", response.id);
+        window.location.href = `playlist.html`;
+    })
     hidePlaylistModal();
 }
 
@@ -90,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('playlistCreateBtn').addEventListener('click', createPlaylist);
     // Song Modal Buttons
     document.getElementById('songCancelBtn').addEventListener('click', hideSongModal);
-    document.getElementById('songCreateBtn').addEventListener('click', addSong);
     
     // Close modal when clicking outside of it
     document.getElementById('playlistModal').addEventListener('click', function(e) {

@@ -22,42 +22,14 @@
             <!-- Playlist Controls -->
             <div class="playlist-controls">
                 <!-- Add Song -->
-                <button class="playlist-controls-btn">Add Song</button>
+                <button class="playlist-controls-btn" onclick="showSongModal()">Add Song</button>
                 <!-- Remove Song -->
                 <button class="playlist-controls-btn">Remove Song</button>
                  <!-- Shuffle -->
                 <button class="playlist-controls-btn">Shuffle</button>
             </div>
             <!-- All songs in the playlist -->
-            <div class="songs-grid">
-                <!-- Individual Song -->
-                <div class="song-item" id="song0">
-                    <div class="song-item-thumbnail">
-                        <img src="../../data/thumbnails/no_image.svg">
-                    </div>
-                    <div class="song-item-details">
-                        <div class="song-item-title" id="song0title">Title of Song</div>
-                        <div class="song-item-artist" id="song0artist">Artist of Song</div>
-                    </div>
-                    <div class="song-item-controls">
-                        <div class="song-menu">
-                            <button class="menu-btn" onclick="toggleMenu(this)">
-                                <img src="../icons/menu.svg">
-                            </button>
-                            <div class="menu-dropdown">
-                                <div class="menu-item" onclick="addNext('songId')">Play Next</div>
-                                <div class="menu-item" onclick="addToQueue('songId')">Add To Queue</div>
-                                <div class="menu-item" onclick="removeFromPlaylist('songId', 'playlistId')">Remove From This Playlist</div>
-                                <div class="menu-item" onclick="viewSongDetails('songId')">Open Song Settings</div>
-                            </div>
-                        </div>
-                        <input type="checkbox" id="song0select">
-                        <div class="song-item-length" id="song0length">
-                            3:30
-                        </div>
-                    </div>
-                </div>
-                <!-- Song 0 End -->
+            <div class="songs-grid" id="songsGrid">
             </div>
         </div>
         <!-- Control Bar -->
@@ -112,10 +84,10 @@
             <div class="modal-content">
                 <h3>Add New Song</h3>
                 <p>Select the song file.</p>
-                <input type="file" id="songFileInput">
+                <input type="file" accept=".mp3,.mp4,.webm" id="songFileInput">
                 <div class="modal-buttons">
                     <button id="songCancelBtn" class="modal-btn cancel">Cancel</button>
-                    <button id="songCreateBtn" class="modal-btn create">Create</button>
+                    <button id="songCreateBtn-pl" class="modal-btn create">Create</button>
                 </div>
             </div>
         </div>
