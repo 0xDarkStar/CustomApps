@@ -11,15 +11,18 @@ class indexController {
     toggleExpanded() {
         const controlBar = document.querySelector('.control-bar');
         const expandBtn = document.querySelector('.expand-btn');
+        const songView = document.getElementById('songControl');
     
         this.isExpanded = !this.isExpanded;
     
         if (this.isExpanded) {
             controlBar.classList.add('expanded');
             expandBtn.innerHTML = '<img src="../icons/dropdown.svg" alt="Collapse" style="transform: rotate(180deg);">'
+            songView.style.display = 'block';
         } else {
             controlBar.classList.remove('expanded');
             expandBtn.innerHTML = '<img src="../icons/dropdown.svg" alt="Expand">'
+            songView.style.display = 'none';
         }
     }
 
@@ -108,8 +111,49 @@ class indexController {
         this.hidePlaylistModal();
     }
 
+    /* Song Info */
+    updateSongDetails() {
+        const songTitle = document.getElementById('title');
+        const songArtist = document.getElementById('artist');
+        songTitle.textContent = "Generic Title";
+        songArtist.textContent = "Generic Artist";
+    }
+
+    /* Song Controls */
+
+    pauseOrPlaySong() {
+        const songElement = document.getElementById('songControl');
+        if (!songElement.paused) {
+            songElement.pause();
+        } else {
+            songElement.play();
+        }
+    }
+
     oneTimeSetupEventListeners() {
-        document.querySelector('.expand-btn').addEventListener('click', () => this.toggleExpanded());
+        const video = document.getElementById('songControl');
+        const positionSlider = document.getElementById('video-position');
+        const volume = document.getElementById('volume');
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.expand-btn').addEventListener('click', () => this.toggleExpanded());
+            document.getElementById('playPauseBtn').addEventListener('click', () => this.pauseOrPlaySong());
+            document.getElementById('volume').addEventListener('input', () => {video.volume = volume.value});
+            // Song control over slider
+            video.addEventListener('loadedmetadata', () => {
+                this.updateSongDetails();
+                positionSlider.max = video.duration;
+                volume.value = video.volume
+            });
+            video.addEventListener('timeupdate', () => {
+                if (!positionSlider.dataset.dragging) {
+                    positionSlider.value = video.currentTime;
+                }
+            });
+            // Slider control over song
+            positionSlider.addEventListener('input', () => {video.currentTime = positionSlider.value;});
+            positionSlider.addEventListener('mousedown', () => {positionSlider.dataset.dragging = 'true';});
+            positionSlider.addEventListener('mouseup', () => {delete positionSlider.dataset.dragging;});
+        })
     }
 
     setupEventListeners() {

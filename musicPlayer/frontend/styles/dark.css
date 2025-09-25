@@ -107,6 +107,24 @@ body {
     justify-content: center;
 }
 
+/* Song View Section */
+.song-view-section {
+    width: 100%;
+    height: 100%;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-bottom: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.song-view {
+    display: none;
+    max-width: 60vw;
+    max-height: 80vh;
+}
+
 .control-subsection { /* Place the video position slider above the others */
     background-color: var(--barsColor);
     border-top: 1px solid var(--barsBorder);

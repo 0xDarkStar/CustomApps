@@ -25,6 +25,7 @@ Thumbs.db
 
 # Misc
 musicPlayer/data/musicPlayer.db
+musicPlayer/data/songs/
 musicPlayer/api/package-lock.json
 musicPlayer/frontend/package-lock.json
 

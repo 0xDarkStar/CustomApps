@@ -8,33 +8,36 @@
         <div id="contentArea"></div>
         <!-- Control Bar -->
         <div class="control-bar">
+            <div class="song-view-section">
+                <video class="song-view" src="" id="songControl"></video>
+            </div>
             <div class="control-subsection">
-                <input type="range" id="video-position" class="video-pos-slider" min="0" max="330" value="165">
+                <input type="range" id="video-position" class="video-pos-slider" min="0" step="0.1" value="0">
                 <div class="bar-sections">
                     <!-- Control Buttons -->
                     <div class="bar-left">
-                        <button class="control-btn">
+                        <button class="control-btn" id="previousBtn">
                             <img src="../icons/previous.svg" alt="Prev">
                         </button>
-                        <button class="control-btn play-btn">
+                        <button class="control-btn play-btn" id="playPauseBtn">
                             <img src="../icons/play.svg" alt="Play">
                         </button>
-                        <button class="control-btn">
+                        <button class="control-btn" id="nextBtn">
                             <img src="../icons/skip.svg" alt="Next">
                         </button>
                     </div>
                     <!-- Song Info -->
                     <div class="bar-center">
                         <div class="song-info">
-                            <div class="song-title">TITLE</div>
-                            <div class="song-artist">ARTIST</div>
+                            <div class="song-title" id="title">TITLE</div>
+                            <div class="song-artist" id="artist">ARTIST</div>
                         </div>
                     </div>
                     <!-- Volume and Expansion Controls -->
                     <div class="bar-right">
                         <div class="volume-control">
                             <img src="../icons/volume.svg">
-                            <input type="range" id="volume" class="volume-slider" min="0" max="100" value="50">
+                            <input type="range" id="volume" class="volume-slider" min="0" max="1" step=".01" value=".5">
                         </div>
                         <button class="expand-btn">
                             <img src="../icons/dropdown.svg" alt="Expand">
