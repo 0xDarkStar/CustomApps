@@ -4,10 +4,10 @@ class ViewManager {
         this.indexController = new indexController(this);
         this.currentController = null;
         this.contentArea = document.getElementById('contentArea');
+        this.indexController.oneTimeSetupEventListeners();
     }
 
     async loadView(viewName, params = {}) {
-        this.indexController.cleanup();
         if (this.currentController) {
             this.currentController.cleanup();
         }
@@ -39,13 +39,13 @@ class ViewManager {
 
     setupGlobalIPCListeners() {
         window.electronAPI.onShowPlaylistModal(() => {
-            if (this.currentController && this.currentController.showPlaylistModal) {
-                this.currentController.showPlaylistModal();
+            if (this.indexController && this.indexController.showPlaylistModal) {
+                this.indexController.showPlaylistModal();
             }
         });
         window.electronAPI.onShowSongModal(() => {
-            if (this.currentController && this.currentController.showSongModal) {
-                this.currentController.showSongModal();
+            if (this.indexController && this.indexController.showSongModal) {
+                this.indexController.showSongModal();
             }
         });
         window.electronAPI.onRemovePlaylist(() => {
@@ -67,3 +67,4 @@ class ViewManager {
 
 const viewManager = new ViewManager();
 viewManager.loadView('grid');
+viewManager.setupGlobalIPCListeners();

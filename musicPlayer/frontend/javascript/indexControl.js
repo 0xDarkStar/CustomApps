@@ -120,23 +120,23 @@ class indexController {
         // Song Modal Buttons
         document.getElementById('songCancelBtn').addEventListener('click', () => this.hideSongModal(), {signal});
         // Close modal when clicking outside of it
-        document.getElementById('playlistModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.hidePlaylistModal();
-            }
-        }.bind(this), {signal});
-        document.getElementById('songModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.hideSongModal();
-            }
-        }.bind(this), {signal});
+        // document.getElementById('playlistModal').addEventListener('click', function(e) {
+        //     if (e.target === this) {
+        //         this.hidePlaylistModal();
+        //     }
+        // }.bind(this));
+        // document.getElementById('songModal').addEventListener('click', function(e) {
+        //     if (e.target === this) {
+        //         this.hideSongModal();
+        //     }
+        // }.bind(this));
         
         // Allow Enter key to create playlist
         document.getElementById('playlistNameInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.createPlaylist();
             }
-        }, {signal});
+        });
     
         // Open the dropdown menu when clicked
         document.addEventListener('click', function(event) {
