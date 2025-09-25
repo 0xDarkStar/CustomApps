@@ -7,7 +7,8 @@ class ViewManager {
     }
 
     async loadView(viewName, params = {}) {
-        if (this.currentController && this.currentController.cleanup) {
+        this.indexController.cleanup();
+        if (this.currentController) {
             this.currentController.cleanup();
         }
 
@@ -34,6 +35,28 @@ class ViewManager {
         const response = await fetch('playlist.html');
         const html = await response.text();
         this.contentArea.innerHTML = html;
+    }
+
+    setupGlobalIPCListeners() {
+        window.electronAPI.onShowPlaylistModal(() => {
+            if (this.currentController && this.currentController.showPlaylistModal) {
+                this.currentController.showPlaylistModal();
+            }
+        });
+        window.electronAPI.onShowSongModal(() => {
+            if (this.currentController && this.currentController.showSongModal) {
+                this.currentController.showSongModal();
+            }
+        });
+        window.electronAPI.onRemovePlaylist(() => {
+            if (this.currentController && this.currentController.removePlaylist) {
+                this.currentController.removePlaylist();
+            }
+        });
+        window.electronAPI.removeAllListeners(() => {
+            this.indexController.cleanup();
+            this.currentController.cleanup();
+        })
     }
 
     navigateTo(viewName, params = {}) {

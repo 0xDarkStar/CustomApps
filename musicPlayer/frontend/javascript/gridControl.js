@@ -1,6 +1,7 @@
 class GridController {
     constructor(viewManager) {
         this.viewManager = viewManager;
+        this.abortController = new AbortController();
         this.initialize();
     }
 
@@ -37,16 +38,10 @@ class GridController {
     }
 
     setupEventListeners() {
-        // Set up Electron IPC listeners immediately (don't wait for DOM)
-        if (window.electronAPI) {
-            window.electronAPI.onRemovePlaylist((event, playlistId) => {
-                this.removePlaylist(playlistId);
-            });
-        }
-        
+        const signal = this.abortController.signal;
         // DOM-dependent listeners
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('songCreateBtn').addEventListener('click', addSong);
+            document.getElementById('songCreateBtn').addEventListener('click', addSong, {signal});
         });
     }
 
@@ -84,6 +79,14 @@ class GridController {
                 playlist.remove();
                 break;
             }
+        }
+    }
+
+    cleanup() {
+        this.abortController.abort();
+
+        if (this.refreshTimer) {
+            clearInterval(this.refreshTimer);
         }
     }
 }

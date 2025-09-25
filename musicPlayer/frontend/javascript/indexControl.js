@@ -4,6 +4,7 @@ class indexController {
     constructor(viewManager) {
         this.viewManager = viewManager;
         this.isExpanded = false;
+        this.abortController = new AbortController();
     }
 
     /* Control Bar Expansion */ 
@@ -107,32 +108,35 @@ class indexController {
         this.hidePlaylistModal();
     }
 
-    setupEventListeners() {
+    oneTimeSetupEventListeners() {
         document.querySelector('.expand-btn').addEventListener('click', () => this.toggleExpanded());
+    }
+
+    setupEventListeners() {
+        const signal = this.abortController.signal;
         // Playlist Modal Buttons
-        document.getElementById('playlistCancelBtn').addEventListener('click', () => this.hidePlaylistModal());
-        document.getElementById('playlistCreateBtn').addEventListener('click', () => this.createPlaylist());
+        document.getElementById('playlistCancelBtn').addEventListener('click', () => this.hidePlaylistModal(), {signal});
+        document.getElementById('playlistCreateBtn').addEventListener('click', () => this.createPlaylist(), {signal});
         // Song Modal Buttons
-        document.getElementById('songCancelBtn').addEventListener('click', () => this.hideSongModal());
-        
+        document.getElementById('songCancelBtn').addEventListener('click', () => this.hideSongModal(), {signal});
         // Close modal when clicking outside of it
         document.getElementById('playlistModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.hidePlaylistModal();
             }
-        }.bind(this));
+        }.bind(this), {signal});
         document.getElementById('songModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.hideSongModal();
             }
-        }.bind(this));
+        }.bind(this), {signal});
         
         // Allow Enter key to create playlist
         document.getElementById('playlistNameInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.createPlaylist();
             }
-        });
+        }, {signal});
     
         // Open the dropdown menu when clicked
         document.addEventListener('click', function(event) {
@@ -141,16 +145,14 @@ class indexController {
                     menu.classList.remove('show');
                 });
             }
-        });
-        
-        // Listen for context menu events from Electron
-        if (window.electronAPI) {
-            window.electronAPI.onShowPlaylistModal(() => {
-                this.showPlaylistModal();
-            });
-            window.electronAPI.onShowSongModal(() => {
-                this.showSongModal();
-            });
+        }, {signal});
+    }
+
+    cleanup() {
+        this.abortController.abort();
+
+        if (this.refreshTimer) {
+            clearInterval(this.refreshTimer);
         }
     }
 }

@@ -8,6 +8,7 @@ class PlaylistController {
         this.viewManager = viewManager;
         this.playlistID = params.id;
         this.playlistName = params.name;
+        this.abortController = new AbortController();
         this.initialize();
     }
 
@@ -85,8 +86,17 @@ class PlaylistController {
     }
 
     setupEventListeners() {
-        document.getElementById('addSongBtn').addEventListener('click', () => this.viewManager.indexController.showSongModal(this.playlistID))
-        document.getElementById('songCreateBtn-pl').addEventListener('click', () => this.viewManager.indexController.addSong(this.playlistID));
-        document.getElementById('backBtn').addEventListener('click', () => this.viewManager.navigateTo('grid'));
+        const signal = this.abortController.signal;
+        document.getElementById('addSongBtn').addEventListener('click', () => this.viewManager.indexController.showSongModal(this.playlistID), {signal});
+        document.getElementById('songCreateBtn-pl').addEventListener('click', () => this.viewManager.indexController.addSong(this.playlistID), {signal});
+        document.getElementById('backBtn').addEventListener('click', () => this.viewManager.navigateTo('grid'), {signal});
+    }
+
+    cleanup() {
+        this.abortController.abort();
+
+        if (this.refreshTimer) {
+            clearInterval(this.refreshTimer);
+        }
     }
 }
