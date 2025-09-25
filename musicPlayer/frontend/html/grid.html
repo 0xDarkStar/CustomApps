@@ -1,0 +1,30 @@
+<!-- Playlists -->
+<div class="playlist-grid" id="playlistGrid">
+    <div class="playlist" id="0">
+        <img src="../../data/thumbnails/music.svg">
+        <p>All Songs</p>
+    </div>
+    <!-- All other playlists load here -->
+</div>
+<!-- Custom Modals -->
+<div id="playlistModal" class="modal">
+    <div class="modal-content">
+        <h3>Add New Playlist</h3>
+        <input type="text" id="playlistNameInput" placeholder="Enter playlist name..." maxlength="50">
+        <div class="modal-buttons">
+            <button id="playlistCancelBtn" class="modal-btn cancel">Cancel</button>
+            <button id="playlistCreateBtn" class="modal-btn create">Create</button>
+        </div>
+    </div>
+</div>
+<div id="songModal" class="modal">
+    <div class="modal-content">
+        <h3>Add New Song</h3>
+        <p>Select the song file.</p>
+        <input type="file" accept=".mp3,.mp4,.webm" id="songFileInput">
+        <div class="modal-buttons">
+            <button id="songCancelBtn" class="modal-btn cancel">Cancel</button>
+            <button id="songCreateBtn" class="modal-btn create">Create</button>
+        </div>
+    </div>
+</div>

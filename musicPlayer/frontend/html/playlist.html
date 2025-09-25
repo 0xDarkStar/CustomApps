@@ -1,98 +1,51 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>My Music Player [Playlist] (WIP)</title>
-        <link href="../styles/dark.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="top-bar">
-            <!-- Back Button -->
-            <button class="top-bar-btn" onclick="window.location.href = 'index.html'">
-                <img src="../icons/play.svg">
-            </button>
+<div class="top-bar">
+    <!-- Back Button -->
+    <button class="top-bar-btn" id="backBtn">
+        <img src="../icons/play.svg">
+    </button>
+</div>
+<div class="main-playlist-body">
+    <!-- Playlist Image and Title -->
+    <div class="playlist-cover">
+        <img src="../../data/thumbnails/no_image.svg">
+        <div class="playlist-cover-title" id="playlistTitle">
+            All Songs
         </div>
-        <div class="main-playlist-body">
-            <!-- Playlist Image and Title -->
-            <div class="playlist-cover">
-                <img src="../../data/thumbnails/no_image.svg">
-                <div class="playlist-cover-title" id="playlistTitle">
-                    All Songs
-                </div>
-            </div>
-            <!-- Playlist Controls -->
-            <div class="playlist-controls">
-                <!-- Add Song -->
-                <button class="playlist-controls-btn" onclick="showSongModal()">Add Song</button>
-                <!-- Remove Song -->
-                <button class="playlist-controls-btn">Remove Song</button>
-                 <!-- Shuffle -->
-                <button class="playlist-controls-btn">Shuffle</button>
-            </div>
-            <!-- All songs in the playlist -->
-            <div class="songs-grid" id="songsGrid">
-            </div>
+    </div>
+    <!-- Playlist Controls -->
+    <div class="playlist-controls">
+        <!-- Add Song -->
+        <button class="playlist-controls-btn" id="addSongBtn">Add Song</button>
+        <!-- Remove Song -->
+        <button class="playlist-controls-btn" id="removeSongBtn">Remove Song</button>
+            <!-- Shuffle -->
+        <button class="playlist-controls-btn" id="shuffleBtn">Shuffle</button>
+    </div>
+    <!-- All songs in the playlist -->
+    <div class="songs-grid" id="songsGrid">
+        <!-- Songs load here -->
+    </div>
+</div>
+<!-- Custom Modals -->
+<div id="playlistModal" class="modal">
+    <div class="modal-content">
+        <h3>Add New Playlist</h3>
+        <input type="text" id="playlistNameInput" placeholder="Enter playlist name..." maxlength="50">
+        <div class="modal-buttons">
+            <button id="playlistCancelBtn" class="modal-btn cancel">Cancel</button>
+            <button id="playlistCreateBtn" class="modal-btn create">Create</button>
         </div>
-        <!-- Control Bar -->
-        <div class="control-bar">
-            <div class="control-subsection">
-                <input type="range" id="video-position" class="video-pos-slider" min="0" max="330" value="165">
-                <div class="bar-sections">
-                    <!-- Control Buttons -->
-                    <div class="bar-left">
-                        <button class="control-btn">
-                            <img src="../icons/previous.svg" alt="Prev">
-                        </button>
-                        <button class="control-btn play-btn">
-                            <img src="../icons/play.svg" alt="Play">
-                        </button>
-                        <button class="control-btn">
-                            <img src="../icons/skip.svg" alt="Next">
-                        </button>
-                    </div>
-                    <!-- Song Info -->
-                    <div class="bar-center">
-                        <div class="song-info">
-                            <div class="song-title">TITLE</div>
-                            <div class="song-artist">ARTIST</div>
-                        </div>
-                    </div>
-                    <!-- Volume and Expansion Controls -->
-                    <div class="bar-right">
-                        <div class="volume-control">
-                            <img src="../icons/volume.svg">
-                            <input type="range" id="volume" class="volume-slider" min="0" max="100" value="50">
-                        </div>
-                        <button class="expand-btn">
-                            <img src="../icons/dropdown.svg" alt="Expand">
-                        </button>
-                    </div>
-                </div>
-            </div>
+    </div>
+</div>
+<div id="songModal" class="modal">
+    <div class="modal-content">
+        <h3>Add New Song</h3>
+        <p>Select the song file.</p>
+        <input type="file" accept=".mp3,.mp4,.webm" id="songFileInput">
+        <div class="modal-buttons">
+            <button id="songCancelBtn" class="modal-btn cancel">Cancel</button>
+            <button id="songCreateBtn-pl" class="modal-btn create">Create</button>
         </div>
-        <!-- Custom Modals -->
-        <div id="playlistModal" class="modal">
-            <div class="modal-content">
-                <h3>Add New Playlist</h3>
-                <input type="text" id="playlistNameInput" placeholder="Enter playlist name..." maxlength="50">
-                <div class="modal-buttons">
-                    <button id="playlistCancelBtn" class="modal-btn cancel">Cancel</button>
-                    <button id="playlistCreateBtn" class="modal-btn create">Create</button>
-                </div>
-            </div>
-        </div>
-        <div id="songModal" class="modal">
-            <div class="modal-content">
-                <h3>Add New Song</h3>
-                <p>Select the song file.</p>
-                <input type="file" accept=".mp3,.mp4,.webm" id="songFileInput">
-                <div class="modal-buttons">
-                    <button id="songCancelBtn" class="modal-btn cancel">Cancel</button>
-                    <button id="songCreateBtn-pl" class="modal-btn create">Create</button>
-                </div>
-            </div>
-        </div>
-        <script src="../javascript/shared.js"></script>
-        <script src="../javascript/playlist.js"></script>
-    </body>
-</html>
+    </div>
+</div>
 

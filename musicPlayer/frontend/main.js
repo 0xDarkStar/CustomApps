@@ -121,26 +121,6 @@ const createWindow = () => {
     win.loadFile('html/index.html')
 }
 
-const fillerFunc = (returnType) => {
-    switch (returnType) {
-        case 'int':
-            return 0;
-        case 'bool':
-            return false;
-        case 'string':
-            return 'You have recieved a string!';
-        case 'songDetails':
-            return { 'id': 0, 'title': 'Generic Song', 'artist': 'Generic Artist', 'album': 'Generic Album', 'length': 355, 'path': '~/generic/path/to/file.mp3'};
-        case 'playlistDetails':
-            return { 'id': 1, 'title': 'Generic Playlist', 'length': 0, 'numSongs': 0};
-        case 'dbStats':
-            return { 'totalSongs': 15, 'totalPlaylists': 2, 'totalSubtitles': 0, 'totalPlaylistSongs': 30};
-        default:
-            break;
-    }
-    return 'pong'
-}
-
 app.whenReady().then(() => {
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
