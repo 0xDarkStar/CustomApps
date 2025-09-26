@@ -82,7 +82,7 @@ class PlaylistController {
         let songRemove = document.getElementById(`${song.id}Remove`);
         songMenu.addEventListener('click', () => this.viewManager.indexController.toggleMenu(songMenu));
         songQueue.addEventListener('click', () => {
-            this.viewManager.indexController.addToQueue({id: song.id, title: song.title, artist: song.artist, file: song.path});
+            this.viewManager.indexController.addToQueue({id: song.id, title: song.title, artist: song.artist, path: song.path});
             this.viewManager.indexController.toggleMenu(songMenu);
         });
         songRemove.addEventListener('click', () => {

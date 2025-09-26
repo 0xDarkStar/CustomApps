@@ -11,7 +11,7 @@ Implementation of database initialization and setup functions.
 namespace sql {
     
     // Define the database path
-    const std::string dbpath = "./data/musicPlayer.db";
+    const std::string dbpath = "../data/musicPlayer.db"; // It was making the database in frontend
     
     // Check if database file exists
     bool database_exists() {

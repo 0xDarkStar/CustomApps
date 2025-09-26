@@ -141,7 +141,7 @@ class indexController {
     /* Queue Controls */
     addToQueue(song = {}) {
         // The song object must reflect:
-        // {id: <song_id>, title: <song_title>, artist: <song_artist>, file: <file_path>}
+        // {id: <song_id>, title: <song_title>, artist: <song_artist>, path: <file_path>}
         this.queue.push(song);
         if (this.queue.length === 1) {
             this.loadCurrentSong();
