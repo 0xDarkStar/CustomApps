@@ -7,8 +7,8 @@
    viewBox="0 0 50.0 50.0"
    version="1.1"
    id="SVGRoot"
-   sodipodi:docname="Loop.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="loop.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
    inkscape:export-filename="/home/uuhhhhhh/Icons/loopOne.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -27,17 +27,24 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="11.95881"
-     inkscape:cx="28.054631"
+     inkscape:cx="28.138251"
      inkscape:cy="24.333525"
-     inkscape:window-width="1200"
-     inkscape:window-height="1883"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1200"
+     inkscape:window-y="265"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2">
+     inkscape:current-layer="layer2"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050">
     <inkscape:grid
        type="xygrid"
-       id="grid3611" />
+       id="grid3611"
+       originx="0"
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
   </sodipodi:namedview>
   <defs
      id="defs3600" />
@@ -45,7 +52,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="LoopHighlight"
-     style="display:inline">
+     style="display:none">
     <rect
        style="fill:#333333;stroke-width:5"
        id="rect104"
@@ -129,7 +136,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="Number">
+     inkscape:label="Number"
+     style="display:none">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.6029px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.490073"

@@ -109,20 +109,28 @@ body {
 
 /* Song View Section */
 .song-view-section {
+    background-color: var(--debugColor2);
     width: 100%;
     height: 100%;
-    padding-left: 5vw;
-    padding-right: 5vw;
-    padding-bottom: 7vh;
+    padding: 10px 10px 90px 10px;
     display: flex;
     align-items: center;
     justify-content: start;
+    gap: 20px;
 }
 
 .song-view {
+    background-color: var(--debugColor0);
     display: none;
     max-width: 60vw;
     max-height: 80vh;
+}
+
+.queue {
+    background-color: var(--debugColor1);
+    display: none;
+    width: 40vw;
+    height: 70vh;
 }
 
 .control-subsection { /* Place the video position slider above the others */

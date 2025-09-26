@@ -4,6 +4,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld('electronAPI', {
     onShowPlaylistModal: (callback) => ipcRenderer.on('show-playlist-modal', callback),
+    onAddPlaylistToQueue: (callback) => ipcRenderer.on('add-playlist-to-queue', callback),
     onRemovePlaylist: (callback) => ipcRenderer.on('remove-playlist', callback),
     onShowSongModal: (callback) => ipcRenderer.on('show-song-modal', callback),
     removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel)
@@ -31,5 +32,6 @@ contextBridge.exposeInMainWorld('musicAPI', {
     /* Extras */
     initializeAPI: () => ipcRenderer.invoke('initializeAPI'),
     isAPIinitialized: () => ipcRenderer.invoke('isAPIinitialized'),
-    getDatabaseStats: () => ipcRenderer.invoke('getDatabaseStats')
+    getDatabaseStats: () => ipcRenderer.invoke('getDatabaseStats'),
+    saveFile: (event, fileName, buffer, targetDirectory) => ipcRenderer.invoke('saveFile', event, {fileName, buffer, targetDirectory})
 })

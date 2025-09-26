@@ -1,7 +1,4 @@
-async function removeFromPlaylist(songID, playlistID) {
-    const response = await window.musicAPI.removeSongFromPlaylist(songID, playlistID);
-    console.log(response);
-}
+
 
 class PlaylistController {
     constructor(viewManager, params) {
@@ -21,9 +18,12 @@ class PlaylistController {
     setTitle() {
         const titleElement = document.getElementById('playlistTitle');
         titleElement.textContent = this.playlistName;
-        // console.log(`Loading Playlist: ${this.playlistName} (ID: ${this.playlistID})`);
     }
 
+    async removeFromPlaylist(songID, playlistID) {
+        const response = await window.musicAPI.removeSongFromPlaylist(songID, playlistID);
+        console.log(response);
+    }
 
     async loadSongs() {
         let songs;
@@ -60,14 +60,14 @@ class PlaylistController {
             </div>
             <div class="song-item-controls">
                 <div class="song-menu">
-                    <button class="menu-btn" onclick="toggleMenu(this)">
+                    <button class="menu-btn" id="${song.id}Menu">
                         <img src="../icons/menu.svg">
                     </button>
                     <div class="menu-dropdown">
-                        <div class="menu-item" onclick="addNext(${song.id})">Play Next</div>
-                        <div class="menu-item" onclick="addToQueue(${song.id})">Add To Queue</div>
-                        <div class="menu-item" onclick="removeFromPlaylist(${song.id}, ${this.playlistID});loadSongs(${this.playlistID})">Remove From This Playlist</div>
-                        <div class="menu-item" onclick="viewSongDetails(${song.id})">Open Song Settings</div>
+                        <div class="menu-item" id="${song.id}AddNext">Play Next</div>
+                        <div class="menu-item" id="${song.id}AddQueue">Add To Queue</div>
+                        <div class="menu-item" id="${song.id}Remove">Remove From This Playlist</div>
+                        <div class="menu-item" id="${song.id}View">Open Song Settings</div>
                     </div>
                 </div>
                 <input type="checkbox" id="${song.id}Select">
@@ -77,6 +77,18 @@ class PlaylistController {
             </div>
         `;
         songsContainer.appendChild(songItem);
+        let songMenu = document.getElementById(`${song.id}Menu`);
+        let songQueue = document.getElementById(`${song.id}AddQueue`);
+        let songRemove = document.getElementById(`${song.id}Remove`);
+        songMenu.addEventListener('click', () => this.viewManager.indexController.toggleMenu(songMenu));
+        songQueue.addEventListener('click', () => {
+            this.viewManager.indexController.addToQueue({id: song.id, title: song.title, artist: song.artist, file: song.path});
+            this.viewManager.indexController.toggleMenu(songMenu);
+        });
+        songRemove.addEventListener('click', () => {
+            this.removeFromPlaylist(song.id, this.playlistID);
+            this.loadSongs();
+        })
     }
 
     formatDuration(seconds) {
@@ -88,7 +100,7 @@ class PlaylistController {
     setupEventListeners() {
         const signal = this.abortController.signal;
         document.getElementById('addSongBtn').addEventListener('click', () => this.viewManager.indexController.showSongModal(this.playlistID), {signal});
-        document.getElementById('songCreateBtn-pl').addEventListener('click', () => this.viewManager.indexController.addSong(this.playlistID), {signal});
+        document.getElementById('songCreateBtn-pl').addEventListener('click', () => this.viewManager.indexController.addSongPlaylist(this.playlistID), {signal});
         document.getElementById('backBtn').addEventListener('click', () => this.viewManager.navigateTo('grid'), {signal});
     }
 

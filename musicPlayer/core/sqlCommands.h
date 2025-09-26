@@ -20,7 +20,7 @@ Said functions are:
 #include <algorithm>
 
 namespace sql {
-    const std::string dbpath = "./data/musicPlayer.db";
+    const std::string dbpath = "../data/musicPlayer.db"; // I need this to test
     
     // Custom exception class for database errors
     class DatabaseException : public std::runtime_error {
@@ -81,17 +81,17 @@ namespace sql {
             }
             
             // Check for dangerous path patterns
-            if (path.find("..") != std::string::npos ||
-                path.find("//") != std::string::npos) {
-                // Allow backslashes for Windows paths
-                return false;
-            }
+            // if (path.find("..") != std::string::npos ||
+            //     path.find("//") != std::string::npos) {
+            //     // Allow backslashes for Windows paths
+            //     return false;
+            // }
             
             // Check for valid file extensions
             std::string lowerPath = path;
             std::transform(lowerPath.begin(), lowerPath.end(), lowerPath.begin(), ::tolower);
             
-            std::vector<std::string> validExtensions = {".mp3", ".wav", ".flac", ".m4a", ".ogg", ".srt", ".vtt"};
+            std::vector<std::string> validExtensions = {".mp3", ".wav", ".flac", ".m4a", ".ogg", ".srt", ".vtt", ".mp4", ".webm"};
             bool hasValidExtension = false;
             for (const auto& ext : validExtensions) {
                 if (lowerPath.length() >= ext.length() && 

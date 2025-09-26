@@ -38,29 +38,21 @@ class ViewManager {
     }
 
     setupGlobalIPCListeners() {
-        window.electronAPI.onShowPlaylistModal(() => {
-            if (this.indexController && this.indexController.showPlaylistModal) {
-                this.indexController.showPlaylistModal();
-            }
-        });
-        window.electronAPI.onShowSongModal(() => {
-            if (this.indexController && this.indexController.showSongModal) {
-                this.indexController.showSongModal();
-            }
-        });
-        window.electronAPI.onRemovePlaylist(() => {
+        window.electronAPI.onShowPlaylistModal(() => this.indexController.showPlaylistModal());
+        window.electronAPI.onShowSongModal(() => this.indexController.showSongModal());
+        window.electronAPI.onAddPlaylistToQueue((event, playlistID) => this.indexController.addPlaylistToQueue(playlistID));
+        window.electronAPI.onRemovePlaylist((event, playlistID) => {
             if (this.currentController && this.currentController.removePlaylist) {
-                this.currentController.removePlaylist();
+                this.currentController.removePlaylist(playlistID);
             }
         });
         window.electronAPI.removeAllListeners(() => {
             this.indexController.cleanup();
             this.currentController.cleanup();
-        })
+        });
     }
 
     navigateTo(viewName, params = {}) {
-        // console.log(`I have been called!\n They want to go to ${viewName}.\nTheir parameters are:`, params);
         this.loadView(viewName, params);
     }
 }

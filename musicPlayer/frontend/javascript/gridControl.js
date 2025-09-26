@@ -7,7 +7,6 @@ class GridController {
 
     initialize() {
         this.loadPlaylists();
-        this.setupEventListeners();
     }
 
     async loadPlaylists() {
@@ -21,7 +20,6 @@ class GridController {
 
     displayPlaylists(playlists) {
         playlists.forEach(playlist => {
-            // console.log(`Current playlist info:\nName: ${playlist.title}\nID: ${playlist.id}`);
             const name = playlist.title;
             const grid = document.getElementById('playlistGrid');
             const newPlaylist = document.createElement('div');
@@ -34,15 +32,14 @@ class GridController {
         
         // Make playlists clickable after they're added to the DOM
         this.makeAllPlaylistsClickable();
+        this.setupEventListeners();
         this.viewManager.indexController.setupEventListeners();
     }
 
     setupEventListeners() {
         const signal = this.abortController.signal;
         // DOM-dependent listeners
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('songCreateBtn').addEventListener('click', addSong, {signal});
-        });
+        document.getElementById('songCreateBtn').addEventListener('click', () => {this.viewManager.indexController.addSong(), {signal}});
     }
 
     makeAllPlaylistsClickable() {
@@ -65,7 +62,6 @@ class GridController {
     }
 
     async removePlaylist(playlistId) {
-        console.log(`Chosen Playlist: ${playlistId}`);
         if (playlistId == 0) { // They need to see all their songs
             return;
         }
@@ -73,7 +69,6 @@ class GridController {
         const playlists = document.querySelectorAll('.playlist');
         for (let playlist of playlists) {
             const currPlaylistID = playlist.id;
-            console.log(`Current Playlist ID: ${currPlaylistID}`);
             if (currPlaylistID === playlistId) {
                 console.log(await window.musicAPI.deletePlaylist(playlistId));
                 playlist.remove();

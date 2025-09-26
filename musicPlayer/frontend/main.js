@@ -1,4 +1,6 @@
-const {app, BrowserWindow, Menu, ipcMain} = require('electron')
+const {app, BrowserWindow, Menu, ipcMain, globalShortcut} = require('electron');
+const fs = require('fs').promises;
+const path = require('path');
 const musicAPI = require('./../api/index');
 
 const createWindow = () => {
@@ -100,6 +102,12 @@ const createWindow = () => {
                                 win.webContents.send('remove-playlist', result.playlistId)
                             }
                         },
+                        {
+                            label: 'Add To Queue',
+                            click: () => {
+                                win.webContents.send('add-playlist-to-queue', result.playlistId)
+                            }
+                        },
                         { type: 'separator' },
                         { role: 'copy' }
                     ])
@@ -118,7 +126,7 @@ const createWindow = () => {
         }
     })
 
-    win.loadFile('html/index.html')
+    win.loadFile('html/index.html');
 }
 
 app.whenReady().then(() => {
@@ -159,7 +167,7 @@ app.whenReady().then(() => {
         return await musicAPI.deletePlaylist(playlistID);
     });
     ipcMain.handle('getAllPlaylists', async () => {
-        return await musicAPI.getAllPlaylists();
+        return musicAPI.getAllPlaylists();
     });
     ipcMain.handle('getPlaylist', async (event, playlistID) => {
         return await musicAPI.getPlaylist(playlistID);
@@ -186,8 +194,32 @@ app.whenReady().then(() => {
     ipcMain.handle('getDatabaseStats', async () => {
         return await musicAPI.getDatabaseStats();
     });
+    ipcMain.handle('saveFile', async (event, {fileName, buffer, targetDirectory}) => {
+        try {
+            const fullTargetDir = path.resolve(__dirname, targetDirectory);
+            await fs.mkdir(fullTargetDir, {recursive: true});
+
+            const fullPath = path.join(fullTargetDir, fileName);
+
+            let bufferToWrite;
+            if (buffer instanceof ArrayBuffer) {
+                bufferToWrite = Buffer.from(buffer);
+            } else if (Array.isArray(buffer)) {
+                bufferToWrite = Buffer.from(buffer);
+            } else {
+                bufferToWrite = buffer;
+            }
+
+            await fs.writeFile(fullPath, bufferToWrite);
+
+            return fullPath;
+        } catch (error) {
+            console.error('Error saving file:', error);
+            throw error;
+        }
+    })
     musicAPI.initialize();
-    createWindow()
+    createWindow();
 })
 
 app.on('window-all-closed', () => {

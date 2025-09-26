@@ -9,7 +9,13 @@
         <!-- Control Bar -->
         <div class="control-bar">
             <div class="song-view-section">
-                <video class="song-view" src="" id="songControl"></video>
+                <video class="song-view" src="../../data/songs/15.mp4" id="songControl"></video>
+                <div class="queue" id="queue">
+                    I am the song Queue
+                    <!-- <div class="song-item">
+                        OMG, I am a song item in the queue!!!!
+                    </div> -->
+                </div>
             </div>
             <div class="control-subsection">
                 <input type="range" id="video-position" class="video-pos-slider" min="0" step="0.1" value="0">
@@ -20,7 +26,7 @@
                             <img src="../icons/previous.svg" alt="Prev">
                         </button>
                         <button class="control-btn play-btn" id="playPauseBtn">
-                            <img src="../icons/play.svg" alt="Play">
+                            <img src="../icons/play.svg" alt="Play" id="playPauseIcon">
                         </button>
                         <button class="control-btn" id="nextBtn">
                             <img src="../icons/skip.svg" alt="Next">
@@ -36,8 +42,8 @@
                     <!-- Volume and Expansion Controls -->
                     <div class="bar-right">
                         <div class="volume-control">
-                            <img src="../icons/volume.svg">
-                            <input type="range" id="volume" class="volume-slider" min="0" max="1" step=".01" value=".5">
+                            <img src="../icons/volume_mid.svg" id="volumeIcon">
+                            <input type="range" id="volume" class="volume-slider" min="0" max="1" step=".01" value="0.5">
                         </div>
                         <button class="expand-btn">
                             <img src="../icons/dropdown.svg" alt="Expand">

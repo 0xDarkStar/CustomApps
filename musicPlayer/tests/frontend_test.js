@@ -51,10 +51,12 @@ class FrontendIntegrationTester {
             'package.json',
             'html/index.html',
             'html/playlist.html',
-            'javascript/index.js',
-            'javascript/playlist.js',
+            'html/grid.html',
+            'javascript/indexControl.js',
+            'javascript/playlistControl.js',
             'javascript/preload.js',
-            'javascript/shared.js',
+            'javascript/gridControl.js',
+            'javascript/viewMan.js',
             'styles/dark.css',
             'styles/light.css'
         ];
@@ -96,7 +98,7 @@ class FrontendIntegrationTester {
             this.addTestResult('Preload.js: Music API Exposure', hasMusicAPIExposure, 'Music API exposed to renderer');
             
             // Test frontend JavaScript files
-            const indexJsPath = path.join(this.frontendPath, 'javascript/index.js');
+            const indexJsPath = path.join(this.frontendPath, 'javascript/indexControl.js');
             const indexJsContent = fs.readFileSync(indexJsPath, 'utf8');
             
             const hasWindowMusicAPI = indexJsContent.includes('window.musicAPI');
@@ -117,14 +119,8 @@ class FrontendIntegrationTester {
             const indexHtmlPath = path.join(this.frontendPath, 'html/index.html');
             const indexHtmlContent = fs.readFileSync(indexHtmlPath, 'utf8');
             
-            const hasPlaylistGrid = indexHtmlContent.includes('playlist-grid');
-            this.addTestResult('Index.html: Playlist Grid', hasPlaylistGrid, 'Playlist grid element found');
-            
             const hasControlBar = indexHtmlContent.includes('control-bar');
             this.addTestResult('Index.html: Control Bar', hasControlBar, 'Control bar element found');
-            
-            const hasModals = indexHtmlContent.includes('modal');
-            this.addTestResult('Index.html: Modals', hasModals, 'Modal elements found');
             
             const hasScripts = indexHtmlContent.includes('<script');
             this.addTestResult('Index.html: Scripts', hasScripts, 'Script tags found');
