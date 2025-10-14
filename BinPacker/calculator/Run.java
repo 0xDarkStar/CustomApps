@@ -76,4 +76,18 @@ public class Run {
         }
         return currBest;
     }
+
+    public int getNumSize() {
+        int numSize = 1;
+        int curr = this.totalUsed;
+        while (curr >= 10) {
+            if (curr/10 >= 1) {
+                numSize += 1;
+                curr/=10;
+            } else {
+                break;
+            }
+        }
+        return numSize;
+    }
 }
