@@ -1,0 +1,22 @@
+Required Materials for Bell Manufacturing:
+    - Non-Lethal Weapons:           33    \
+    - Medical Diagnostic Equipment: 48     \
+    - Survival Equipment:           56      > Run 01 (260)
+    - Emergency Power Cells:        66     /
+    - Power Generators:             69    / \ (remainder: 12)
+    - Fruit and Vegetables:         91       > Run 02 (260)
+    - Computer Components:          97      /
+    - Food Cartridges:             130     / \ (remainder: 70)
+    - Superconductors:             136        > Run 03 (260)
+    - Evacuation Shelter:          204       / \ (remainder: 150)
+    - Copper:                      423          \ Runs 04-05 (260) (150+110) (remainder: 53)
+    - Surface Stabilisers:         582           \ Runs 06-07 (260*2) (remainder: 62)
+    - Polymers:                    646            > Runs 08-10 (260*2) (115+126)
+    - Structural Regulators:       709    \ Runs 11-12 (260*2) (remainder: 189)
+    - Ceramic Composites:          785     \ Runs 13-15 (260*3) (remainder: 5)
+    - Liquid oxygen:              2358      \ Runs 16-24 (260*9) (remainder: 18)
+    - Titanium:                   5688       \ Runs 25-46 (260*21) (212 + 48) (remainder: 180)
+    - CMM Composite:              6513        \ Runs 47-71 (260*25) (remainder: 13)
+    - Aluminium:                  6985         \ Runs 72-98 (260*26) (193+67) (remainder: 158)
+    - Steel:                      9928          \ Runs 99-137 (260*37) (158+48)
+    Cargo Space: 260
