@@ -1,0 +1,20 @@
+ - Non-Lethal Weapons             33 \
+ - Medical Diagnostic Equipment   48  \
+ - Survival Equipment             56   > Run 1 (260)
+ - Emergency Power Cells          66  /
+ - Power Generators               69 / \ (remainder: 12)
+ - Fruit and Vegetables           91    \
+ - Computer Components            97     > Run 2 (260)
+ - Food Cartridges               130    / \ (remainder: 70)
+ - Superconductors               136       > Run 3 (260)
+ - Evacuation Shelter            204      / \ (remainder: 150)
+ - Copper                        423         \ Run 4-5 (260) (260) (remainder: 53)
+ - Surface Stabilisers           582          \ Run 6-7 (520) (remainder: 62)
+ - Polymers                      646           > Run 8-10 (520) (241)
+ - Structural Regulators         709 \ Run 11-12 (520) (remainder: 189)
+ - Ceramic Composites            785  \ Run 13-15 (780) (remainder: 5)
+ - Liquid oxygen                2358   \ Run 16-24 (2340) (remainder: 18)
+ - Titanium                     5688    \ Run 25-46 (5460) (260) (remainder: 180)
+ - CMM Composite                6513     \ Run 47-71 (6500) (remainder: 13)
+ - Aluminium                    6985      \ Run 72-98 (6760) (260) (remainder: 158)
+ - Steel                        9928       > Run 99-137 (9880) (206)
