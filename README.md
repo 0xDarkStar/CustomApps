@@ -3,6 +3,7 @@ A collection of custom applications I build for fun, learning, and personal use.
 
 ## Projects
 - [Music Player](https://github.com/0xDarkStar/CustomApps/tree/frontend_test/musicPlayer) (**In Development**)
+- Bin Packer
 - More?
 
 ## Current Project: Music Player
