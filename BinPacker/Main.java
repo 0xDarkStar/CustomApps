@@ -7,7 +7,7 @@ import calculator.RunCalculator;
 import formatter.Formatter;
 import parser.FileParser;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         String fileName = args[0];
         
@@ -20,6 +20,7 @@ public class main {
         List<Run> allRuns = runCalc.calculateRuns(orderedList, organizer.storageSpace);
         // Print it out for the user
         Formatter textFormat = new Formatter();
-        textFormat.writeRunsToFile("block", allRuns);;
+        textFormat.writeRunsToFile("flow", allRuns, orderedList);
+        textFormat.writeRunsToFile("block", allRuns, null);
     }
 }
