@@ -11,8 +11,9 @@ The list that is given to Bin Packer **MUST**
 There is currently only one output style, that being "Block".
 It shows each run and how much of each item is used in the runs.
 It provides all the necessary information to complete all the trips.
+You can see how the style looks in BlockRuns.txt.
 
-
+<br>
 
 The second style I want to add, "Flow", can be harder to understand, but it looks nice.
 Instead of showing how much of each item is used in a run, it attempts to compact all the info to 1 line.
@@ -32,8 +33,8 @@ Here is an example of how it will look: (The cargo space was set to 260)
     - Surface Stabilisers:         582           \ Runs 06-07 (260*2) (remainder: 62)
     - Polymers:                    646            > Runs 08-10 (260*2) (115+126)
 ```
-It uses `\` and `/` to group items into runs and `>` to show a run.
-If a run that uses multiple items has a remainder, a `\` is added at the end to "pick up" the remainder and move it to the next run.
-If a run that uses one item has a remainder, it uses a `\` instead of `>` to show the remainder flowing over to the next run.
+It uses `\` and `/` to group items into runs and `>` to show a run. <br>
+If a run that uses multiple items has a remainder, a `\` is added at the end to "pick up" the remainder and move it to the next run. <br>
+If a run that uses one item has a remainder, it uses a `\` instead of `>` to show the remainder flowing over to the next run. <br>
 As you can tell, Flow does not say how much of each item to use.
 Instead, it only lists how many runs are needed, how full each run is, and if a run has a remainder.
