@@ -1,201 +1,74 @@
 
-Run 1 (187):
-  - Backup AI Core Modules                   3
-  - Magnetic Dartboards                      5
-  - Xenolinguistics Decryption Keys          5
-  - High-Resolution Spectrometers            7
-  - Portable Deflector Shields (Individual)  8
-  - Telescopic Remote Sensor Arrays          9
-  - Navigation Console Screens (Replacement) 9
-  - Personal Data-Slates (Encrypted)         10
-  - Advanced First Aid Guides (Digital)      10
-  - Ship's Logbooks (Hardcopy)               10
-  - Sub-Surface Scanner Units                11
-  - Holographic Projectors (Personal)        11
-  - Fusion Core Diagnostics Tools            11
-  - Synthetic Sleep Sacks (Heavy)            12
-  - Remote Sensing Buoys                     12
-  - Thermal Mug (Insulated)                  13
-  - Gravity Generator Stabilizers            13
-  - Astro-Navigation Charts (Digital)        14
-  - Personal Chronometers (Digital)          14
+Run 1 (260):    (Remainder: 12)
+  - Non-Lethal Weapons           33
+  - Medical Diagnostic Equipment 48
+  - Survival Equipment           56
+  - Emergency Power Cells        66
+  - Power Generators             57
 
-Run 2 (190):
-  - Portable Energy Field Generators      15
-  - Zero-G Exercise Bands                 15
-  - Medical Scanner Probes                15
-  - Emergency Thruster Igniters           16
-  - Bio-Hazard Containment Suits (Sealed) 17
-  - Zero-G Cleaning Apparatus             17
-  - Spare Grav-Chute Harnesses            18
-  - Quantum Flux Regulators (Spare)       18
-  - Backup Navigation Beacons             19
-  - Synthetic Blood (Type O-Universal)    19
-  - Magnetic Utility Belts                21
+Run 2 (260):    (Remainder: 70)
+  - Power Generators     12
+  - Fruit and Vegetables 91
+  - Computer Components  97
+  - Food Cartridges      60
 
-Run 3 (200):    (Remainder: 8)
-  - Ancient Earth Art Prints (Rolled)        22
-  - Electromagnetic Field Projectors (Small) 24
-  - Advanced Tool Kits (Sealed)              25
-  - Mapping Drones (Foldable)                26
-  - Standard Medkits (Sealed)                27
-  - Replacement Airlock Seals                27
-  - Standard Fire Extinguishers              28
-  - Repair Droid Tool Arms (Assorted)        21
+Run 3 (260):    (Remainder: 150)
+  - Food Cartridges    70
+  - Superconductors    136
+  - Evacuation Shelter 54
 
-Run 4 (200):    (Remainder: 2)
-  - Repair Droid Tool Arms (Assorted) 8
-  - Standardized Footwear (Pair)      30
-  - Anti-Gravity Boots (Pair)         30
-  - Plasma Conduit Patch Kits         32
-  - Polymer Resin Tanks (50L)         33
-  - Emergency Flotation Devices       34
-  - Regenerative Stem Cell Vials      33
+Run 4-4 (260):    (Remainder: 163)
+  - Copper 260
 
-Run 5 (198):
-  - Regenerative Stem Cell Vials       2
-  - Cryo-Sleep Pod Lubricant           36
-  - Atmospheric Analyzer Probes        38
-  - Titanium Alloy Sheets (1m x 2m)    40
-  - Internal Communication Headsets    40
-  - Radiation Countermeasure Injectors 42
+Run 5 (260):    (Remainder: 53)
+  - Evacuation Shelter 150
+  - Copper             110
 
-Run 6 (182):
-  - Miniature Solar Rechargers     44
-  - Dyneema Anchor Ropes           45
-  - Radiation Dosimeters (Digital) 46
-  - Crew Comfort Blankets          47
+Run 6-7 (520):    (Remainder: 62)
+  - Surface Stabilisers 520
 
-Run 7 (197):
-  - Hydroponic Growth Medium (Block)     48
-  - Acoustic Dampening Panels (Folded)   49
-  - Ablative Shielding Compound (Bucket) 50
-  - Vacuum Sealing Rolls                 50
+Run 8-9 (520):    (Remainder: 126)
+  - Polymers 520
 
-Run 8 (200):    (Remainder: 17)
-  - Recreational Holo-Discs (Various)  53
-  - Maintenance Droid Power Packs      54
-  - Gravity Plating Resealing Compound 55
-  - Crew Jumpsuits (Insulated)         38
+Run 10 (241):
+  - Copper              53
+  - Surface Stabilisers 62
+  - Polymers            126
 
-Run 9 (200):    (Remainder: 1)
-  - Crew Jumpsuits (Insulated)              17
-  - Refined Deuterium Fuel Rods (Class III) 58
-  - Universal Adapter Plugs                 61
-  - Pressure Suit Repair Patches            64
+Run 11-12 (520):    (Remainder: 189)
+  - Structural Regulators 520
 
-Run 10 (200):    (Remainder: 5)
-  - Pressure Suit Repair Patches       1
-  - Geological Sample Collection Totes 66
-  - Modular Power Couplings (3-Pin)    68
-  - Bulk Industrial Solvents (Liter)   65
+Run 13-15 (780):    (Remainder: 5)
+  - Ceramic Composites 780
 
-Run 11 (200):    (Remainder: 27)
-  - Bulk Industrial Solvents (Liter)         5
-  - Emergency Beacon Batteries (Lithium-Ion) 72
-  - Anti-Sickness Patches                    75
-  - Crew Uniforms (Standard Issue)           48
+Run 16-24 (2340):    (Remainder: 18)
+  - Liquid oxygen 2340
 
-Run 12 (182):
-  - Crew Uniforms (Standard Issue) 27
-  - Silicon Ingots (Raw)           77
-  - Cryogenic Coolant Vials (2L)   78
+Run 25-45 (5460):    (Remainder: 228)
+  - Titanium 5460
 
-Run 13 (200):    (Remainder: 50)
-  - Data Storage Crystals              80
-  - Water Ice Blocks (Bulk)            82
-  - Water Purification Tablets (1000L) 38
+Run 46 (260):    (Remainder: 180)
+  - Structural Regulators 189
+  - Ceramic Composites    5
+  - Liquid oxygen         18
+  - Titanium              48
 
-Run 14 (200):    (Remainder: 31)
-  - Water Purification Tablets (1000L)       50
-  - Data Uplink Cables (Fiber Optic)         90
-  - Synthetic Lubricant Gel (High-Viscosity) 60
+Run 47-71 (6500):    (Remainder: 13)
+  - CMM Composite 6500
 
-Run 15 (200):    (Remainder: 24)
-  - Synthetic Lubricant Gel (High-Viscosity) 31
-  - Synthetic Fiber Spools (Heavy)           95
-  - Multi-Tool Wrenches (Self-Adjusting)     74
+Run 72-97 (6760):    (Remainder: 225)
+  - Aluminium 6760
 
-Run 16 (200):    (Remainder: 25)
-  - Multi-Tool Wrenches (Self-Adjusting) 24
-  - Emergency Signal Flares              99
-  - Xenobotany Seed Packets              77
+Run 98 (260):    (Remainder: 158)
+  - Titanium      180
+  - CMM Composite 13
+  - Aluminium     67
 
-Run 17 (200):    (Remainder: 38)
-  - Xenobotany Seed Packets          25
-  - Isolinear Chipsets (Type B)      105
-  - General Purpose Adhesives (Tube) 70
+Run 99-136 (9880):    (Remainder: 48)
+  - Steel 9880
 
-Run 18 (200):    (Remainder: 58)
-  - General Purpose Adhesives (Tube)      38
-  - Survival Blanket (Thermal-Reflective) 110
-  - Spare Circuit Boards (Generic)        52
-
-Run 19 (200):    (Remainder: 84)
-  - Spare Circuit Boards (Generic) 58
-  - Oxygen Recycler Membranes      112
-  - Non-Perishable Spice Vials     30
-
-Run 20 (200):    (Remainder: 9)
-  - Non-Perishable Spice Vials 84
-  - Planetary Survey Markers   116
-
-Run 21 (200):    (Remainder: 72)
-  - Planetary Survey Markers   9
-  - Atmospheric Sensor Filters 130
-  - Synthetic Tea Leaf Pouches 61
-
-Run 22 (200):    (Remainder: 16)
-  - Synthetic Tea Leaf Pouches            72
-  - Synthetic Flavor Concentrates (Fruit) 128
-
-Run 23 (200):    (Remainder: 126)
-  - Synthetic Flavor Concentrates (Fruit) 16
-  - Standardized Power Cells (Small)      150
-  - Water Recycler Filters (Stage 1)      34
-
-Run 24 (200):    (Remainder: 91)
-  - Water Recycler Filters (Stage 1) 126
-  - Standard Fasteners (Mixed Box)   74
-
-Run 25 (200):    (Remainder: 71)
-  - Standard Fasteners (Mixed Box) 91
-  - High-Tension Cables (Meter)    109
-
-Run 26 (200):    (Remainder: 61)
-  - High-Tension Cables (Meter)   71
-  - Emergency Rations (Long-Term) 129
-
-Run 27-27 (200):
-  - Emergency Food Bars (500 Cal) 200
-
-Run 28-28 (200):    (Remainder: 10)
-  - Compressed Atmospheric Gas Canisters (N) 200
-
-Run 29-29 (200):    (Remainder: 15)
-  - Hull Plating Rivets (Heavy Duty) 200
-
-Run 30-30 (200):    (Remainder: 30)
-  - Ionized Water Bottles (1L) 200
-
-Run 31-31 (200):    (Remainder: 50)
-  - Nutrient Paste Cartridges (Standard) 200
-
-Run 32-32 (200):    (Remainder: 100)
-  - Galactic Standard Currency Chips 200
-
-Run 33 (200):    (Remainder: 66)
-  - Emergency Rations (Long-Term)            61
-  - Emergency Food Bars (500 Cal)            0
-  - Compressed Atmospheric Gas Canisters (N) 10
-  - Hull Plating Rivets (Heavy Duty)         15
-  - Ionized Water Bottles (1L)               30
-  - Nutrient Paste Cartridges (Standard)     50
-  - Galactic Standard Currency Chips         34
-
-Run 34-34 (200):    (Remainder: 115)
-  - Hygiene Wipes (Bio-degradable) 200
-
-Run 35 (181):
-  - Galactic Standard Currency Chips 66
-  - Hygiene Wipes (Bio-degradable)   115
+Run 137 (206):
+  - Aluminium 158
+  - Steel     48
+  - Aluminium 158
+  - Steel     48
