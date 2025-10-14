@@ -7,10 +7,12 @@ The list that is given to Bin Packer **MUST**
  - Use a ` - <Item Name>: <Item Count>` format for each item
  - Include a `Cargo Space: X` anywhere in the file. X should be the amount of space available for each trip.
 
-## Output Format
+## Output Formats
 There is currently only one output style, that being "Block".
 It shows each run and how much of each item is used in the runs.
 It provides all the necessary information to complete all the trips.
+
+
 
 The second style I want to add, "Flow", can be harder to understand, but it looks nice.
 Instead of showing how much of each item is used in a run, it attempts to compact all the info to 1 line.
