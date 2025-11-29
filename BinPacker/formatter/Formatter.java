@@ -37,7 +37,7 @@ public class Formatter {
 
     public void writeFlowRuns(List<Run> runs, List<Map.Entry<String,Integer>> fullList) {
         int itemIndex = 0;
-        boolean currIsRemainder = false;
+        boolean dontRepeat = false;
         int nextRun = 1;
         int spacesAdded = 0;
         int maxNameSize = 0;
@@ -58,7 +58,29 @@ public class Formatter {
             int halfSize = currRunSize/2;
             for (int i = 0; i < currRunSize; i++) {
                 RunItem item = currRun.getItems().get(i);
-                if (currIsRemainder || !item.getName().equals(fullList.get(itemIndex).getKey())) {
+                int matchIndex = 0;
+                while (matchIndex < fullList.size()) {
+                    if (fullList.get(matchIndex).getKey().equals(item.getName())) {
+                        break;
+                    }
+                    matchIndex++;
+                }
+                if (matchIndex > itemIndex) {
+                    for (int j = 0; j < matchIndex - itemIndex; j++) {                        
+                        // Add the item and its info
+                        printedList += String.format(" - %-"+maxNameSize+"s %"+maxNumSize+"d ", fullList.get(itemIndex).getKey(), fullList.get(itemIndex).getValue());
+                        // Add the indentation needed
+                        printedList += " ".repeat(spacesAdded);
+                        printedList += "\\\n"; // Assume remainder flows
+                        itemIndex++;
+                        spacesAdded++;
+                    }
+                }
+                if (matchIndex == itemIndex && dontRepeat) {
+                    // This is the final item, again
+                    continue;
+                }
+                if (matchIndex < itemIndex) {
                     // This is an item we already covered, SKIP!
                     continue;
                 }
@@ -81,7 +103,10 @@ public class Formatter {
                         // This only runs if we're at the end of the pyramid and we have a remainder
                         printedList += "/ \\ (remainder: "+currRun.getRunRemainder()+")";
                         spacesAdded += 3;
-                    } else { // We're at the end of the pyramid. We don't have any remainders either!
+                    } else if (i == currRunSize-1) { // We're at the end of the pyramid. We don't have any remainders either!
+                        printedList += "/";
+                        spacesAdded = 0;
+                    } else { // We're going down still
                         printedList += "/";
                         spacesAdded--;
                     }
@@ -98,8 +123,13 @@ public class Formatter {
                         spacesAdded++;
                     }
                 } else { // No
+                    if (nextRun == runs.size()) {nextRun--;} // Prevent errors from there being no FULL runs
                     // What type of FULL run are we?
-                    if (runs.get(nextRun).getRunRemainder() > 0 && currRun.isFull() && !runs.get(nextRun).isFull()) {
+                    if (runs.get(nextRun).getRunRemainder() > 0 && currRun.isFull() && !runs.get(nextRun).isFull() && itemIndex == fullList.size()-1) {
+                        // Final FULL run with REMAINDER run that also leaves a remainder
+                        printedList += "> Run "+currRun.getRunStartNumber()+"-"+(currRun.getRunEndNumber()+2)+" ("+currRun.getTotalUsed()+") ("+runs.get(nextRun).getTotalUsed()+") (remainder: "+runs.get(nextRun).getRunRemainder()+")";
+                        spacesAdded++;
+                    } else if (runs.get(nextRun).getRunRemainder() > 0 && currRun.isFull() && !runs.get(nextRun).isFull()) {
                         // FULL run with REMAINDER run that also leaves a remainder
                         printedList += "\\ Run "+currRun.getRunStartNumber()+"-"+(currRun.getRunEndNumber()+1)+" ("+currRun.getTotalUsed()+") ("+runs.get(nextRun).getTotalUsed()+") (remainder: "+runs.get(nextRun).getRunRemainder()+")";
                         spacesAdded++;
@@ -112,8 +142,12 @@ public class Formatter {
                         printedList += "\\ Run "+currRun.getRunStartNumber()+"-"+currRun.getRunEndNumber()+" ("+currRun.getTotalUsed()+") (remainder: "+currRun.getRunRemainder()+")";
                         spacesAdded++;
                     } else if (currRun.getRunRemainder() == 0 && currRun.isFull()) {
-                        // Full run with NO remainder
+                        // FULL run with NO remainder
                         printedList += "> Run "+currRun.getRunStartNumber()+"-"+currRun.getRunEndNumber()+" ("+currRun.getTotalUsed()+")";
+                        spacesAdded = 0;
+                    } else {
+                        // Not a FULL run
+                        printedList += "> Run "+currRun.getRunStartNumber()+" ("+currRun.getTotalUsed()+")";
                         spacesAdded = 0;
                     }
                 }
@@ -122,7 +156,8 @@ public class Formatter {
                 itemIndex++;
                 // Prevent IndexOutOfBounds errors:
                 if (itemIndex == fullList.size()) {
-                    itemIndex = 0;
+                    itemIndex--;
+                    dontRepeat = true;
                 }
                 if (spacesAdded < 0) {
                     spacesAdded = 0;
