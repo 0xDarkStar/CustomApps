@@ -1,74 +1,51 @@
 
-Run 1 (260):    (Remainder: 12)
+Run 1 (1131):    (Remainder: 222)
   - Non-Lethal Weapons           33
   - Medical Diagnostic Equipment 48
   - Survival Equipment           56
   - Emergency Power Cells        66
-  - Power Generators             57
+  - Power Generators             69
+  - Fruit and Vegetables         91
+  - Computer Components          97
+  - Food Cartridges              130
+  - Superconductors              136
+  - Evacuation Shelter           204
+  - Copper                       201
 
-Run 2 (260):    (Remainder: 70)
-  - Power Generators     12
-  - Fruit and Vegetables 91
-  - Computer Components  97
-  - Food Cartridges      60
+Run 2 (1131):    (Remainder: 319)
+  - Copper              222
+  - Surface Stabilisers 582
+  - Polymers            327
 
-Run 3 (260):    (Remainder: 150)
-  - Food Cartridges    70
-  - Superconductors    136
-  - Evacuation Shelter 54
+Run 3 (1028):
+  - Polymers              319
+  - Structural Regulators 709
 
-Run 4-4 (260):    (Remainder: 163)
-  - Copper 260
+Run 4-5 (2262):    (Remainder: 96)
+  - Liquid Oxygen 2262
 
-Run 5 (260):    (Remainder: 53)
-  - Evacuation Shelter 150
-  - Copper             110
+Run 6-10 (5655):    (Remainder: 33)
+  - Titanium 5655
 
-Run 6-7 (520):    (Remainder: 62)
-  - Surface Stabilisers 520
+Run 11-15 (5655):    (Remainder: 858)
+  - CMM Composite 5655
 
-Run 8-9 (520):    (Remainder: 126)
-  - Polymers 520
+Run 16 (1131):    (Remainder: 641)
+  - Ceramic Composites 785
+  - Liquid Oxygen      96
+  - Titanium           33
+  - CMM Composite      217
 
-Run 10 (241):
-  - Copper              53
-  - Surface Stabilisers 62
-  - Polymers            126
+Run 17-22 (6786):    (Remainder: 199)
+  - Aluminium 6786
 
-Run 11-12 (520):    (Remainder: 189)
-  - Structural Regulators 520
+Run 23-30 (9048):    (Remainder: 880)
+  - Steel 9048
 
-Run 13-15 (780):    (Remainder: 5)
-  - Ceramic Composites 780
+Run 31 (1131):    (Remainder: 589)
+  - CMM Composite 641
+  - Aluminium     199
+  - Steel         291
 
-Run 16-24 (2340):    (Remainder: 18)
-  - Liquid oxygen 2340
-
-Run 25-45 (5460):    (Remainder: 228)
-  - Titanium 5460
-
-Run 46 (260):    (Remainder: 180)
-  - Structural Regulators 189
-  - Ceramic Composites    5
-  - Liquid oxygen         18
-  - Titanium              48
-
-Run 47-71 (6500):    (Remainder: 13)
-  - CMM Composite 6500
-
-Run 72-97 (6760):    (Remainder: 225)
-  - Aluminium 6760
-
-Run 98 (260):    (Remainder: 158)
-  - Titanium      180
-  - CMM Composite 13
-  - Aluminium     67
-
-Run 99-136 (9880):    (Remainder: 48)
-  - Steel 9880
-
-Run 137 (206):
-  - Aluminium 158
-  - Steel     48
-  - Aluminium 158
-  - Steel     48
+Run 32 (589):
+  - Steel 589
