@@ -2,10 +2,22 @@
 Bin Packer was made because I got tired of manually grouping items into trips for my games (Space Engineers, Elite Dangerous, etc.).
 Bin Packer can read lists from files and group them based on the available space for each trip.
 
-## Input List Formatting
-The list that is given to Bin Packer **MUST**
+
+## Inputs
+### JSON Parser
+Made to work with Elite Dangerous journals.
+All that is required is to run the main file like so: <br>
+```$ java Main --readLogs SPACE``` <br>
+Obviously, make sure to replace `SPACE` with the space available for each trip. <br>
+If you only want the runs for the resources that are still left over, add `true` to the end of the command.
+It should look like this: <br>
+```$ java Main --readLogs SPACE true```
+
+### Text File Parser
+This is made to work with any type of file, as long as it meets the following requirements:
  - Use a ` - <Item Name>: <Item Count>` format for each item
  - Include a `Cargo Space: X` anywhere in the file. X should be the amount of space available for each trip.
+
 
 ## Output Formats
 There are currently only two styles available: "flow" and "block"
